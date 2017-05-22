@@ -11,4 +11,8 @@ public final class SecretPhrase {
 	public final String discover(char character) {
 		return phrase.replaceAll("[^"+character+"]", secret);
 	}
+
+	public final boolean resolve(String solution) {
+		return phrase.equals(solution);
+	}
 }
