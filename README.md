@@ -10,6 +10,18 @@ word doesn't contain a letter, the computer gives a penalty point for
 the user. If there are 10 penalty points, the user looses. If there
 are no hidden letters any more the computer looses.
 
+First, build it:
+
+```
+$ mvn clean package
+```
+
+Then, run:
+
+```
+$ java -classpath target/classes hangman.Main
+```
+
 ## License
 
 The MIT License (MIT)
