@@ -1,4 +1,4 @@
-<img src=""/>
+<img src="https://raw.githubusercontent.com/yegor256/oop-hangman/master/images/logo.png" width="150px"/>
 
 [![Build Status](https://img.shields.io/travis/yegor256/oop-hangman/master.svg)](https://travis-ci.org/yegor256/oop-hangman)
 
