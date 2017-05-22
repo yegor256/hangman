@@ -2,21 +2,27 @@ package hangman;
 
 public final class GuessRound {
 	public final int round;
+	public final int mistakes;
+	public final boolean missed;
 	public final String partialSolution;
 
 	public GuessRound( String partialSolution ) {
-		this.round = 1;
-		this.partialSolution = partialSolution;
+		this(partialSolution,1,0,false);
 	}
 
-	private GuessRound( String combinedSolution, int newRound ) {
+	private GuessRound( String combinedSolution, int newRound, int mistakes, boolean missed ) {
+		this.missed = missed;
 		this.round = newRound;
+		this.mistakes = mistakes;
 		this.partialSolution = combinedSolution;
 	}
 
 	public final GuessRound nextRound( String newPartialSolution ) {
 		final String combinedSolution = combineSolutions( partialSolution, newPartialSolution );
-		return new GuessRound(combinedSolution,round+1);
+		if(partialSolution.equals(combinedSolution)) // ZERO discovered letters // Missed
+			return new GuessRound(combinedSolution, round+1, mistakes+1, true);
+		else
+			return new GuessRound(combinedSolution, round+1, mistakes, false);
 	}
 
 	private final String combineSolutions( String partial1, String partial2 ) {
