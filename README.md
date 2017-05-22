@@ -22,6 +22,15 @@ Then, run:
 $ java -classpath target/classes hangman.Main
 ```
 
+## It is not object-oriented
+
+This Java code is very procedural, imperative and not elegant at all.
+
+Please, try to refactor it and improve. You're welcome to create new classes,
+new methods, anything. Just make sure it still builds.
+
+When ready, please submit a pull request.
+
 ## License
 
 The MIT License (MIT)
