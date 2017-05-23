@@ -7,9 +7,11 @@ public final class Hangman {
 
 	private final SecretPhrase secretPhrase;
 	private final Stack<GuessRound> guesses;
-
+	public final int allowedMistakes;
+	
 	public Hangman( SecretProvider secretProvider ) {
 		this.secretPhrase = secretProvider.provideSecret();
+		this.allowedMistakes = secretPhrase.allowedMistakes;
 		this.guesses = new Stack<>();
 	}
 
@@ -45,7 +47,7 @@ public final class Hangman {
 
 		if( lastRound.mistakes >= secretPhrase.allowedMistakes ) {
 			return Stage.YOULOSE;
-		} else if( lastRound.partialSolution.equals(secretPhrase) ) {
+		} else if( secretPhrase.resolve(lastRound.partialSolution)) {
 			return Stage.YOUWON;
 		} else {
 			return Stage.PLAYING;
