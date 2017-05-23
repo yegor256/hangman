@@ -1,10 +1,9 @@
 package hangman.checker;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 public class SimpleCheckerTest {
 
@@ -21,23 +20,23 @@ public class SimpleCheckerTest {
   public void shouldMatch() {
     CheckResult actual = simpleChecker.check(word, 't');
 
-    assertThat(actual.isHit()).isTrue();
-    assertThat(actual.hits().length).isEqualTo(4);
-    assertThat(actual.hits()[0]).isTrue();
-    assertThat(actual.hits()[1]).isFalse();
-    assertThat(actual.hits()[2]).isFalse();
-    assertThat(actual.hits()[3]).isTrue();
+    assertTrue(actual.isHit());
+    assertEquals(4, actual.hits().length);
+    assertTrue(actual.hits()[0]);
+    assertFalse(actual.hits()[1]);
+    assertFalse(actual.hits()[2]);
+    assertTrue(actual.hits()[3]);
   }
 
   @Test
   public void shouldNotMatch_WhenNonExistingIsGiven() {
     CheckResult actual = simpleChecker.check(word, 'a');
 
-    assertThat(actual.isHit()).isFalse();
-    assertThat(actual.hits().length).isEqualTo(4);
-    assertThat(actual.hits()[0]).isFalse();
-    assertThat(actual.hits()[1]).isFalse();
-    assertThat(actual.hits()[2]).isFalse();
-    assertThat(actual.hits()[3]).isFalse();
+    assertFalse(actual.isHit());
+    assertEquals(4, actual.hits().length);
+    assertFalse(actual.hits()[0]);
+    assertFalse(actual.hits()[1]);
+    assertFalse(actual.hits()[2]);
+    assertFalse(actual.hits()[3]);
   }
 }

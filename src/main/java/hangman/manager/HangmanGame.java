@@ -11,8 +11,6 @@ import hangman.strategy.status.StatusType;
 import hangman.writer.Reporter;
 import hangman.writer.Writer;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 public class HangmanGame {
 
   private final Reader reader;
@@ -146,6 +144,12 @@ public class HangmanGame {
 
     public HangmanGame build() {
       return new HangmanGame(reader, writer, factory, strategy, checker, reporter, maxMiss);
+    }
+
+    private void checkArgument(boolean expr){
+      if(!expr){
+        throw new IllegalArgumentException();
+      }
     }
   }
 }

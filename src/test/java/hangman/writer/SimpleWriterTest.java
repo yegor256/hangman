@@ -1,13 +1,11 @@
 package hangman.writer;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class SimpleWriterTest {
 
@@ -27,6 +25,6 @@ public class SimpleWriterTest {
 
     writer.write(expected);
 
-    assertThat(out.toString()).isEqualToIgnoringWhitespace(expected);
+    Assert.assertTrue(out.toString().contains(expected));
   }
 }

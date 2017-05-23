@@ -1,6 +1,6 @@
 package hangman.reader;
 
-import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +21,6 @@ public class SimpleReaderTest {
   public void shouldRead() {
     int actual = reader.read();
 
-    Assertions.assertThat(actual).isEqualTo(data.charAt(0));
+    Assert.assertEquals(data.charAt(0), actual);
   }
 }

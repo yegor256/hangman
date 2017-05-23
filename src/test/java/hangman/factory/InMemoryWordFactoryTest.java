@@ -1,9 +1,8 @@
 package hangman.factory;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class InMemoryWordFactoryTest {
   private WordFactory wordFactory;
@@ -17,6 +16,6 @@ public class InMemoryWordFactoryTest {
   public void shouldGenerate() {
     String actual = wordFactory.getWord();
 
-    assertThat(actual).isNotBlank();
+    Assert.assertTrue(!actual.isEmpty());
   }
 }
