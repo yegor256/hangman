@@ -21,22 +21,24 @@ public final class Main {
 		final Scanner scan = new Scanner(System.in);
 		final Hangman hangman = new Hangman(new HardcodedVocabulary());
 		int totalRounds = 0;
-		while (hangman.gameStage() == Hangman.Stage.PLAYING) {
+		GuessRound currentRound, lastRound = null;
+		do {
 			System.out.print("Guess a letter: ");
 			final char c = scan.next().charAt(0);
-			final GuessRound round = hangman.discover(c);
-			if (round.missed) {
-				System.out.printf("Missed, mistake #%d out of %d\n", round.mistakes, hangman.allowedMistakes);
+			currentRound = lastRound==null?hangman.discover(c):hangman.discover(lastRound,c);
+			if (currentRound.missed) {
+				System.out.printf("Missed, mistake #%d out of %d\n", currentRound.mistakes, hangman.allowedMistakes);
 			} else {
 				System.out.println("Hit!");
 			}
 			// Replace non-printable NULL characters with CLI friendly
 			// alternative
-			final String printableHints = round.partialSolution.replace('\0', '_');
+			final String printableHints = currentRound.partialSolution.replace('\0', '_');
 			System.out.println("The word: " + printableHints);
-			totalRounds = round.round;
-		}
-		if (hangman.gameStage() == Hangman.Stage.YOUWON) {
+			totalRounds = currentRound.round;
+			lastRound = currentRound;
+		} while(hangman.gameStage(lastRound) == Hangman.Stage.PLAYING);
+		if (hangman.gameStage(lastRound) == Hangman.Stage.YOUWON) {
 			System.out.printf("You won in %d rounds!\n", totalRounds);
 		} else {
 			System.out.printf("You lost in %d rounds.\n", totalRounds);
