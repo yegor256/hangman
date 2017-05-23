@@ -1,9 +1,10 @@
 package hangman;
 
-import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public final class Hangman {
+	public static enum Stage { PLAYING, YOUWON, YOULOSE }
+
 	private final SecretPhrase secretPhrase;
 	private final Stack<GuessRound> guesses;
 
@@ -13,21 +14,41 @@ public final class Hangman {
 	}
 
 	public final GuessRound discover( char c ) {
-		GuessRound nextGuess;
-		try {
-			nextGuess = guesses.lastElement().nextRound(secretPhrase.discover(c));
-		} catch( NoSuchElementException e ) {
-			nextGuess = new GuessRound(secretPhrase.discover(c));
-		}
-		guesses.add(nextGuess);
-		return nextGuess;
+		return nextRound( secretPhrase.discover(c));
 	}
 
 	public final GuessRound resolve( String solution ) {
+		if(secretPhrase.resolve(solution)) { // You won!
+			return nextRound(solution);
+		} else {
+			return nextRound(secretPhrase.discover('\0'));
+		}
+	}
+
+	private final GuessRound nextRound( String partialSolution ) {
+		final GuessRound nextRound;
+		if(guesses.size() == 0) {
+			nextRound = new GuessRound(partialSolution);
+		} else {
+			nextRound = guesses.lastElement().nextRound(partialSolution);
+		}
+		guesses.add(nextRound);
+		return nextRound;
+	}
+
+	public final Stage gameStage() {
+		if( guesses.size() == 0 ) {
+			return Stage.PLAYING;
+		}
+		
 		final GuessRound lastRound = guesses.lastElement();
-		if(secretPhrase.resolve(solution))
-			return lastRound.nextRound(solution);
-		else
-			return lastRound.nextRound(lastRound.partialSolution);
+
+		if( lastRound.mistakes >= secretPhrase.allowedMistakes ) {
+			return Stage.YOULOSE;
+		} else if( lastRound.partialSolution.equals(secretPhrase) ) {
+			return Stage.YOUWON;
+		} else {
+			return Stage.PLAYING;
+		}
 	}
 }
