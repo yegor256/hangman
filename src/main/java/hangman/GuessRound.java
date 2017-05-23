@@ -7,7 +7,15 @@ public final class GuessRound {
 	public final String partialSolution;
 
 	public GuessRound( String partialSolution ) {
-		this(partialSolution,1,0,false);
+		this.round = 1;
+		this.partialSolution = partialSolution;
+		if(partialSolution.matches("^\0+$")) {
+			this.mistakes = 1;
+			this.missed = true;
+		} else {
+			this.mistakes = 0;
+			this.missed = false;
+		}
 	}
 
 	private GuessRound( String combinedSolution, int newRound, int mistakes, boolean missed ) {
