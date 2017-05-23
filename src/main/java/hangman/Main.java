@@ -24,7 +24,6 @@ public final class Main {
 	public final static void main(String[] args) {
 		final Scanner scan = new Scanner(System.in);
 		final Hangman hangman = new Hangman(new HardcodedVocabulary());
-		int totalRounds = 0;
 		Round currentRound, lastRound = null;
 		do {
 			System.out.print("Guess a letter: ");
@@ -36,13 +35,12 @@ public final class Main {
 				System.out.println("Hit!");
 			}
 			System.out.println("The word: " + currentRound.currentGuess);
-			totalRounds = currentRound.round;
 			lastRound = currentRound;
 		} while(hangman.gameStage(lastRound) == Hangman.Stage.PLAYING);
 		if (hangman.gameStage(lastRound) == Hangman.Stage.YOUWON) {
-			System.out.printf("You won in %d rounds!\n", totalRounds);
+			System.out.printf("You won in %d rounds!\n", lastRound.round);
 		} else {
-			System.out.printf("You lost in %d rounds.\n", totalRounds);
+			System.out.printf("You lost in %d rounds.\n", lastRound.round);
 		}
 	}
 }
