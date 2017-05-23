@@ -17,26 +17,27 @@ package hangman;
 import java.util.Scanner;
 
 public final class Main {
-	public final static void main( String[] args ) {
+	public final static void main(String[] args) {
 		final Scanner scan = new Scanner(System.in);
 		final Hangman hangman = new Hangman(new HardcodedVocabulary());
-		while(hangman.gameStage() == Hangman.Stage.PLAYING) {
-            System.out.print("Guess a letter: ");
-            final char c = scan.next().charAt(0);
-            final GuessRound round = hangman.discover(c);
-            if( round.missed ) {
-            	System.out.printf("Missed, mistake #%d out of %d\n", round.mistakes, hangman.allowedMistakes);
-            } else {
-            	System.out.println("Hit!");
-            }
-            // Replace non-printable NULL characters with CLI friendly alternative
-            final String printableHints = round.partialSolution.replace('\0','_');
-            System.out.println("The word: " + printableHints);
+		while (hangman.gameStage() == Hangman.Stage.PLAYING) {
+			System.out.print("Guess a letter: ");
+			final char c = scan.next().charAt(0);
+			final GuessRound round = hangman.discover(c);
+			if (round.missed) {
+				System.out.printf("Missed, mistake #%d out of %d\n", round.mistakes, hangman.allowedMistakes);
+			} else {
+				System.out.println("Hit!");
+			}
+			// Replace non-printable NULL characters with CLI friendly
+			// alternative
+			final String printableHints = round.partialSolution.replace('\0', '_');
+			System.out.println("The word: " + printableHints);
 		}
-		if(hangman.gameStage() == Hangman.Stage.YOUWON) {
-            System.out.println("You won!");
+		if (hangman.gameStage() == Hangman.Stage.YOUWON) {
+			System.out.println("You won!");
 		} else {
 			System.out.println("You lost.\n");
 		}
-    }
+	}
 }
