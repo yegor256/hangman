@@ -20,6 +20,7 @@ public final class Main {
 	public final static void main(String[] args) {
 		final Scanner scan = new Scanner(System.in);
 		final Hangman hangman = new Hangman(new HardcodedVocabulary());
+		int totalRounds = 0;
 		while (hangman.gameStage() == Hangman.Stage.PLAYING) {
 			System.out.print("Guess a letter: ");
 			final char c = scan.next().charAt(0);
@@ -33,11 +34,12 @@ public final class Main {
 			// alternative
 			final String printableHints = round.partialSolution.replace('\0', '_');
 			System.out.println("The word: " + printableHints);
+			totalRounds = round.round;
 		}
 		if (hangman.gameStage() == Hangman.Stage.YOUWON) {
-			System.out.println("You won!");
+			System.out.printf("You won in %d rounds!\n", totalRounds);
 		} else {
-			System.out.println("You lost.\n");
+			System.out.printf("You lost in %d rounds.\n", totalRounds);
 		}
 	}
 }
