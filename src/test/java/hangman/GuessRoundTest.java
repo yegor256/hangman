@@ -3,6 +3,9 @@ package hangman;
 import org.junit.Assert;
 import org.junit.Test;
 
+import hangman.core.Round;
+import hangman.core.SecretPhrase;
+
 public final class GuessRoundTest {
 	@Test
 	public final void guessRoundProgression() {

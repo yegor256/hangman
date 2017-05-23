@@ -1,4 +1,4 @@
-package hangman;
+package hangman.core;
 
 public final class SecretPhrase {
 	public final int allowedMistakes;

@@ -1,6 +1,8 @@
-package hangman;
+package hangman.secret;
 
 import java.util.Random;
+
+import hangman.core.SecretPhrase;
 
 public final class HardcodedVocabulary implements SecretProvider {
 	private static final String[] WORDS = {

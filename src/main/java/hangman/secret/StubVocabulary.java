@@ -1,4 +1,6 @@
-package hangman;
+package hangman.secret;
+
+import hangman.core.SecretPhrase;
 
 public final class StubVocabulary implements SecretProvider {
 	private final String secretPhrase;

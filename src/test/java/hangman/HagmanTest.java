@@ -3,6 +3,10 @@ package hangman;
 import org.junit.Assert;
 import org.junit.Test;
 
+import hangman.core.Hangman;
+import hangman.core.Round;
+import hangman.secret.StubVocabulary;
+
 public class HagmanTest {
 	@Test
 	public void hangmanRounds() {

@@ -16,6 +16,10 @@ package hangman;
 
 import java.util.Scanner;
 
+import hangman.core.Hangman;
+import hangman.core.Round;
+import hangman.secret.HardcodedVocabulary;
+
 public final class Main {
 	public final static void main(String[] args) {
 		final Scanner scan = new Scanner(System.in);

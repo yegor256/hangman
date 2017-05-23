@@ -1,4 +1,6 @@
-package hangman;
+package hangman.core;
+
+import hangman.secret.SecretProvider;
 
 public final class Hangman {
 	public static enum Stage {

@@ -3,6 +3,9 @@ package hangman;
 import org.junit.Assert;
 import org.junit.Test;
 
+import hangman.core.Guess;
+import hangman.core.SecretPhrase;
+
 public class SecretWordTest {
 	@Test
 	public void discoverLetters() {

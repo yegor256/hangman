@@ -1,4 +1,4 @@
-package hangman;
+package hangman.core;
 
 public final class Guess {
 	public static final char unknownChar = '\0';

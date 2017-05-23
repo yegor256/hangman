@@ -1,4 +1,4 @@
-package hangman;
+package hangman.core;
 
 public final class Round {
 	public final int round;
