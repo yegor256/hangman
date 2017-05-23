@@ -25,7 +25,7 @@ public final class Main {
 		do {
 			System.out.print("Guess a letter: ");
 			final char c = scan.next().charAt(0);
-			currentRound = lastRound==null?hangman.discover(c):hangman.discover(lastRound,c);
+			currentRound = lastRound==null?hangman.disclose(c):hangman.discloseAlso(lastRound,c);
 			if (currentRound.missed) {
 				System.out.printf("Missed, mistake #%d out of %d\n", currentRound.mistakes, hangman.allowedMistakes);
 			} else {

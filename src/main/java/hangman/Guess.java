@@ -8,21 +8,17 @@ public final class Guess {
 		this.knownText = knownText;
 	}
 
-	public Guess( Guess prevGuess, Guess newGuess ) {
-		this.knownText = prevGuess.combineGuesses(newGuess);
-	}
-
 	public final boolean missed() {
 		return this.knownText.replace(""+unknownChar,"").length()==0;
 	}
 
-	private final String combineGuesses( Guess otherGuess ) {
+	public final Guess combine( Guess otherGuess ) {
 		String combinedSolution = "";
 		for( int i=0 ; i < knownText.length() ; i++ ) {
 			final char c = (char) (knownText.charAt(i)|otherGuess.knownText.charAt(i));
 			combinedSolution += c;
 		}
-		return combinedSolution;
+		return new Guess(combinedSolution);
 	}
 
 	public final String toString() {

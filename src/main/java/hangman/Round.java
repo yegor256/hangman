@@ -27,8 +27,8 @@ public final class Round {
 
 	public final Round nextRound( Guess newGuess ) {
 		if(newGuess.missed())
-			return new Round(new Guess(currentGuess,newGuess), round+1, mistakes+1, true);
+			return new Round(currentGuess.combine(newGuess), round+1, mistakes+1, true);
 		else
-			return new Round(new Guess(currentGuess,newGuess), round+1, mistakes, false);
+			return new Round(currentGuess.combine(newGuess), round+1, mistakes, false);
 	}
 }

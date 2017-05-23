@@ -13,11 +13,11 @@ public final class Hangman {
 		this.allowedMistakes = secretPhrase.allowedMistakes;
 	}
 
-	public final Round discover(char c) {
+	public final Round disclose(char c) {
 		return new Round(secretPhrase.discover(c));
 	}
 
-	public final Round discover(Round prevRound, char c) {
+	public final Round discloseAlso(Round prevRound, char c) {
 		return prevRound.nextRound(secretPhrase.discover(c));
 	}
 
