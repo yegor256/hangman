@@ -36,7 +36,7 @@ public final class GuessRound {
 	private final String combineSolutions( String partial1, String partial2 ) {
 		String combinedSolution = "";
 		for( int i=0 ; i < partial1.length() ; i++ ) {
-			final char c = (char) (partial1.charAt(i)^partial2.charAt(i));
+			final char c = (char) (partial1.charAt(i)|partial2.charAt(i));
 			combinedSolution += c;
 		}
 		return combinedSolution;
