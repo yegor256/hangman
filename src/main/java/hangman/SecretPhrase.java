@@ -1,7 +1,6 @@
 package hangman;
 
 public final class SecretPhrase {
-	public static final String secret = "" + '\0';
 	public final int allowedMistakes;
 	private final String phrase;
 
@@ -12,11 +11,11 @@ public final class SecretPhrase {
 		this.allowedMistakes = allowedMistakes;
 	}
 
-	public final String discover(char character) {
-		return phrase.replaceAll("[^" + character + "]", secret);
+	public final Guess discover(char character) {
+		return new Guess(phrase.replaceAll("[^" + character + "]", ""+Guess.unknownChar));
 	}
 
-	public final boolean resolve(String solution) {
-		return phrase.equals(solution);
+	public final boolean resolve(Guess solution) {
+		return phrase.equals(solution.knownText);
 	}
 }

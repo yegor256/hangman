@@ -13,18 +13,18 @@ public final class Hangman {
 		this.allowedMistakes = secretPhrase.allowedMistakes;
 	}
 
-	public final GuessRound discover(char c) {
-		return new GuessRound(secretPhrase.discover(c));
+	public final Round discover(char c) {
+		return new Round(secretPhrase.discover(c));
 	}
 
-	public final GuessRound discover(GuessRound prevRound, char c) {
+	public final Round discover(Round prevRound, char c) {
 		return prevRound.nextRound(secretPhrase.discover(c));
 	}
 
-	public final Stage gameStage(GuessRound round) {
+	public final Stage gameStage(Round round) {
 		if (round.mistakes >= secretPhrase.allowedMistakes) {
 			return Stage.YOULOSE;
-		} else if (secretPhrase.resolve(round.partialSolution)) {
+		} else if (secretPhrase.resolve(round.currentGuess)) {
 			return Stage.YOUWON;
 		} else {
 			return Stage.PLAYING;

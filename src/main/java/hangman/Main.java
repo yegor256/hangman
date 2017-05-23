@@ -21,7 +21,7 @@ public final class Main {
 		final Scanner scan = new Scanner(System.in);
 		final Hangman hangman = new Hangman(new HardcodedVocabulary());
 		int totalRounds = 0;
-		GuessRound currentRound, lastRound = null;
+		Round currentRound, lastRound = null;
 		do {
 			System.out.print("Guess a letter: ");
 			final char c = scan.next().charAt(0);
@@ -31,10 +31,7 @@ public final class Main {
 			} else {
 				System.out.println("Hit!");
 			}
-			// Replace non-printable NULL characters with CLI friendly
-			// alternative
-			final String printableHints = currentRound.partialSolution.replace('\0', '_');
-			System.out.println("The word: " + printableHints);
+			System.out.println("The word: " + currentRound.currentGuess);
 			totalRounds = currentRound.round;
 			lastRound = currentRound;
 		} while(hangman.gameStage(lastRound) == Hangman.Stage.PLAYING);
