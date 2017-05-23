@@ -6,7 +6,7 @@ import org.junit.Test;
 public final class GuessRoundTest {
 	@Test
 	public final void guessRoundProgression() {
-		final SecretPhrase secret = new SecretPhrase( "elegant objects");
+		final SecretPhrase secret = new SecretPhrase( "elegant objects", 8);
 
 		final GuessRound gr1 = new GuessRound(secret.discover('a'));
 		Assert.assertEquals(1,gr1.round);

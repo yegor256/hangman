@@ -6,7 +6,7 @@ import org.junit.Test;
 public class SecretWordTest {
 	@Test
 	public void discoverLetters() {
-		final SecretPhrase secret = new SecretPhrase( "elegant objects");
+		final SecretPhrase secret = new SecretPhrase( "elegant objects", 8 );
 		final String partialSolution = secret.discover('e');
 		Assert.assertEquals("e\0e\0\0\0\0\0\0\0\0e\0\0\0", partialSolution);
 	}

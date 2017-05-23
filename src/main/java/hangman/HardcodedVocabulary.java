@@ -11,6 +11,6 @@ public final class HardcodedVocabulary implements SecretProvider {
 
 	@Override
 	public final SecretPhrase provideSecret() {
-		return new SecretPhrase(WORDS[new Random().nextInt(WORDS.length)]);
+		return new SecretPhrase(WORDS[new Random().nextInt(WORDS.length)],5);
 	}
 }
