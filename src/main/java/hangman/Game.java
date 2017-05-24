@@ -2,6 +2,6 @@ package hangman;
 
 interface Game {
 
-	boolean play(String[] args);
+	boolean play(int maxGuessAttempts, WordToGuess wordToGuess);
 
 }

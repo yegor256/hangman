@@ -3,12 +3,12 @@ package hangman;
 class Main implements Game {
 
 	public static void main(String[] args) {
-		boolean won = new Main().play(args);
-		System.out.format("You %s%n/", won ? "won!" : "lost.");
+		// TODO: 5 and "university" from args
+		System.out.format("You %s%n/", new Main().play(5, WordToGuess.of("university")) ? "won!" : "lost.");
 	}
 
 	@Override
-	public boolean play(String[] args) {
+	public boolean play(int maxGuessAttempts, WordToGuess wordToGuess) {
 		return false;
 	}
 
