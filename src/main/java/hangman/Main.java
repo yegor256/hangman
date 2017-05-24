@@ -1,15 +1,14 @@
 package hangman;
 
-import java.util.function.Supplier;
-
-class Main implements Supplier<Boolean> {
+class Main implements Game {
 
 	public static void main(String[] args) {
-		System.out.format("You %s%n/", new Main().get() ? "won!" : "lost.");
+		boolean won = new Main().play(args);
+		System.out.format("You %s%n/", won ? "won!" : "lost.");
 	}
 
 	@Override
-	public Boolean get() {
+	public boolean play(String[] args) {
 		return false;
 	}
 
