@@ -1,8 +1,8 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2017 Yegor Bugayenko
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -14,28 +14,45 @@
  */
 package hangman;
 
+import hangman.Game.Game;
+import hangman.Game.GameInterface;
+import hangman.Round.*;
+import hangman.Words.CachedWords;
+import hangman.Words.RandomWords;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
-    private final InputStream input;
-    private final OutputStream output;
-    private final int max;
+    private final GameInterface game;
     private static final String[] WORDS = {
         "simplicity", "equality", "grandmother",
         "neighborhood", "relationship", "mathematics",
-        "university", "explanation"
+        "university",
+        "explanation",
     };
 
-    public Main(final InputStream in, final OutputStream out, final int m) {
-        this.input = in;
-        this.output = out;
-        this.max = m;
+    /**
+     * See Bonus package to change game logic
+     */
+    public Main(final InputStream in, final OutputStream out, final int max) {
+
+        this.game = new Game(
+            new PrintStream(out),
+            new CachedWords(new RandomWords(WORDS)),
+            new MistakesTrack(max,
+                new SolvedTrack(
+                    new SuccessRoundTrack(
+                        new PuzzleLog(
+                            new Round(new Scanner(in))
+                        )
+                    )
+                )
+            )
+        );
     }
 
     public static void main(final String... args) {
@@ -43,56 +60,7 @@ public class Main {
     }
 
     public void exec() {
-        String word = WORDS[new Random().nextInt(WORDS.length)];
-        boolean[] visible = new boolean[word.length()];
-        int mistakes = 0;
-        try (final PrintStream out = new PrintStream(this.output)) {
-            final Iterator<String> scanner = new Scanner(this.input);
-            boolean done = true;
-            while (mistakes < this.max) {
-                done = true;
-                for (int i = 0; i < word.length(); ++i) {
-                    if (!visible[i]) {
-                        done = false;
-                    }
-                }
-                if (done) {
-                    break;
-                }
-                out.print("Guess a letter: ");
-                char chr = scanner.next().charAt(0);
-                boolean hit = false;
-                for (int i = 0; i < word.length(); ++i) {
-                    if (word.charAt(i) == chr && !visible[i]) {
-                        visible[i] = true;
-                        hit = true;
-                    }
-                }
-                if (hit) {
-                    out.print("Hit!\n");
-                } else {
-                    out.printf(
-                        "Missed, mistake #%d out of %d\n",
-                        mistakes + 1, this.max
-                    );
-                    ++mistakes;
-                }
-                out.append("The word: ");
-                for (int i = 0; i < word.length(); ++i) {
-                    if (visible[i]) {
-                        out.print(word.charAt(i));
-                    } else {
-                        out.print("?");
-                    }
-                }
-                out.append("\n\n");
-            }
-            if (done) {
-                out.print("You won!\n");
-            } else {
-                out.print("You lost.\n");
-            }
-        }
+        game.play();
     }
 
 }
