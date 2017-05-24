@@ -1,8 +1,8 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2017 Yegor Bugayenko
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -14,21 +14,32 @@
  */
 package hangman;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
+import hangman.word.SimpleWord;
 import org.junit.Test;
 
-public final class MainTest {
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public final class HangmanTest {
 
     @Test
     public void failsAfterManyWrongAttempts() throws Exception {
         final ByteArrayInputStream input = new ByteArrayInputStream(
-            "a\na\na\na\na\n".getBytes()
+                "a\na\na\na\na\n".getBytes()
         );
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        new Main(input, output, 1).exec();
+
+        new Hangman(
+                new PrintWriter(output, true),
+                new Computer(new SimpleWord("a")),
+                new Human(new Scanner(input)),
+                1
+        ).start();
         assertThat(output.toString(), containsString("You lost"));
     }
 

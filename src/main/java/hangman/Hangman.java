@@ -1,28 +1,26 @@
 package hangman;
 
-import hangman.word.SimpleWord;
 import hangman.word.Word;
 
+import java.io.PrintWriter;
+
 public class Hangman {
+    private final PrintWriter writer;
     private final Computer computer;
     private final Human human;
+    private final int maxMistakes;
 
-    public Hangman(Computer computer, Human human) {
+    public Hangman(final PrintWriter writer, final Computer computer, final Human human, int maxMistakes) {
+        this.writer = writer;
         this.computer = computer;
         this.human = human;
+        this.maxMistakes = maxMistakes;
     }
 
-    public static void main(String[] args) {
-        new Hangman(
-                new Computer(new SimpleWord("equality"), new SimpleWord("grandmother")),
-                new Human()
-        ).start();
-    }
-
-    private void start() {
+    public void start() {
         int mistakes = 0;
-        while (mistakes < 5) {
-            System.out.println("Suggest a letter:");
+        while (mistakes < maxMistakes) {
+            writer.println("Suggest a letter:");
             final char said = human.say();
 
             final Word before = computer.hiddenWord();
@@ -31,18 +29,18 @@ public class Hangman {
 
             if (before.toString().equals(after.toString())) {
                 mistakes++;
-                System.out.println("Mistake! Mistakes: " + mistakes);
+                writer.println("Mistake! Mistakes: " + mistakes);
             } else if (after.toString().contains("?")) {
-                System.out.println("Hidden word: " + after);
+                writer.println("Hidden word: " + after);
             } else {
                 break;
             }
         }
 
-        if (mistakes == 5) {
-            System.out.println("You lost!");
+        if (mistakes == maxMistakes) {
+            writer.println("You lost!");
         } else {
-            System.out.println("You won!");
+            writer.println("You won!");
         }
     }
 }

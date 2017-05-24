@@ -20,6 +20,7 @@ class Computer {
         suggested.add(c);
     }
 
+
     Word hiddenWord() {
         return new HiddenWord(goal, suggested);
     }

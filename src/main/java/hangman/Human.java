@@ -5,8 +5,8 @@ import java.util.Scanner;
 class Human {
     private final Scanner scanner;
 
-    Human() {
-        scanner = new Scanner(System.in);
+    Human(final Scanner scanner) {
+        this.scanner = scanner;
     }
 
     char say() {
