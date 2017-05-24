@@ -21,6 +21,49 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+interface SecretWord {
+    String asString();
+    
+    class Const implements SecretWord {
+        private final String string;
+
+        public Const(String string) {
+            this.string = string;
+        }
+
+        @Override
+        public String asString() {
+            return string;
+        }
+    }
+}
+
+interface Vocabulary {
+    SecretWord randomWord();
+    
+    class FromArray implements Vocabulary {
+        private final String[] words;
+        
+        public FromArray(String[] words) {
+            this.words = words;
+        }
+        
+        @Override
+        public SecretWord randomWord() {
+            return new SecretWord.Const(
+                    words[new Random().nextInt(words.length)]
+            );
+        }
+    }
+}
+
+
+interface GameSession {
+    GameSession tryCharacter(char c);
+}
+
+
+
 public class Main {
 
     private final InputStream input;
