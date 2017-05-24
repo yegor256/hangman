@@ -63,4 +63,21 @@ public class IHangmanSurvialTest {
         assertThat(h.attemptsRemained(), is(maxErrors));
     }
 
+    @Test
+    public void test_with_opened_word_keeper_already_winner() throws Exception {
+
+        final InputStream input = new ByteArrayInputStream("j\n".getBytes());
+
+        WordKeeper openedWk = new WordKeeper("j");
+        openedWk.findLetter('j');
+        assertThat(openedWk.isOpen(), is(true));
+
+        IHangman h = new SuperHangman(openedWk, maxErrors, input, System.out);
+        h.trySurvive();
+
+        assertThat(h.isAlive(), is(true));
+        assertThat(h.winner(), is(true));
+        assertThat(h.attemptsRemained(), is(maxErrors));
+    }
+
 }

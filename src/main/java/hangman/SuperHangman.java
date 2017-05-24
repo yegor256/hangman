@@ -1,6 +1,10 @@
 package hangman;
 
+import hangman.exceptions.HangmanAlreadyWinnerException;
+import hangman.exceptions.HangmanIsDeadException;
+import hangman.exceptions.HitNotAllowedException;
 import hangman.exceptions.WordAlreadyOpenException;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -40,13 +44,19 @@ public class SuperHangman implements IHangman {
 
     @Override
     public void trySurvive() {
+
         do {
             output.print("Guess a letter: ");
             if (!input.hasNext()) {
                 break;
             }
             char letter = input.next().charAt(0);
-            hitMe(letter);
+            try {
+                hitMe(letter);
+            } catch (HitNotAllowedException ex) {
+                output.print(ex.getMessage());
+                break;
+            }
             output.println(this);
             if (!isAlive()) {
                 output.println("You lost.");
@@ -59,7 +69,11 @@ public class SuperHangman implements IHangman {
     }
 
     @Override
-    public void hitMe(char letter) {
+    public void hitMe(char letter) throws HitNotAllowedException {
+
+        if (!isAlive()) {
+            throw new HangmanIsDeadException();
+        }
         try {
             if (wordKeeper.findLetter(letter)) {
                 output.println("Hit!");
@@ -68,7 +82,7 @@ public class SuperHangman implements IHangman {
                 output.println("Missed, mistake #" + errors + " out of " + maxErrors);
             }
         } catch (WordAlreadyOpenException e) {
-            output.println(e.getMessage());
+            throw new HangmanAlreadyWinnerException();
         }
 
     }
