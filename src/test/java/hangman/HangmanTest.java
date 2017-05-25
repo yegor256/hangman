@@ -18,7 +18,8 @@ import hangman.word.SimpleWord;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -30,17 +31,26 @@ public final class HangmanTest {
     @Test
     public void failsAfterManyWrongAttempts() throws Exception {
         final ByteArrayInputStream input = new ByteArrayInputStream(
-                "a\na\na\na\na\n".getBytes()
+                "a\n".getBytes()
         );
-        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        final StringBuilder outputString = new StringBuilder();
+        final PrintWriter writer = new PrintWriter(new OutputStream() {
+            @Override
+            public void write(int i) throws IOException {
+                outputString.append((char) i);
+            }
+        }, true);
 
         new Hangman(
-                new PrintWriter(output, true),
-                new Computer(new SimpleWord("a")),
+                writer,
+                new Computer(new SimpleWord("b")),
                 new Human(new Scanner(input)),
                 1
         ).start();
-        assertThat(output.toString(), containsString("You lost"));
+
+
+        assertThat(outputString.toString(), containsString("You lost"));
     }
 
 }
