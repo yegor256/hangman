@@ -16,15 +16,15 @@ public class HiddenWord implements Word {
     @Override
     public String toString() {
         final String representation = origin.toString();
-        final StringBuilder answer = new StringBuilder();
+        final StringBuilder hidden = new StringBuilder();
         for (char c : representation.toCharArray()) {
             if (opened.contains(c)) {
-                answer.append(c);
+                hidden.append(c);
             } else {
-                answer.append('?');
+                hidden.append('?');
             }
         }
 
-        return answer.toString();
+        return hidden.toString();
     }
 }
