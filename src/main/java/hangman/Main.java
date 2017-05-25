@@ -21,18 +21,13 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-interface GuessedWord {
-
-    boolean falseTry();
-
+interface HiddenWord {
+    boolean wrongGuess();
     boolean guessed();
-
-    GuessedWord tryCharacter(char c);
-
+    HiddenWord tryCharacter(char c);
     void informPlayer(Player p);
 
-    class Init implements GuessedWord {
-
+    class Init implements HiddenWord {
         private final String secret;
 
         public Init(String secret) {
@@ -40,7 +35,7 @@ interface GuessedWord {
         }
 
         @Override
-        public boolean falseTry() {
+        public boolean wrongGuess() {
             return false;
         }
 
@@ -50,7 +45,7 @@ interface GuessedWord {
         }
 
         @Override
-        public GuessedWord tryCharacter(char c) {
+        public HiddenWord tryCharacter(char c) {
             boolean visible[] = new boolean[secret.length()];
             boolean hit = false;
             for (int i = 0; i < secret.length(); ++i) {
@@ -59,7 +54,7 @@ interface GuessedWord {
                     hit = true;
                 }
             }
-            return new Attempt(secret, visible, !hit);
+            return new AfterAttempt(secret, visible, !hit);
         }
 
         @Override
@@ -70,21 +65,20 @@ interface GuessedWord {
         }
     }
 
-    class Attempt implements GuessedWord {
-
+    class AfterAttempt implements HiddenWord {
         private final String secret;
         private final boolean[] visible;
-        private final boolean falseTry;
+        private final boolean wrongGuess;
 
-        public Attempt(String secret, boolean[] visible, boolean falseTry) {
+        public AfterAttempt(String secret, boolean[] visible, boolean falseTry) {
             this.secret = secret;
             this.visible = visible;
-            this.falseTry = falseTry;
+            this.wrongGuess = falseTry;
         }
 
         @Override
-        public boolean falseTry() {
-            return falseTry;
+        public boolean wrongGuess() {
+            return wrongGuess;
         }
 
         @Override
@@ -99,7 +93,7 @@ interface GuessedWord {
         }
 
         @Override
-        public GuessedWord tryCharacter(char c) {
+        public HiddenWord tryCharacter(char c) {
             boolean visible[] = Arrays.copyOf(this.visible, this.visible.length);
             boolean hit = false;
             for (int i = 0; i < secret.length(); ++i) {
@@ -108,7 +102,7 @@ interface GuessedWord {
                     hit = true;
                 }
             }
-            return new Attempt(secret, visible, !hit);
+            return new AfterAttempt(secret, visible, !hit);
         }
 
         @Override
@@ -127,9 +121,7 @@ interface GuessedWord {
 }
 
 interface Player {
-
     void inform(Object str);
-
     char guessedCharacter() throws Exception;
 
     class Console implements Player {
@@ -159,11 +151,9 @@ interface Player {
 }
 
 interface Vocabulary {
-
-    GuessedWord randomWord();
+    HiddenWord randomWord();
 
     class FromArray implements Vocabulary {
-
         private final String[] words;
 
         public FromArray(String[] words) {
@@ -171,24 +161,32 @@ interface Vocabulary {
         }
 
         @Override
-        public GuessedWord randomWord() {
-            return new GuessedWord.Init(
+        public HiddenWord randomWord() {
+            return new HiddenWord.Init(
                     words[new Random().nextInt(words.length)]
             );
         }
     }
 }
-
+/**
+ * A turn-based game with one player
+ * 
+ * @author skapral
+ */
 interface Game {
-
+    /**
+     * Plays one game session with the player till the end
+     * 
+     * @param player
+     * @throws Exception then someone is cheating
+     */
     void playSessionWith(Player player) throws Exception;
 
-    class StandardRules implements Game {
-
+    class Hangman implements Game {
         private final Vocabulary vocabulary;
         private final int maxMistakes;
 
-        public StandardRules(Vocabulary vocabulary, int maxMistakes) {
+        public Hangman(Vocabulary vocabulary, int maxMistakes) {
             this.vocabulary = vocabulary;
             this.maxMistakes = maxMistakes;
         }
@@ -197,16 +195,51 @@ interface Game {
         public void playSessionWith(Player player) throws Exception {
             GameSession gs = new GameSession.Starting(player, vocabulary, maxMistakes);
             while (!gs.isOver()) {
-                gs = gs.advanced();
+                gs = gs.newTurn().gameSessionAfterTurn();
             }
-            gs.advanced(); // @todo: cheaty treak, makes contract of GameSession not so obvious. Try to remove
         }
     }
 }
 
+interface PlayerTurn {
+    GameSession gameSessionAfterTurn() throws Exception;
+    
+    class TryLetter implements PlayerTurn {
+        private final Player player;
+        private final HiddenWord secretWord;
+        private final int madeMistakes;
+        private final int maxMistakes;
+
+        public TryLetter(Player player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
+            this.player = player;
+            this.secretWord = secretWord;
+            this.madeMistakes = madeMistakes;
+            this.maxMistakes = maxMistakes;
+        }
+
+        @Override
+        public GameSession gameSessionAfterTurn() throws Exception {
+            player.inform("Guess a letter: ");
+            HiddenWord sw = secretWord.tryCharacter(player.guessedCharacter());
+            int madeMistakes = this.madeMistakes + (sw.wrongGuess() ? 1 : 0);
+            if (sw.guessed()) {
+                player.inform("You won.\n");
+                return new GameSession.GameOver(player);
+            }
+            if (madeMistakes >= maxMistakes) {
+                player.inform("You lost.\n");
+                return new GameSession.GameOver(player);
+            } else {
+                return new GameSession.MadeTurn(player, sw, madeMistakes, maxMistakes);
+            }
+        }
+    }
+}
+
+
 interface GameSession {
     boolean isOver();
-    GameSession advanced() throws Exception;
+    PlayerTurn newTurn() throws Exception;
 
     class Starting implements GameSession {
 
@@ -221,19 +254,9 @@ interface GameSession {
         }
 
         @Override
-        public GameSession advanced() throws Exception {
-            // @todo: this is too messy, need to decompose it deeper
-            GuessedWord sw = vocabulary.randomWord();
-            player.inform("Guess a letter: ");
-            sw = sw.tryCharacter(player.guessedCharacter());
-            if (sw.guessed()) {
-                return new GameSession.Won(player);
-            }
-            if (maxMistakes > 1) {
-                return new GameSession.MadeTurn(player, sw, sw.falseTry() ? 1 : 0, maxMistakes);
-            } else {
-                return new GameSession.Lost(player);
-            }
+        public PlayerTurn newTurn() throws Exception {
+            HiddenWord sw = vocabulary.randomWord();
+            return new PlayerTurn.TryLetter(player, sw, 0, maxMistakes);
         }
 
         @Override
@@ -243,13 +266,12 @@ interface GameSession {
     }
 
     class MadeTurn implements GameSession {
-
         private final Player player;
-        private final GuessedWord secretWord;
+        private final HiddenWord secretWord;
         private final int madeMistakes;
         private final int maxMistakes;
 
-        public MadeTurn(Player player, GuessedWord secretWord, int madeMistakes, int maxMistakes) {
+        public MadeTurn(Player player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
             this.player = player;
             this.secretWord = secretWord;
             this.madeMistakes = madeMistakes;
@@ -257,9 +279,9 @@ interface GameSession {
         }
 
         @Override
-        public GameSession advanced() throws Exception {
+        public PlayerTurn newTurn() throws Exception {
             // @todo: this is too messy, need to decompose it deeper
-            if (secretWord.falseTry()) {
+            if (secretWord.wrongGuess()) {
                 player.inform(
                         String.format(
                                 "Missed, mistake #%d out of %d\n",
@@ -270,17 +292,7 @@ interface GameSession {
                 player.inform("Hit!\n");
             }
             secretWord.informPlayer(player);
-            player.inform("Guess a letter: ");
-            GuessedWord sw = secretWord.tryCharacter(player.guessedCharacter());
-            int madeMistakes = this.madeMistakes + (sw.falseTry() ? 1 : 0);
-            if (sw.guessed()) {
-                return new GameSession.Won(player);
-            }
-            if (madeMistakes >= maxMistakes) {
-                return new GameSession.Lost(player);
-            } else {
-                return new GameSession.MadeTurn(player, sw, madeMistakes, maxMistakes);
-            }
+            return new PlayerTurn.TryLetter(player, secretWord, madeMistakes, maxMistakes);
         }
 
         @Override
@@ -289,38 +301,17 @@ interface GameSession {
         }
     }
 
-    class Won implements GameSession {
+    class GameOver implements GameSession {
 
         private final Player player;
 
-        public Won(Player player) {
+        public GameOver(Player player) {
             this.player = player;
         }
 
         @Override
-        public GameSession advanced() {
-            player.inform("You won.\n");
-            return this;
-        }
-
-        @Override
-        public boolean isOver() {
-            return true;
-        }
-    }
-
-    class Lost implements GameSession {
-
-        private final Player player;
-
-        public Lost(Player player) {
-            this.player = player;
-        }
-
-        @Override
-        public GameSession advanced() {
-            player.inform("You lost.\n");
-            return this;
+        public PlayerTurn newTurn() throws Exception {
+            throw new Exception("The game is already over");
         }
 
         @Override
@@ -347,9 +338,8 @@ public class Main {
     }
 
     public Main(final InputStream in, final OutputStream out, final int m) {
-        this(
-                new Player.Console(in, out),
-                new Game.StandardRules(
+        this(new Player.Console(in, out),
+                new Game.Hangman(
                         new Vocabulary.FromArray(WORDS),
                         m
                 )
@@ -363,57 +353,4 @@ public class Main {
     public void exec() throws Exception {
         game.playSessionWith(player);
     }
-
-    /*public void exec() {
-        String word = WORDS[new Random().nextInt(WORDS.length)];
-        boolean[] visible = new boolean[word.length()];
-        int mistakes = 0;
-        try (final PrintStream out = new PrintStream(this.output)) {
-            final Iterator<String> scanner = new Scanner(this.input);
-            boolean done = true;
-            while (mistakes < this.max) {
-                done = true;
-                for (int i = 0; i < word.length(); ++i) {
-                    if (!visible[i]) {
-                        done = false;
-                    }
-                }
-                if (done) {
-                    break;
-                }
-                out.print("Guess a letter: ");
-                char chr = scanner.next().charAt(0);
-                boolean hit = false;
-                for (int i = 0; i < word.length(); ++i) {
-                    if (word.charAt(i) == chr && !visible[i]) {
-                        visible[i] = true;
-                        hit = true;
-                    }
-                }
-                if (hit) {
-                    out.print("Hit!\n");
-                } else {
-                    out.printf(
-                            "Missed, mistake #%d out of %d\n",
-                            mistakes + 1, this.max
-                    );
-                    ++mistakes;
-                }
-                out.append("The word: ");
-                for (int i = 0; i < word.length(); ++i) {
-                    if (visible[i]) {
-                        out.print(word.charAt(i));
-                    } else {
-                        out.print("?");
-                    }
-                }
-                out.append("\n\n");
-            }
-            if (done) {
-                out.print("You won!\n");
-            } else {
-                out.print("You lost.\n");
-            }
-        }
-    }*/
 }
