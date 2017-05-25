@@ -25,7 +25,7 @@ interface HiddenWord {
     boolean wrongGuess();
     boolean guessed();
     HiddenWord tryCharacter(char c);
-    void informPlayer(Player p);
+    void informPlayer(HangmanPlayer p);
 
     class Init implements HiddenWord {
         private final String secret;
@@ -58,7 +58,7 @@ interface HiddenWord {
         }
 
         @Override
-        public void informPlayer(Player p) {
+        public void informPlayer(HangmanPlayer p) {
             p.inform("The word: ");
             p.inform(secret.replaceAll(".", "?"));
             p.inform("\n\n");
@@ -106,7 +106,7 @@ interface HiddenWord {
         }
 
         @Override
-        public void informPlayer(Player p) {
+        public void informPlayer(HangmanPlayer p) {
             p.inform("The word: ");
             for (int i = 0; i < secret.length(); ++i) {
                 if (visible[i]) {
@@ -120,11 +120,28 @@ interface HiddenWord {
     }
 }
 
-interface Player {
+/**
+ * A player of hangman game
+ * 
+ * @author skapral
+ */
+interface HangmanPlayer {
+    /**
+     * Inform a player of how the game flows
+     * 
+     * @param str 
+     */
     void inform(Object str);
+    
+    /**
+     * Ask player to guess a character
+     * 
+     * @return
+     * @throws Exception if player can't guess a letter for some reason
+     */
     char guessedCharacter() throws Exception;
 
-    class Console implements Player {
+    class Console implements HangmanPlayer {
 
         private final PrintStream output;
         private final Scanner scanner;
@@ -150,10 +167,20 @@ interface Player {
     }
 }
 
-interface Vocabulary {
+/**
+ * A list of words for Hangman game
+ * 
+ * @author skapral
+ */
+interface HangmanVocabulary {
+    /**
+     * Pick a random word from the vocabulary
+     * 
+     * @return 
+     */
     HiddenWord randomWord();
 
-    class FromArray implements Vocabulary {
+    class FromArray implements HangmanVocabulary {
         private final String[] words;
 
         public FromArray(String[] words) {
@@ -180,19 +207,19 @@ interface Game {
      * @param player
      * @throws Exception then someone is cheating
      */
-    void playSessionWith(Player player) throws Exception;
+    void playSessionWith(HangmanPlayer player) throws Exception;
 
     class Hangman implements Game {
-        private final Vocabulary vocabulary;
+        private final HangmanVocabulary vocabulary;
         private final int maxMistakes;
 
-        public Hangman(Vocabulary vocabulary, int maxMistakes) {
+        public Hangman(HangmanVocabulary vocabulary, int maxMistakes) {
             this.vocabulary = vocabulary;
             this.maxMistakes = maxMistakes;
         }
 
         @Override
-        public void playSessionWith(Player player) throws Exception {
+        public void playSessionWith(HangmanPlayer player) throws Exception {
             GameSession gs = new GameSession.Starting(player, vocabulary, maxMistakes);
             while (!gs.isOver()) {
                 gs = gs.newTurn().gameSessionAfterTurn();
@@ -201,16 +228,27 @@ interface Game {
     }
 }
 
+/**
+ * A player turn in turn-based game session
+ * 
+ * @author skapral
+ */
 interface PlayerTurn {
+    /**
+     * Calculates game session state after the turn is made by player
+     * 
+     * @return
+     * @throws Exception 
+     */
     GameSession gameSessionAfterTurn() throws Exception;
     
     class TryLetter implements PlayerTurn {
-        private final Player player;
+        private final HangmanPlayer player;
         private final HiddenWord secretWord;
         private final int madeMistakes;
         private final int maxMistakes;
 
-        public TryLetter(Player player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
+        public TryLetter(HangmanPlayer player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
             this.player = player;
             this.secretWord = secretWord;
             this.madeMistakes = madeMistakes;
@@ -236,18 +274,33 @@ interface PlayerTurn {
     }
 }
 
-
+/**
+ * Turn-based game with one player
+ * 
+ * @author skapral
+ */
 interface GameSession {
+    /**
+     * True if the game is over
+     * @return 
+     */
     boolean isOver();
+    
+    /**
+     * Make a new turn
+     * 
+     * @return
+     * @throws Exception 
+     */
     PlayerTurn newTurn() throws Exception;
 
     class Starting implements GameSession {
 
-        private final Player player;
-        private final Vocabulary vocabulary;
+        private final HangmanPlayer player;
+        private final HangmanVocabulary vocabulary;
         private final int maxMistakes;
 
-        public Starting(Player player, Vocabulary vocabulary, int maxMistakes) {
+        public Starting(HangmanPlayer player, HangmanVocabulary vocabulary, int maxMistakes) {
             this.player = player;
             this.vocabulary = vocabulary;
             this.maxMistakes = maxMistakes;
@@ -266,12 +319,12 @@ interface GameSession {
     }
 
     class MadeTurn implements GameSession {
-        private final Player player;
+        private final HangmanPlayer player;
         private final HiddenWord secretWord;
         private final int madeMistakes;
         private final int maxMistakes;
 
-        public MadeTurn(Player player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
+        public MadeTurn(HangmanPlayer player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
             this.player = player;
             this.secretWord = secretWord;
             this.madeMistakes = madeMistakes;
@@ -303,9 +356,9 @@ interface GameSession {
 
     class GameOver implements GameSession {
 
-        private final Player player;
+        private final HangmanPlayer player;
 
-        public GameOver(Player player) {
+        public GameOver(HangmanPlayer player) {
             this.player = player;
         }
 
@@ -329,18 +382,18 @@ public class Main {
         "university", "explanation"
     };
 
-    private final Player player;
+    private final HangmanPlayer player;
     private final Game game;
 
-    public Main(Player player, Game game) {
+    public Main(HangmanPlayer player, Game game) {
         this.player = player;
         this.game = game;
     }
 
     public Main(final InputStream in, final OutputStream out, final int m) {
-        this(new Player.Console(in, out),
+        this(new HangmanPlayer.Console(in, out),
                 new Game.Hangman(
-                        new Vocabulary.FromArray(WORDS),
+                        new HangmanVocabulary.FromArray(WORDS),
                         m
                 )
         );
