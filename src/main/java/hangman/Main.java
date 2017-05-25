@@ -21,13 +21,38 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-interface HiddenWord {
+/**
+ * Hidden word, with tracking progress of its guessing
+ * 
+ * @author skapral
+ */
+interface HangmanHiddenWord {
+    /**
+     * True if the last guess made was wrong
+     * @return 
+     */
     boolean wrongGuess();
+    
+    /**
+     * True if the secret word is fully guessed
+     * @return 
+     */
     boolean guessed();
-    HiddenWord tryCharacter(char c);
+    
+    /**
+     * Track attepmt of guessing one character in the hidden word
+     * @param c
+     * @return 
+     */
+    HangmanHiddenWord tryCharacter(char c);
+    
+    /**
+     * Informs player of the word, hiding the part which is not yet guessed
+     * @param p 
+     */
     void informPlayer(HangmanPlayer p);
 
-    class Init implements HiddenWord {
+    class Init implements HangmanHiddenWord {
         private final String secret;
 
         public Init(String secret) {
@@ -45,7 +70,7 @@ interface HiddenWord {
         }
 
         @Override
-        public HiddenWord tryCharacter(char c) {
+        public HangmanHiddenWord tryCharacter(char c) {
             boolean visible[] = new boolean[secret.length()];
             boolean hit = false;
             for (int i = 0; i < secret.length(); ++i) {
@@ -65,7 +90,7 @@ interface HiddenWord {
         }
     }
 
-    class AfterAttempt implements HiddenWord {
+    class AfterAttempt implements HangmanHiddenWord {
         private final String secret;
         private final boolean[] visible;
         private final boolean wrongGuess;
@@ -93,7 +118,7 @@ interface HiddenWord {
         }
 
         @Override
-        public HiddenWord tryCharacter(char c) {
+        public HangmanHiddenWord tryCharacter(char c) {
             boolean visible[] = Arrays.copyOf(this.visible, this.visible.length);
             boolean hit = false;
             for (int i = 0; i < secret.length(); ++i) {
@@ -178,7 +203,7 @@ interface HangmanVocabulary {
      * 
      * @return 
      */
-    HiddenWord randomWord();
+    HangmanHiddenWord randomWord();
 
     class FromArray implements HangmanVocabulary {
         private final String[] words;
@@ -188,13 +213,14 @@ interface HangmanVocabulary {
         }
 
         @Override
-        public HiddenWord randomWord() {
-            return new HiddenWord.Init(
+        public HangmanHiddenWord randomWord() {
+            return new HangmanHiddenWord.Init(
                     words[new Random().nextInt(words.length)]
             );
         }
     }
 }
+
 /**
  * Hangman game engine
  * 
@@ -220,7 +246,7 @@ interface HangmanGame {
 
         @Override
         public void playSessionWith(HangmanPlayer player) throws Exception {
-            GameSession gs = new GameSession.Starting(player, vocabulary, maxMistakes);
+            GameSession gs = new GameSession.HangmanStarting(player, vocabulary, maxMistakes);
             while (!gs.isOver()) {
                 gs = gs.newTurn().gameSessionAfterTurn();
             }
@@ -244,11 +270,11 @@ interface PlayerTurn {
     
     class TryLetter implements PlayerTurn {
         private final HangmanPlayer player;
-        private final HiddenWord secretWord;
+        private final HangmanHiddenWord secretWord;
         private final int madeMistakes;
         private final int maxMistakes;
 
-        public TryLetter(HangmanPlayer player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
+        public TryLetter(HangmanPlayer player, HangmanHiddenWord secretWord, int madeMistakes, int maxMistakes) {
             this.player = player;
             this.secretWord = secretWord;
             this.madeMistakes = madeMistakes;
@@ -258,17 +284,17 @@ interface PlayerTurn {
         @Override
         public GameSession gameSessionAfterTurn() throws Exception {
             player.inform("Guess a letter: ");
-            HiddenWord sw = secretWord.tryCharacter(player.guessedCharacter());
+            HangmanHiddenWord sw = secretWord.tryCharacter(player.guessedCharacter());
             int madeMistakes = this.madeMistakes + (sw.wrongGuess() ? 1 : 0);
             if (sw.guessed()) {
                 player.inform("You won.\n");
-                return new GameSession.GameOver(player);
+                return new GameSession.HangmanGameOver(player);
             }
             if (madeMistakes >= maxMistakes) {
                 player.inform("You lost.\n");
-                return new GameSession.GameOver(player);
+                return new GameSession.HangmanGameOver(player);
             } else {
-                return new GameSession.MadeTurn(player, sw, madeMistakes, maxMistakes);
+                return new GameSession.HangmanMadeTurn(player, sw, madeMistakes, maxMistakes);
             }
         }
     }
@@ -294,13 +320,13 @@ interface GameSession {
      */
     PlayerTurn newTurn() throws Exception;
 
-    class Starting implements GameSession {
+    class HangmanStarting implements GameSession {
 
         private final HangmanPlayer player;
         private final HangmanVocabulary vocabulary;
         private final int maxMistakes;
 
-        public Starting(HangmanPlayer player, HangmanVocabulary vocabulary, int maxMistakes) {
+        public HangmanStarting(HangmanPlayer player, HangmanVocabulary vocabulary, int maxMistakes) {
             this.player = player;
             this.vocabulary = vocabulary;
             this.maxMistakes = maxMistakes;
@@ -308,7 +334,7 @@ interface GameSession {
 
         @Override
         public PlayerTurn newTurn() throws Exception {
-            HiddenWord sw = vocabulary.randomWord();
+            HangmanHiddenWord sw = vocabulary.randomWord();
             return new PlayerTurn.TryLetter(player, sw, 0, maxMistakes);
         }
 
@@ -318,13 +344,13 @@ interface GameSession {
         }
     }
 
-    class MadeTurn implements GameSession {
+    class HangmanMadeTurn implements GameSession {
         private final HangmanPlayer player;
-        private final HiddenWord secretWord;
+        private final HangmanHiddenWord secretWord;
         private final int madeMistakes;
         private final int maxMistakes;
 
-        public MadeTurn(HangmanPlayer player, HiddenWord secretWord, int madeMistakes, int maxMistakes) {
+        public HangmanMadeTurn(HangmanPlayer player, HangmanHiddenWord secretWord, int madeMistakes, int maxMistakes) {
             this.player = player;
             this.secretWord = secretWord;
             this.madeMistakes = madeMistakes;
@@ -354,11 +380,11 @@ interface GameSession {
         }
     }
 
-    class GameOver implements GameSession {
+    class HangmanGameOver implements GameSession {
 
         private final HangmanPlayer player;
 
-        public GameOver(HangmanPlayer player) {
+        public HangmanGameOver(HangmanPlayer player) {
             this.player = player;
         }
 
