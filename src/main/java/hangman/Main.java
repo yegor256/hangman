@@ -196,11 +196,11 @@ interface HangmanVocabulary {
     }
 }
 /**
- * A turn-based game with one player
+ * Hangman game engine
  * 
  * @author skapral
  */
-interface Game {
+interface HangmanGame {
     /**
      * Plays one game session with the player till the end
      * 
@@ -209,7 +209,7 @@ interface Game {
      */
     void playSessionWith(HangmanPlayer player) throws Exception;
 
-    class Hangman implements Game {
+    class Hangman implements HangmanGame {
         private final HangmanVocabulary vocabulary;
         private final int maxMistakes;
 
@@ -275,7 +275,7 @@ interface PlayerTurn {
 }
 
 /**
- * Turn-based game with one player
+ * Turn-based game session
  * 
  * @author skapral
  */
@@ -383,16 +383,16 @@ public class Main {
     };
 
     private final HangmanPlayer player;
-    private final Game game;
+    private final HangmanGame game;
 
-    public Main(HangmanPlayer player, Game game) {
+    public Main(HangmanPlayer player, HangmanGame game) {
         this.player = player;
         this.game = game;
     }
 
     public Main(final InputStream in, final OutputStream out, final int m) {
         this(new HangmanPlayer.Console(in, out),
-                new Game.Hangman(
+                new HangmanGame.Hangman(
                         new HangmanVocabulary.FromArray(WORDS),
                         m
                 )
