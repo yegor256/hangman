@@ -4,18 +4,14 @@ package hangman.game;
  * Created by mehyil on 5/26/2017.
  */
 public class Round {
-
-    private final Word word;
-
     private final GameState gameState;
 
-    public Round(Word word, GameState gameState) {
+    public Round(GameState gameState) {
         this.gameState = gameState;
-        this.word = word;
     }
 
     public void playRound(Guess guess) {
-        boolean result = word.makeAGuess(guess);
+        boolean result = gameState.makeAGuess(guess);
         incrementMistake(result);
         printRoundResult(result);
     }

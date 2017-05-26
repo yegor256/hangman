@@ -23,13 +23,13 @@ public class Game {
     public void playGame(OutputStream outputStream, InputStream inputStream) {
         try (final PrintStream out = new PrintStream(outputStream)) {
             final Iterator<String> scanner = new Scanner(inputStream);
-            GameState gameState = new GameState(maxMistakes);
+            GameState gameState = new GameState(word, maxMistakes);
             while (!gameState.isMaxMistakeReached()) {
                 if (isDone()) {
                     break;
                 }
                 out.print("Guess a letter: ");
-                Round round = new Round(word, gameState);
+                Round round = new Round(gameState);
                 round.playRound(new Guess(scanner.next().charAt(0)));
                 word.print();
             }

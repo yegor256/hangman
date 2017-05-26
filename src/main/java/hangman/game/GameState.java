@@ -5,16 +5,19 @@ package hangman.game;
  */
 public class GameState {
 
+    private Word word;
+
     private int mistakes;
 
     private int maxMistakes;
 
-    public GameState(int maxMistakes) {
+    public GameState(Word word, int maxMistakes) {
+        this.word = word;
         this.maxMistakes = maxMistakes;
     }
 
-    public GameState() {
-        this(0);
+    public boolean makeAGuess(Guess guess){
+        return word.makeAGuess(guess);
     }
 
     public void incrementMistake() {
