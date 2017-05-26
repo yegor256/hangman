@@ -7,24 +7,12 @@ public class Round {
 
     private final Guess guess;
 
-    private final Word word;
-
-    public Round(Word word, Guess guess) {
-        this.word = word;
+    public Round(Guess guess) {
         this.guess = guess;
     }
 
     public void play() {
-        boolean result = word.makeAGuess(guess);
-        printResult(result);
-        word.print();
+        guess.make();
     }
 
-    private void printResult(boolean result) {
-        if (result) {
-            System.out.print("Hit!\n");
-        } else {
-            System.out.printf("Missed, mistake #%d out of %d\n", word.getMistakes(), word.getMaxMistake());
-        }
-    }
 }

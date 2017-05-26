@@ -25,7 +25,7 @@ public class Game {
                     break;
                 }
                 out.print("Guess a letter: ");
-                Round round = new Round(word, new Guess(scanner.next().charAt(0)));
+                Round round = new Round(new Guess(scanner.next().charAt(0), word));
                 round.play();
             }
             finalizeGame();
