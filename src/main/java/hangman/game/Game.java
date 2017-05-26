@@ -27,7 +27,6 @@ public class Game {
                 out.print("Guess a letter: ");
                 Round round = new Round(new Guess(scanner.next().charAt(0)));
                 round.playRound(gameState);
-                gameState.print();
             }
             gameState.finalizeGame();
         }

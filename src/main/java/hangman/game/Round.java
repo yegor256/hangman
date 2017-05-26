@@ -15,6 +15,7 @@ public class Round {
         boolean result = gameState.makeAGuess(guess);
         incrementMistake(gameState, result);
         printRoundResult(gameState, result);
+        gameState.print();
     }
 
     private void incrementMistake(GameState gameState, boolean result) {
