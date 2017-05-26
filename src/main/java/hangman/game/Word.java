@@ -31,10 +31,10 @@ public class Word {
         System.out.append("\n\n");
     }
 
-    public boolean makeAGuess(Guess guess) {
+    public boolean makeAGuess(Character guessCharacter) {
         boolean hit = false;
         for (int i = 0; i < word.length(); ++i) {
-            if (word.charAt(i) == guess.getGuessCharacter() && !visible[i]) {
+            if (word.charAt(i) == guessCharacter && !visible[i]) {
                 visible[i] = true;
                 hit = true;
             }

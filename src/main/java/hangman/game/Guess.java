@@ -14,13 +14,8 @@ public class Guess {
         this.word = word;
     }
 
-    public Character getGuessCharacter() {
-        return guessCharacter;
-    }
-
     public void make() {
-        boolean result = word.makeAGuess(this);
-        result(result);
+        result(word.makeAGuess(guessCharacter));
     }
 
     private void result(boolean result) {
