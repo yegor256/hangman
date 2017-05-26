@@ -14,8 +14,8 @@
  */
 package hangman;
 
-import hangman.game.HangmanWord;
-import hangman.game.HangmanGame;
+import hangman.game.Game;
+import hangman.game.Word;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -100,8 +100,8 @@ public class Main {
 
     public void execOOP() {
         String word = WORDS[new Random().nextInt(WORDS.length)];
-        HangmanWord hangmanWord = new HangmanWord(word);
-        HangmanGame hangmanGame = new HangmanGame(hangmanWord, this.max);
-        hangmanGame.playGame(this.output, this.input);
+        Word hangmanWord = new Word(word);
+        Game game = new Game(hangmanWord, this.max);
+        game.playGame(this.output, this.input);
     }
 }

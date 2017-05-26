@@ -3,13 +3,13 @@ package hangman.game;
 /**
  * Created by mehyil on 5/26/2017.
  */
-public class HangmanWord {
+public class Word {
 
     private String word;
 
     private boolean[] visible;
 
-    public HangmanWord(String word) {
+    public Word(String word) {
         this.word = word;
         this.visible = new boolean[word.length()];
     }

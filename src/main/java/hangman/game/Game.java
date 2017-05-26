@@ -9,15 +9,15 @@ import java.util.Scanner;
 /**
  * Created by mehyil on 5/26/2017.
  */
-public class HangmanGame {
+public class Game {
 
-    private final HangmanWord word;
+    private final Word word;
 
     private final int maxMistakes;
 
     private int mistakes;
 
-    public HangmanGame(HangmanWord word, int maxMistakes) {
+    public Game(Word word, int maxMistakes) {
         this.maxMistakes = maxMistakes;
         this.word = word;
     }
@@ -30,8 +30,9 @@ public class HangmanGame {
                     break;
                 }
                 out.print("Guess a letter: ");
-                char chr = scanner.next().charAt(0);
-                printGameStatus(makeAGuess(new Guess(chr)));
+                Round round = new Round(word);
+                boolean roundResult = round.playRound(new Guess(scanner.next().charAt(0)));
+                printGameStatus(roundResult);
             }
             finalizeGame();
         }
@@ -60,10 +61,6 @@ public class HangmanGame {
             ++mistakes;
         }
         word.print();
-    }
-
-    private boolean makeAGuess(Guess guess) {
-        return word.makeAGuess(guess);
     }
 
     private boolean isDone() {
