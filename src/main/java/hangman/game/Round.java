@@ -4,25 +4,26 @@ package hangman.game;
  * Created by mehyil on 5/26/2017.
  */
 public class Round {
-    private final GameState gameState;
 
-    public Round(GameState gameState) {
-        this.gameState = gameState;
+    private final Guess guess;
+
+    public Round(Guess guess) {
+        this.guess = guess;
     }
 
-    public void playRound(Guess guess) {
+    public void playRound(GameState gameState) {
         boolean result = gameState.makeAGuess(guess);
-        incrementMistake(result);
-        printRoundResult(result);
+        incrementMistake(gameState, result);
+        printRoundResult(gameState, result);
     }
 
-    private void incrementMistake(boolean result) {
+    private void incrementMistake(GameState gameState, boolean result) {
         if (!result) {
             gameState.incrementMistake();
         }
     }
 
-    private void printRoundResult(boolean result) {
+    private void printRoundResult(GameState gameState, boolean result) {
         if (result) {
             System.out.print("Hit!\n");
         } else {
