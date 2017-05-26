@@ -20,8 +20,8 @@ public class Game {
     public void playGame(OutputStream outputStream, InputStream inputStream) {
         try (final PrintStream out = new PrintStream(outputStream)) {
             final Iterator<String> scanner = new Scanner(inputStream);
-            while (!gameState.isMaxMistakeReached()) {
-                if (gameState.isDone()) {
+            while (!gameState.maxMistakeReached()) {
+                if (gameState.done()) {
                     break;
                 }
                 out.print("Guess a letter: ");

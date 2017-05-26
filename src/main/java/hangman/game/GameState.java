@@ -32,19 +32,19 @@ public class GameState {
         return maxMistakes;
     }
 
-    public boolean isMaxMistakeReached() {
+    public boolean maxMistakeReached() {
         if (mistakes == maxMistakes) {
             return true;
         }
         return false;
     }
 
-    public boolean isDone() {
+    public boolean done() {
         return word.isAllCharVisible();
     }
 
     public void finalizeGame() {
-        if (isDone()) {
+        if (done()) {
             System.out.print("You won!\n");
         } else {
             System.out.print("You lost.\n");
