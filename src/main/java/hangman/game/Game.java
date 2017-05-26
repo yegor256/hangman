@@ -15,8 +15,6 @@ public class Game {
 
     private final int maxMistakes;
 
-    private int mistakes;
-
     public Game(Word word, int maxMistakes) {
         this.maxMistakes = maxMistakes;
         this.word = word;
@@ -25,14 +23,15 @@ public class Game {
     public void playGame(OutputStream outputStream, InputStream inputStream) {
         try (final PrintStream out = new PrintStream(outputStream)) {
             final Iterator<String> scanner = new Scanner(inputStream);
-            while (!isMaxMistakeReached()) {
+            GameState gameState = new GameState(maxMistakes);
+            while (!gameState.isMaxMistakeReached()) {
                 if (isDone()) {
                     break;
                 }
                 out.print("Guess a letter: ");
-                Round round = new Round(word);
-                boolean roundResult = round.playRound(new Guess(scanner.next().charAt(0)));
-                printGameStatus(roundResult);
+                Round round = new Round(word, gameState);
+                round.playRound(new Guess(scanner.next().charAt(0)));
+                word.print();
             }
             finalizeGame();
         }
@@ -46,25 +45,7 @@ public class Game {
         }
     }
 
-    private boolean isMaxMistakeReached() {
-        if (mistakes == maxMistakes) {
-            return true;
-        }
-        return false;
-    }
-
-    private void printGameStatus(boolean hit) {
-        if (hit) {
-            System.out.print("Hit!\n");
-        } else {
-            System.out.printf("Missed, mistake #%d out of %d\n", mistakes + 1, this.maxMistakes);
-            ++mistakes;
-        }
-        word.print();
-    }
-
     private boolean isDone() {
         return word.isAllCharVisible();
     }
-
 }
