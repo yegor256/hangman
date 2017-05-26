@@ -16,7 +16,7 @@ public class GameState {
         this.maxMistakes = maxMistakes;
     }
 
-    public boolean makeAGuess(Guess guess){
+    public boolean makeAGuess(Guess guess) {
         return word.makeAGuess(guess);
     }
 
@@ -39,4 +39,19 @@ public class GameState {
         return false;
     }
 
+    public boolean isDone() {
+        return word.isAllCharVisible();
+    }
+
+    public void finalizeGame() {
+        if (isDone()) {
+            System.out.print("You won!\n");
+        } else {
+            System.out.print("You lost.\n");
+        }
+    }
+
+    public void print() {
+        word.print();
+    }
 }

@@ -15,6 +15,7 @@
 package hangman;
 
 import hangman.game.Game;
+import hangman.game.GameState;
 import hangman.game.Word;
 
 import java.io.InputStream;
@@ -101,7 +102,8 @@ public class Main {
     public void execOOP() {
         String word = WORDS[new Random().nextInt(WORDS.length)];
         Word hangmanWord = new Word(word);
-        Game game = new Game(hangmanWord, this.max);
+        GameState gameState = new GameState(hangmanWord, max);
+        Game game = new Game(gameState);
         game.playGame(this.output, this.input);
     }
 }
