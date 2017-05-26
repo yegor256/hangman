@@ -15,5 +15,4 @@ public class Guess {
         return guessCharacter;
     }
 
-
 }

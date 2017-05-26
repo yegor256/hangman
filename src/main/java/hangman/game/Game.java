@@ -11,26 +11,33 @@ import java.util.Scanner;
  */
 public class Game {
 
-    private final GameState gameState;
+    private final Word word;
 
-    public Game(GameState gameState) {
-        this.gameState = gameState;
+    public Game(Word word) {
+        this.word = word;
     }
 
     public void playGame(OutputStream outputStream, InputStream inputStream) {
         try (final PrintStream out = new PrintStream(outputStream)) {
             final Iterator<String> scanner = new Scanner(inputStream);
-            while (!gameState.maxMistakeReached()) {
-                if (gameState.done()) {
+            while (!word.maxMistakeReached()) {
+                if (word.isAllCharVisible()) {
                     break;
                 }
                 out.print("Guess a letter: ");
-                Round round = new Round(new Guess(scanner.next().charAt(0)));
-                round.playRound(gameState);
+                Round round = new Round(word, new Guess(scanner.next().charAt(0)));
+                round.play();
             }
-            gameState.finalizeGame();
+            finalizeGame();
         }
     }
 
+    private void finalizeGame() {
+        if (word.isAllCharVisible()) {
+            System.out.print("You won!\n");
+        } else {
+            System.out.print("You lost.\n");
+        }
+    }
 
 }

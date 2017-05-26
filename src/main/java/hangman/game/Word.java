@@ -5,13 +5,18 @@ package hangman.game;
  */
 public class Word {
 
-    private String word;
+    private final String word;
 
-    private boolean[] visible;
+    private final boolean[] visible;
 
-    public Word(String word) {
+    private final int maxMistake;
+
+    private int mistakes;
+
+    public Word(String word, int maxMistake) {
         this.word = word;
         this.visible = new boolean[word.length()];
+        this.maxMistake = maxMistake;
     }
 
     public void print() {
@@ -34,6 +39,9 @@ public class Word {
                 hit = true;
             }
         }
+        if(!hit){
+            incrementMistake();
+        }
         return hit;
     }
 
@@ -45,4 +53,24 @@ public class Word {
         }
         return true;
     }
+
+    public boolean maxMistakeReached() {
+        if (mistakes == maxMistake) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getMaxMistake() {
+        return maxMistake;
+    }
+
+    public int getMistakes() {
+        return mistakes;
+    }
+
+    private void incrementMistake() {
+        ++mistakes;
+    }
+
 }
