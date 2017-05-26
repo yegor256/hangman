@@ -20,15 +20,15 @@ public class Guess {
 
     public void make() {
         boolean result = word.makeAGuess(this);
-        printResult(result);
-        word.print();
+        result(result);
     }
 
-    private void printResult(boolean result) {
+    private void result(boolean result) {
         if (result) {
             System.out.print("Hit!\n");
         } else {
             System.out.printf("Missed, mistake #%d out of %d\n", word.getMistakes(), word.getMaxMistake());
         }
+        word.print();
     }
 }
