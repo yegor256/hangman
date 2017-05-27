@@ -7,7 +7,7 @@ import hangman.word.Word;
 import java.util.HashSet;
 import java.util.Set;
 
-class Computer {
+class  Computer {
 
     private final Word goal;
     private final Set<Character> suggested = new HashSet<>();

@@ -9,7 +9,7 @@ public class SimpleWord implements Word {
     }
 
     @Override
-    public String toString() {
+    public String representation() {
         return representation;
     }
 }

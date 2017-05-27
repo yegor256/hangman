@@ -10,7 +10,7 @@ public class RandomWord implements Word {
     }
 
     @Override
-    public String toString() {
-        return word.toString();
+    public String representation() {
+        return word.representation();
     }
 }

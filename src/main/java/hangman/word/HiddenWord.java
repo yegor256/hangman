@@ -14,8 +14,8 @@ public class HiddenWord implements Word {
     }
 
     @Override
-    public String toString() {
-        final String representation = origin.toString();
+    public String representation() {
+        final String representation = origin.representation();
         final StringBuilder hidden = new StringBuilder();
         for (char c : representation.toCharArray()) {
             if (opened.contains(c)) {

@@ -27,10 +27,10 @@ public class Hangman {
             computer.suggest(said);
             final Word after = computer.hiddenWord();
 
-            if (before.toString().equals(after.toString())) {
+            if (before.representation().equals(after.representation())) {
                 mistakes++;
                 writer.println("Mistake! Mistakes: " + mistakes);
-            } else if (after.toString().contains("?")) {
+            } else if (after.representation().contains("?")) {
                 writer.println("Hidden word: " + after);
             } else {
                 break;
