@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Game implements Runnable
+public final class Game implements Runnable
 {
     private final List<Runnable> _objects;
     private final WordList _words;
@@ -18,17 +18,18 @@ public class Game implements Runnable
 
     public static void main(String[] args)
     {
-        new Game(System.in, System.out, 5).run();
+        new Game(System.in, System.out, new MistakeMax(5)).run();
     }
 
-    public Game( InputStream in, OutputStream out, int maxMistakes)
+    public Game(InputStream in, OutputStream out, MistakeMax max)
     {
-        this(new Messages(), new WordList(), new PrintStreamMedia(out), new Scanner(in), maxMistakes);
+        this(new Messages(), new WordList(), new PrintStreamMedia(out), new Scanner(in), max);
     }
 
-    public Game(Messages messages, WordList words, Media media, Scanner in, int maxMistakes)
+    public Game(Messages messages, WordList words, Media media, Scanner in, MistakeMax max)
     {
-        this(messages, words, new UserInterface(messages, media, in), new Secret(messages), new Gallows(messages, maxMistakes));
+        this(messages, words, new UserInterface(messages, media, in), new Secret(messages),
+                new Gallows(messages, max));
     }
 
     private Game(Messages messages, WordList words, Runnable... objects)

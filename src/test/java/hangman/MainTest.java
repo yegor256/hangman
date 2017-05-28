@@ -25,10 +25,10 @@ public final class MainTest {
     @Test
     public void failsAfterManyWrongAttempts() throws Exception {
         final ByteArrayInputStream input = new ByteArrayInputStream(
-            "a\na\na\na\na\na".getBytes()
+            "a\na\na\na\na\n".getBytes()
         );
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        new Game(input, output, 1).run();
+        new Game(input, output, new MistakeMax(1)).run();
         assertThat(output.toString(), containsString("You lost"));
     }
 

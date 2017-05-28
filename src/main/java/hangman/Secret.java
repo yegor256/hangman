@@ -1,7 +1,6 @@
 package hangman;
 
 import common.Messages;
-import common.Recipient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,8 +9,6 @@ import java.util.stream.IntStream;
 public final class Secret implements Runnable
 {
     private final Messages _messages;
-    private final Recipient _start;
-    private final Recipient _guessed;
 
     private String _word;
     private List<Boolean> _discovered;
@@ -19,29 +16,27 @@ public final class Secret implements Runnable
     public Secret(Messages messages)
     {
         _messages = messages;
-        _start = x -> startGame(x);
-        _guessed = x -> guess(x);
     }
 
     @Override
     public void run()
     {
-        _messages.subcribeTo("GameStarted", _start);
-        _messages.subcribeTo("Guessed", _guessed);
+        _messages.subcribeTo("GameStarted", x -> startGame(x));
+        _messages.subcribeTo("Guessed", x -> guess(x));
     }
 
     private void startGame(String result)
     {
         _word = result;
         _discovered = _word.chars().mapToObj(x -> false).collect(Collectors.toList());
-        _messages.send("ShowUser", publicWord());
+        _messages.send("WordUpdated", publicWord());
         _messages.send("GameSetup", "true");
     }
 
     private void guess(String guess)
     {
         String result = guessedCorrectly(guess);
-        _messages.send("ShowUser", publicWord());
+        _messages.send("WordUpdated", publicWord());
         _messages.send("GuessedCorrectly", result);
         checkForGameEnd();
     }
@@ -54,7 +49,7 @@ public final class Secret implements Runnable
 
     private String publicWord()
     {
-        return "The word: " + String.join("", IntStream.range(0, _word.length())
+        return String.join("", IntStream.range(0, _word.length())
             .mapToObj(i -> _discovered.get(i) ? _word.substring(i, i + 1) : "?")
             .collect(Collectors.toList())) + "\n";
     }
