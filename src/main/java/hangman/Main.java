@@ -20,6 +20,11 @@ import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+import word.*;
+import character.Characters;
+import player.*;
+import game.NewHangman;
+
 
 public class Main {
 
@@ -43,6 +48,31 @@ public class Main {
     }
 
     public void exec() {
+
+        // Test 1
+        // new HangmanAttempt(
+        //     new HangmanOnWon(new VisibleWon(),
+        //         new HangmanIfWon(
+                    // Success criterion layer
+                    // new WereLetters(
+                    //     new LettersOn(new WhereSymbol('i'),
+                            // Int game layer
+                            // new Word(
+                            //     new Characters(
+                            //         "iiii")))))))
+                            //             .attempted();                                
+
+        // Test 2
+        // new HangmanAttempt(
+        //     new HangmanOnWon(new VisibleWon(),
+        //         new HangmanIfWon(
+        //             new WereLetters(
+        //                 new LettersOn(new WhereSymbol('i'),
+        //                     new RandomWords().next())))))
+        //                                 .attempted();   
+
+        new NewHangman().start();                                        
+
         String word = WORDS[new Random().nextInt(WORDS.length)];
         boolean[] visible = new boolean[word.length()];
         int mistakes = 0;
