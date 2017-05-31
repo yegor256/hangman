@@ -24,11 +24,20 @@
 package event;
 
 /**
- * Sending messages for events that occur to higher layers in an object 
- * composition structure. Messages are listened in capture objects.
+ * Predicate for checking if the message is "won".
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public interface Event {
-   public boolean is(String name);
+public final class IsMatched implements Matched {
+	private final String name;
+	private final Event event;
+
+	public IsMatched(final String name, final Event event) {
+		this.name = name;
+		this.event = event;
+	}	
+
+	public boolean matched() {
+		return event.is(name);
+	}
 }

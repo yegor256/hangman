@@ -1,6 +1,6 @@
-package player;
+package game;
 
-public final class VisibleWon implements WonView {
+public final class WonView implements View {
 
 	@Override
 	public void show() {		

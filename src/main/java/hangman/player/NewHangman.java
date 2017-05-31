@@ -1,5 +1,10 @@
-package game;
+package player;
 
+import game.Failures;
+import word.NextWord;
+import word.RandomWords;
+import game.HangmanFailures;
+import game.Failures;
 import word.NextWord;
 import word.RandomWords;
 

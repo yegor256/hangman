@@ -1,7 +1,7 @@
 package word;
 
-import math.RandomString;
-import math.JRandomString;
+import cactoos.random.string.RandomString;
+import cactoos.random.string.Random;
 import character.Characters;
 
 /**
@@ -14,7 +14,7 @@ public final class RandomWord implements NextWord {
 	private final RandomString randomString;
 
 	public RandomWord(final String[] words) {		
-		this(words, new JRandomString(words));
+		this(words, new Random(words));
 	}	
 
 	public RandomWord(final String[] words, final RandomString randomString) {

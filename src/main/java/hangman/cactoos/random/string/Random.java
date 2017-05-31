@@ -1,21 +1,19 @@
-package math;
-
-import java.util.Random;
+package cactoos.random.string;
 
 /**
  * Selecting a new random string from an array of strings.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class JRandomString implements RandomString {
+public final class Random implements RandomString {
 	private final String[] strings;
 
-	public JRandomString(final String[] strings) {
+	public Random(final String[] strings) {
 		this.strings = strings;
 	}
 
 	@Override
 	public String next() {
-		return strings[new Random().nextInt(strings.length)];		
+		return strings[new java.util.Random().nextInt(strings.length)];		
 	}
 }

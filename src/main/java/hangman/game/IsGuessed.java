@@ -1,22 +1,21 @@
 package game;
 
 import event.IsMatched;
-import event.Event;
 import event.Matched;
+import event.Event;
 
 /**
  * Predicate for checking if the message is "won".
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class IsWon implements Matched {
+public final class IsGuessed implements Matched {
 	private final Matched meta;
 
-	public IsWon(final Event event) {
-		this.meta = new IsMatched("WON", event);
+	public IsGuessed(final Event event) {
+		this.meta = new IsMatched("GUESSED", event);
 	}	
 
-	@Override
 	public boolean matched() {
 		return meta.matched();
 	}

@@ -1,4 +1,4 @@
-package game;
+package player;
 
 /**
  * Initialization and starting a new game.

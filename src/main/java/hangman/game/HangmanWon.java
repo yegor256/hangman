@@ -1,4 +1,4 @@
-package player;
+package game;
 
 import event.Event;
 import event.BaseEvent;

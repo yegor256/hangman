@@ -13,18 +13,13 @@
  * in all copies or substantial portions of the Software.
  */
 package hangman;
-
+import player.NewHangman;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
-import word.*;
-import character.Characters;
-import player.*;
-import game.NewHangman;
-
 
 public class Main {
 
@@ -48,7 +43,6 @@ public class Main {
     }
 
     public void exec() {
-
         // Test 1
         // new HangmanAttempt(
         //     new HangmanOnWon(new VisibleWon(),

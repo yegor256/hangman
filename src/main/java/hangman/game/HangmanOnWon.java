@@ -1,8 +1,7 @@
-package player;
+package game;
 
 import event.Capture;
 import event.Event;
-import game.IsWon;
 
 /**
  * Capturing the "won" event. Thus, it is the responsible for reacting.
@@ -10,11 +9,11 @@ import game.IsWon;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class HangmanOnWon implements Capture {
-	private final WonView wonView;
+	private final View view;
 	private final Capture source;
 
-	public HangmanOnWon(final WonView wonView, final Capture source) {
-		this.wonView = wonView;
+	public HangmanOnWon(final View view, final Capture source) {
+		this.view = view;
 		this.source = source;
 	}
 
@@ -22,7 +21,7 @@ public final class HangmanOnWon implements Capture {
 	public Event bubbled() {	
 		Event sourceEvent = source.bubbled();
 		if (new IsWon(sourceEvent).matched()) {
-			wonView.show();
+			view.show();
 		}
 		return sourceEvent;
 	}

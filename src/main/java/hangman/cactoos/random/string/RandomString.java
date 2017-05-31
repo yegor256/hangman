@@ -1,4 +1,4 @@
-package math;
+package cactoos.random.string;
 
 /**
  * Selecting a new random string from an array of strings.

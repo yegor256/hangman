@@ -31,14 +31,13 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class IsUncaught implements Matched {
-	private static final String EVENT_NAME = "UNCAUGHT";
-	private final Event event;
+	private final Matched meta;
 
 	public IsUncaught(final Event event) {
-		this.event = event;
+		this.meta = new IsMatched("UNCAUGHT", event);
 	}	
 
 	public boolean matched() {
-		return event.is(EVENT_NAME);
+		return meta.matched();
 	}
 }
