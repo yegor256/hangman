@@ -8,11 +8,11 @@ import event.Event;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class HangmanGuessed implements Event {
+public final class GuessedEvent implements Event {
 	private final static String EVENT_NAME = "GUESSED";
 	private final Event baseEvent;
 
-	public HangmanGuessed() {
+	public GuessedEvent() {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 

@@ -1,4 +1,6 @@
-package game;
+package hangman;
+
+import game.Failures;
 
 public final class HangmanFailures implements Failures {
 	private final int failures;	

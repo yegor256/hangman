@@ -1,5 +1,7 @@
-package game;
+package hangman;
 
+import game.IsMissed;
+import game.View;
 import event.Capture;
 import event.Event;
 
@@ -8,11 +10,11 @@ import event.Event;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class HangmanOnGuessed implements Capture {
+public final class HangmanOnMissed implements Capture {
 	private final View view;
 	private final Capture source;
 
-	public HangmanOnGuessed(final View view, final Capture source) {
+	public HangmanOnMissed(final View view, final Capture source) {
 		this.view = view;
 		this.source = source;
 	}
@@ -20,7 +22,7 @@ public final class HangmanOnGuessed implements Capture {
 	@Override
 	public Event bubbled() {	
 		Event sourceEvent = source.bubbled();
-		if (new IsGuessed(sourceEvent).matched()) {
+		if (new IsMissed(sourceEvent).matched()) {
 			view.show();
 		}
 		return sourceEvent;

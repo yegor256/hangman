@@ -1,7 +1,9 @@
-package game;
+package hangman;
 
+import game.IsWon;
 import event.Capture;
 import event.Event;
+import game.View;
 
 /**
  * Capturing the "won" event. Thus, it is the responsible for reacting.

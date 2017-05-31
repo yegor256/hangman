@@ -1,18 +1,18 @@
 package game;
 
-import event.Event;
 import event.BaseEvent;
+import event.Event;
 
 /**
  * Won event.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class HangmanWon implements Event {
-	private final static String EVENT_NAME = "WON";
+public final class MissedEvent implements Event {
+	private final static String EVENT_NAME = "MISSED";
 	private final Event baseEvent;
 
-	public HangmanWon() {
+	public MissedEvent() {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 

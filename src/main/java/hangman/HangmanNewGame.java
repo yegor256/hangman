@@ -1,10 +1,9 @@
-package player;
+package hangman;
 
 import game.Failures;
+import game.NewGame;
 import word.NextWord;
 import word.RandomWords;
-import game.HangmanFailures;
-import game.Failures;
 import word.NextWord;
 import word.RandomWords;
 
@@ -13,24 +12,24 @@ import word.RandomWords;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class NewHangman implements NewGame {
+public final class HangmanNewGame implements NewGame {
 	private static final int DEFAULT_FAILURES = 5;
 	private final NextWord words;
 	private final Failures failures;
 
-	public NewHangman() {
+	public HangmanNewGame() {
 		this(DEFAULT_FAILURES);		
 	}
 
-	public NewHangman(final int failures) {
+	public HangmanNewGame(final int failures) {
 		this(new HangmanFailures(failures));		
 	}	
 
-	public NewHangman(final Failures failures) {
+	public HangmanNewGame(final Failures failures) {
 		this(new RandomWords(), failures);		
 	}		
 
-	public NewHangman(final NextWord words, final Failures failures) {
+	public HangmanNewGame(final NextWord words, final Failures failures) {
 		this.words = words;
 		this.failures = failures;
 	}

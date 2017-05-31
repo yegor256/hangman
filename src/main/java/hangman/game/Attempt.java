@@ -1,4 +1,4 @@
-package player;
+package game;
 
 public interface Attempt {
    public void attempt();

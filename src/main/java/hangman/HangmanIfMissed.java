@@ -1,20 +1,22 @@
-package game;
+package hangman;
 
+import game.MissedEvent;
+import game.GuessedEvent;
 import event.Dispatching;
 import event.Event;
 import event.IsUncaught;
 import word.WereLettersOn;
 
 /**
- * Won dispatching events.
+ * Guessed dispatching events.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class HangmanIfWon implements Dispatching {
+public final class HangmanIfMissed implements Dispatching {
 	private final WereLettersOn wereLetters;
 	private final Dispatching source;
 
-	public HangmanIfWon(final WereLettersOn wereLetters, final Dispatching source) {
+	public HangmanIfMissed(final WereLettersOn wereLetters, final Dispatching source) {
 		this.wereLetters = wereLetters;
 		this.source = source;
 	}
@@ -23,9 +25,9 @@ public final class HangmanIfWon implements Dispatching {
 	public Event event() {
 		Event sourceEvent = source.event();	
 		return 			
-			new IsUncaught(sourceEvent).matched() && wereLetters.allOn()
-			? new HangmanWon()	
+			new IsUncaught(sourceEvent).matched() && !(wereLetters.on() || wereLetters.allOn())
+			? new MissedEvent()	
 			: sourceEvent
-			;
+			;		
 	}
 }

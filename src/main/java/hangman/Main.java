@@ -13,7 +13,7 @@
  * in all copies or substantial portions of the Software.
  */
 package hangman;
-import player.NewHangman;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -65,7 +65,7 @@ public class Main {
         //                     new RandomWords().next())))))
         //                                 .attempted();   
 
-        new NewHangman().start();                                        
+        new HangmanNewGame().start();                                        
 
         String word = WORDS[new Random().nextInt(WORDS.length)];
         boolean[] visible = new boolean[word.length()];
