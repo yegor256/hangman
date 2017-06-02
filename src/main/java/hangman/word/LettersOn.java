@@ -8,27 +8,27 @@ import java.util.stream.Collectors;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class LettersOn implements LettersOnAction {	
-	private final WhereSymbolIs ifSymbolIs;
-	private final WordState source;
-	
-	public LettersOn(final WhereSymbolIs ifSymbolIs, final WordState source) {
-		this.ifSymbolIs = ifSymbolIs;
-		this.source = source;
-	}
+public final class LettersOn implements LettersOnAction {       
+        private final WhereSymbolIs ifSymbolIs;
+        private final WordState source;
+        
+        public LettersOn(final WhereSymbolIs ifSymbolIs, final WordState source) {
+                this.ifSymbolIs = ifSymbolIs;
+                this.source = source;
+        }
 
-	@Override
-	public List<LetterState> letters() {		
-		return source.letters();
-	}
+        @Override
+        public List<LetterState> letters() {            
+                return source.letters();
+        }
 
-	@Override
-	public List<LetterState> lettersOn() {		
-	    return 
-	    	source
-	        	.letters()
-	            	.stream()
-	            		.map(letter -> new LetterOn(letter, ifSymbolIs).letter())
-	            			.collect(Collectors.toList());
-	}
+        @Override
+        public List<LetterState> lettersOn() {          
+                return 
+                source
+                .letters()
+                .stream()
+                .map(letter -> new LetterOn(letter, ifSymbolIs).letter())
+                .collect(Collectors.toList());
+        }
 }

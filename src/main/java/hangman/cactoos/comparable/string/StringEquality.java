@@ -7,5 +7,5 @@ package cactoos.comparable.string;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface StringEquality {
-   public boolean ok();
+	public boolean ok();
 }

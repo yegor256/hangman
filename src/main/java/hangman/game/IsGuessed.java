@@ -16,6 +16,7 @@ public final class IsGuessed implements Matched {
 		this.meta = new IsMatched("GUESSED", event);
 	}	
 
+	@Override
 	public boolean matched() {
 		return meta.matched();
 	}

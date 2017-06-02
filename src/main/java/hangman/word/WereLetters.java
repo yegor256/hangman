@@ -9,29 +9,29 @@ import java.util.stream.Collectors;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class WereLetters implements WereLettersOn {
-	private final LettersOnAction source;
+        private final LettersOnAction source;
 
-	public WereLetters(final LettersOnAction source) {
-		this.source = source;
-	}
+        public WereLetters(final LettersOnAction source) {
+                this.source = source;
+        }
 
-	@Override
-	public boolean on() {	
-		// String actual = source.letters().stream().map(letter -> letter.isOn()+"").collect(Collectors.joining(""));				
-		// String expected = source.lettersOn().stream().map(letter -> letter.isOn()+"").collect(Collectors.joining(""));				
-		// return ! actual.equals(expected);
-		return 
-			! source.letters()
-				.stream().map(letter -> Boolean.toString(letter.isOn())).collect(Collectors.joining(""))
-					.equals(source.lettersOn()
-							.stream().map(letter -> Boolean.toString(letter.isOn())).collect(Collectors.joining("")));
-	}
+        @Override
+        public boolean on() {   
+                return 
+                ! source.letters().stream().map(
+                        letter -> Boolean.toString(letter.isOn())).collect(Collectors.joining("")
+                        )
+                        .equals(
+                                source.lettersOn().stream().map(
+                                        letter -> Boolean.toString(letter.isOn())).collect(Collectors.joining(""))
+                                );
+                }
 
-	@Override
-	public boolean allOn() {
-		return
-			source.lettersOn()
-				.stream().filter(letter -> !letter.isOn()).collect(Collectors.toList())
-					.size() == 0;
-	}	
-}
+                @Override
+                public boolean allOn() {
+                        return
+                        source.lettersOn()
+                        .stream().filter(letter -> !letter.isOn()).collect(Collectors.toList())
+                        .size() == 0;
+                }       
+        }

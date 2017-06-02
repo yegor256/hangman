@@ -10,18 +10,18 @@ import java.util.ArrayList;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class Characters implements CharactersList {
-    private final String string;
+        private final String string;
 
-    public Characters(final String string) {
-        this.string = string;
-    }
-
-    @Override
-    public List<Character> list() {
-        List<Character> characters = new ArrayList<>();
-        for(Character character: string.toCharArray()) {
-            characters.add(character);
+        public Characters(final String string) {
+                this.string = string;
         }
-        return characters;        
-    }
+
+        @Override
+        public List<Character> list() {
+                List<Character> characters = new ArrayList<>();
+                for(Character character: string.toCharArray()) {
+                        characters.add(character);
+                }
+                return characters;
+        }
 }

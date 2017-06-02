@@ -6,5 +6,5 @@ package cactoos.convertible.character;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface ConvertedCharacter {
-   public Character character();
+	public Character character();
 }

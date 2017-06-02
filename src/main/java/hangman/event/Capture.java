@@ -29,5 +29,5 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Capture {
-   public Event bubbled();
+	public Event bubbled();
 }

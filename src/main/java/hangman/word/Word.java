@@ -10,23 +10,19 @@ import character.CharactersList;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class Word implements WordState {
-    private final CharactersList source;
-    
-    public Word(final CharactersList source) {
-        this.source = source;
-    }
+        private final CharactersList source;
 
-    public Word(final CharactersList source, final LetterState showableLetter) {
-        this.source = source;
-    } 
-    
-    @Override
-	public List<LetterState> letters() {
-        return 
-            source
+        public Word(final CharactersList source) {
+                this.source = source;
+        }
+
+        @Override
+        public List<LetterState> letters() {
+                return 
+                source
                 .list()
-                    .stream()
-                        .map(letter -> new Letter(letter))
-                            .collect(Collectors.toList());        
-	}			  		    
+                .stream()
+                .map(letter -> new Letter(letter))
+                .collect(Collectors.toList());
+        }
 }

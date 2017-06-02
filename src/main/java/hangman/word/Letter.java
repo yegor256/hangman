@@ -8,30 +8,30 @@ import java.lang.Character;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class Letter implements LetterState {
-    private final Character character;
-    private final boolean on;
+        private final Character character;
+        private final boolean on;
 
-    public Letter(final Character character) {
-        this(character, false);
-    }
+        public Letter(final Character character) {
+                this(character, false);
+        }
 
-    public Letter(final Character character, final boolean on) {
-        this.character = character;
-        this.on = on;
-    }  
+        public Letter(final Character character, final boolean on) {
+                this.character = character;
+                this.on = on;
+        }
 
-    @Override
-    public LetterState on() {
-        return new Letter(character, true);
-    }      
+        @Override
+        public LetterState on() {
+                return new Letter(character, true);
+        }
 
-    @Override
-    public Character symbol() {
-        return this.character;
-    }
+        @Override
+        public Character symbol() {
+                return this.character;
+        }
 
-    @Override
-    public boolean isOn() {
-        return this.on;
-    }         
+        @Override
+        public boolean isOn() {
+                return this.on;
+        }
 }

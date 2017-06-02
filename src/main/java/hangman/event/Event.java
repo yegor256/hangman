@@ -23,6 +23,8 @@
  */
 package event;
 
+import java.util.Map;
+
 /**
  * Sending messages for events that occur to higher layers in an object 
  * composition structure. Messages are listened in capture objects.
@@ -30,5 +32,6 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Event {
-   public boolean is(String name);
+	public boolean is(String name);
+        public Map<String, T> payload();
 }

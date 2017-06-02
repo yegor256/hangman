@@ -6,5 +6,5 @@ package game;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface NewGame {
-   public void start();
+	public void start();
 }

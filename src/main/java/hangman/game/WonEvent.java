@@ -16,6 +16,7 @@ public final class WonEvent implements Event {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 
+	@Override
 	public boolean is(String name) {
 		return baseEvent.is(name);
 	}

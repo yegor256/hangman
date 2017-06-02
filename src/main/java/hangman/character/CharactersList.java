@@ -9,5 +9,5 @@ import java.lang.Character;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface CharactersList {
-    public List<Character> list();
+	public List<Character> list();
 }

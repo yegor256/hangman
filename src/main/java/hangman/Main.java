@@ -43,29 +43,8 @@ public class Main {
     }
 
     public void exec() {
-        // Test 1
-        // new HangmanAttempt(
-        //     new HangmanOnWon(new VisibleWon(),
-        //         new HangmanIfWon(
-                    // Success criterion layer
-                    // new WereLetters(
-                    //     new LettersOn(new WhereSymbol('i'),
-                            // Int game layer
-                            // new Word(
-                            //     new Characters(
-                            //         "iiii")))))))
-                            //             .attempted();                                
 
-        // Test 2
-        // new HangmanAttempt(
-        //     new HangmanOnWon(new VisibleWon(),
-        //         new HangmanIfWon(
-        //             new WereLetters(
-        //                 new LettersOn(new WhereSymbol('i'),
-        //                     new RandomWords().next())))))
-        //                                 .attempted();   
-
-        new HangmanNewGame().start();                                        
+        new NewGame().start();                                        
 
         String word = WORDS[new Random().nextInt(WORDS.length)];
         boolean[] visible = new boolean[word.length()];

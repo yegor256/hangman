@@ -23,6 +23,8 @@
  */
 package event;
 
+import java.util.Map;
+
 /**
  * Unaught event.
  *
@@ -36,7 +38,13 @@ public final class Uncaught implements Event {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 
+        @Override
 	public boolean is(String name) {
 		return baseEvent.is(name);
 	}
+
+        @Override
+        public Map<String, T> payload() {
+                return baseEvent.payload();
+        }
 }

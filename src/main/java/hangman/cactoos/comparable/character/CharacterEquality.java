@@ -7,5 +7,5 @@ package cactoos.comparable.character;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface CharacterEquality {
-   public boolean ok();
+	public boolean ok();
 }

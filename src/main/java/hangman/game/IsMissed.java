@@ -16,6 +16,7 @@ public final class IsMissed implements Matched {
 		this.meta = new IsMatched("MISSED", event);
 	}	
 
+	@Override
 	public boolean matched() {
 		return meta.matched();
 	}

@@ -6,5 +6,5 @@ package word;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface LetterOnAction {
-   public LetterState letter();
+     public LetterState letter();
 }

@@ -29,5 +29,5 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Dispatching {
-   public Event event();
+	public Event event();
 }
