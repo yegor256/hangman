@@ -23,8 +23,6 @@
  */
 package event;
 
-import java.util.Collections;
-import java.util.Map;
 import cactoos.comparable.string.InsensitiveEqual;
 
 /**
@@ -40,12 +38,7 @@ public final class BaseEvent implements Event {
 	}
 
         @Override
-	public boolean is(String name) {
+	public boolean is(final String name) {
 		return new InsensitiveEqual(this.name, name).ok();		
 	}
-
-        @Override
-        public Map<String, T> payload() {
-                return Collections.unmodifiableMap(new HashMap<>());
-        }
 }

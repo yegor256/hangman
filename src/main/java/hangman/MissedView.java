@@ -1,5 +1,6 @@
 package hangman;
 
+import game.FailuresMessageMedia;
 import view.View;
 
 /**
@@ -17,7 +18,6 @@ public final class MissedView implements View {
                 System.out.println(
                         message
                         .withText("Missed, mistake ")
-                        .withCurrent("#%d ")
                         .withText("out of ")
                         .withMax("#%d")
                         .formatted());

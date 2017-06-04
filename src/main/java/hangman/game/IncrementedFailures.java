@@ -17,6 +17,6 @@ public final class IncrementedFailures implements Failures {
         }       
 
         public Integer current() {
-                return source.with(source.current()+step).current();
+                return new PlayerFailures(source.current()+step).current();
         }
 }

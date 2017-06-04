@@ -7,7 +7,7 @@ import event.IsUncaught;
 import word.WereLettersOn;
 
 /**
- * Guessed dispatching events.
+ * Dispatching events.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
@@ -15,7 +15,8 @@ public final class IfGuessed implements Dispatching {
         private final WereLettersOn wereLetters;
         private final Dispatching source;
 
-        public IfGuessed(final WereLettersOn wereLetters, final Dispatching source) {
+        public IfGuessed(final WereLettersOn wereLetters, 
+                final Dispatching source) {
                 this.wereLetters = wereLetters;
                 this.source = source;
         }

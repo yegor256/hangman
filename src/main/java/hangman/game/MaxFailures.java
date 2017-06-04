@@ -16,7 +16,7 @@ public final class MaxFailures implements MaxInteger {
                 return failures.current() >  max;
         }
 
-        public Integer integer() {
+        public Integer number() {
                 return max;
         }
 }

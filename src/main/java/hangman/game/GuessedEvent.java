@@ -4,7 +4,7 @@ import event.BaseEvent;
 import event.Event;
 
 /**
- * Won event.
+ * Guessed event.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
@@ -17,12 +17,7 @@ public final class GuessedEvent implements Event {
 	}
 
 	@Override
-	public boolean is(String name) {
+	public boolean is(final String name) {
 		return baseEvent.is(name);
-	}
-
-        @Override
-        public Map<String, T> payload() {
-                return baseEvent.payload();
-        }        
+	}  
 }

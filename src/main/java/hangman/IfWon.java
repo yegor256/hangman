@@ -7,7 +7,7 @@ import event.IsUncaught;
 import word.WereLettersOn;
 
 /**
- * Won dispatching events.
+ * Dispatching events.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
@@ -25,7 +25,7 @@ public final class IfWon implements Dispatching {
                 Event sourceEvent = source.event();     
                 return                  
                 new IsUncaught(sourceEvent).matched() && wereLetters.allOn()
-                ? new WonEvent()        
+                ? new WonEvent()
                 : sourceEvent
                 ;
         }

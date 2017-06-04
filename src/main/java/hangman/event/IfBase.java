@@ -23,10 +23,6 @@
  */
 package event;
 
-import event.Dispatching;
-import event.Event;
-import event.Uncaught;
-
 /**
  * Base decorator for distpatching events. It doesn't match any criteria 
  * and thus, it always dispatches an uncaught event.
@@ -37,6 +33,6 @@ public final class IfBase implements Dispatching {
 
 	@Override
 	public Event event() {		
-		return new Uncaught();
+		return new UncaughtEvent();
 	}
 }

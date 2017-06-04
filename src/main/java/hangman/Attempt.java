@@ -1,7 +1,7 @@
 package hangman;
 
+import game.PlayerFailures;
 import game.MaxInteger;
-import java.util.stream.IntStream;
 import character.Characters;
 import event.OnBase;
 import event.IfBase;
@@ -54,25 +54,17 @@ public final class Attempt implements game.Attempt {
                                         new Characters(
                                                 "simplicity"))));
                 
-                // System.out.println(new GameFailures(failuresState = new Incremented(failuresState).state()).left());
-
-                Failures failures;
-                new OnNewAttempt(new NewAttemptView(),
-                        new OnLost(new LostView(),
-                                // Rise a NewAttemptEvent
+                // new OnNewAttempt(new NewAttemptView(),
+                        // new OnLost(new LostView(),
                                 new OnMissed(new AssignedMissedView(),
                                         new OnGuessed(new GuessedView(),
                                                 new OnWon(new WonView(),
                                                         new OnBase(
-                                                                // If lost by checking if the failures.left(), 
-                                                                // and rise the lost event.
-                                                                new IfLost(
-                                                                        // If missed, then Incremented(failures) and 
-                                                                        // send it with the event.
-                                                                        new IfMissed(wereLetters, maxFailures, failures = new PlayerFailures(),
+                                                                // new IfLost(
+                                                                        new IfMissed(wereLetters, maxFailures, new PlayerFailures(),
                                                                                 new IfGuessed(wereLetters,
                                                                                         new IfWon(wereLetters,
-                                                                                                new IfBase()))))))))))
+                                                                                                new IfBase())))))))
                 .bubbled();                        
         }
 }

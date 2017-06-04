@@ -6,7 +6,7 @@ import event.Capture;
 import event.Event;
 
 /**
- * Capturing the "won" event. Thus, it is the responsible for reacting.
+ * Capturing the "guessed" event. Thus, it is the responsible for reacting.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */

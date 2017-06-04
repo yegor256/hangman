@@ -23,28 +23,21 @@
  */
 package event;
 
-import java.util.Map;
-
 /**
  * Unaught event.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class Uncaught implements Event {
+public final class UncaughtEvent implements Event {
 	private final static String EVENT_NAME = "UNCAUGHT";
 	private final Event baseEvent;
 
-	public Uncaught() {
+	public UncaughtEvent() {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 
         @Override
-	public boolean is(String name) {
-		return baseEvent.is(name);
-	}
-
-        @Override
-        public Map<String, T> payload() {
-                return baseEvent.payload();
-        }
+        public boolean is(final String name) {
+                return baseEvent.is(name);
+        }       
 }

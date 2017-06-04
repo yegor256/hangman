@@ -12,12 +12,12 @@ public final class WonEvent implements Event {
 	private final static String EVENT_NAME = "WON";
 	private final Event baseEvent;
 
-	public WonEvent() {
-		this.baseEvent = new BaseEvent(EVENT_NAME);
-	}
+        public WonEvent() {
+                this.baseEvent = new BaseEvent(EVENT_NAME);
+        }
 
-	@Override
-	public boolean is(String name) {
-		return baseEvent.is(name);
-	}
+        @Override
+        public boolean is(final String name) {
+                return baseEvent.is(name);
+        }       
 }

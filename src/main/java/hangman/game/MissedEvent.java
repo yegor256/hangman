@@ -4,7 +4,7 @@ import event.BaseEvent;
 import event.Event;
 
 /**
- * Won event.
+ * Missed event.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
@@ -16,13 +16,8 @@ public final class MissedEvent implements Event {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 
-	@Override
-	public boolean is(String name) {
-		return baseEvent.is(name);
-	}
-
         @Override
-        public Map<String, T> payload() {
-                return baseEvent.payload();
-        }        
+        public boolean is(final String name) {
+                return baseEvent.is(name);
+        }         
 }

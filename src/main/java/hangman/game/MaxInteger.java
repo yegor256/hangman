@@ -7,5 +7,5 @@ package game;
  */
 public interface MaxInteger {
         public boolean reached(Failures failures);
-        public Integer integer();
+        public Integer number();
 }

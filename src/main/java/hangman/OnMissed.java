@@ -1,12 +1,13 @@
 package hangman;
 
+import game.Failures;
+import game.NewAttemptEvent;
 import game.IsMissed;
-import view.View;
 import event.Capture;
 import event.Event;
 
 /**
- * Capturing the "won" event. Thus, it is the responsible for reacting.
+ * Capturing the "missed" event. Thus, it is the responsible for reacting.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
@@ -22,9 +23,9 @@ public final class OnMissed implements Capture {
         @Override
         public Event bubbled() {        
                 Event sourceEvent = source.bubbled();
-                if (new IsMissed(sourceEvent).matched()) {                        
-                        assignedView.with(sourceEvent.payload().get("media")).show();
-                        return NewAttemptEvent(sourceEvent.payload().get("failures"));
+                if (new IsMissed(sourceEvent).matched()) {                         
+                        // assignedView.with(payload.media()).show();
+                        return new NewAttemptEvent();
                 }
                 return sourceEvent;
         }

@@ -1,5 +1,7 @@
 package hangman;
 
+import game.Failures;
+import game.MaxInteger;
 import game.FailuresMessageMedia;
 
 /**
@@ -11,32 +13,32 @@ public final class FailuresMessage implements FailuresMessageMedia {
         private final String message;
         
         public FailuresMessage(final MaxInteger maxInteger, 
-                        final Failures failures) {
+                final Failures failures) {
                 this(maxInteger, failures, "");
         }
 
         public FailuresMessage(final MaxInteger maxInteger, 
-                        final Failures failures, final String message) {
+                final Failures failures, final String message) {
                 this.maxFailures = maxInteger;
                 this.failures = failures;
                 this.message = message;
         }       
 
         @Override
-        public FailuresMessage withCurrent(String template) {
+        public FailuresMessageMedia withCurrent(String template) {
                 return 
                 new FailuresMessage(maxFailures, failures, 
                         message+String.format(template, failures.current()));
         }
 
         @Override
-        public FailuresMessage withText(String text) {
+        public FailuresMessageMedia withText(String text) {
                 return 
                 new FailuresMessage(maxFailures, failures, message+text);
         }       
 
         @Override
-        public FailuresMessage withMax(String template) {
+        public FailuresMessageMedia withMax(String template) {
                 return 
                 new FailuresMessage(maxFailures, failures, 
                         message+String.format(template, maxFailures.number()));

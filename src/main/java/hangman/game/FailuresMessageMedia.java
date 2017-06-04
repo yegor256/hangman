@@ -2,8 +2,8 @@ package game;
 
 import event.Message;
 
-interface FailuresMessageMedia extends Message {
-	public Message withCurrent(String template);
-	public Message withText(String text);
-	public Message withMax(String template);	
+public interface FailuresMessageMedia extends Message {
+	public FailuresMessageMedia withCurrent(String template);
+	public FailuresMessageMedia withText(String text);
+	public FailuresMessageMedia withMax(String template);	
 }
