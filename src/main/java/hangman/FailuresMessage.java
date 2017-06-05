@@ -1,5 +1,6 @@
 package hangman;
 
+import game.IncrementedFailures;
 import game.Failures;
 import game.MaxInteger;
 import game.FailuresMedia;
@@ -28,7 +29,7 @@ public final class FailuresMessage implements FailuresMedia {
         public FailuresMedia withCurrent(String template) {
                 return 
                 new FailuresMessage(maxFailures, failures, 
-                        message+String.format(template, failures.current()));
+                        message+String.format(template, new IncrementedFailures(failures).current()));
         }
 
         @Override

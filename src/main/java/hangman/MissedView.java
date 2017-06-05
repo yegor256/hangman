@@ -20,9 +20,10 @@ public final class MissedView implements View {
         public void show() {
                 output.display(
                        media 
-                        .withText("Missed, mistake ")
-                        .withText("out of ")
-                        .withMax("#%d")
+                        .withText("Missed, mistake")
+                        .withCurrent(" #%d")
+                        .withText(" out of")
+                        .withMax(" #%d")
                         .formatted());
         }
 }
