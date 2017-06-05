@@ -10,6 +10,54 @@ word doesn't contain a letter, the computer gives a penalty point for
 the user. If there are five penalty points, the user looses. If there
 are no hidden letters anymore, the computer looses.
 
+## Pull request
+- Without:
+	- a single private method;
+	- parameters in methods (except for the PrintStream out);
+	- Null;
+	- public constants;
+	- Getters/Setters;
+	- Inheritance;
+	- Traits or mixins;
+	- Static methods;
+	- MVC but an event model;
+	- If-Then-Else but an event model;
+	- DTO;
+	- Singleton;
+	- Annotations;
+	- Class casting;
+	- Utility classes (proposal for cactoos without generics);
+
+- With:
+	- Naming accordingly with the EO1 approach.
+	- Unique objects;
+	- Just composition;
+	- Decorating envelopes;	
+	- Encapsulation;
+	- Inmmutability;
+	- Final classes;
+	- Vertical descomposition;
+	- Configurable by composition without coupling (except for IfBase and OnBase);
+	- A modified printer;
+	- Validating decorators;
+	- An "ugly" view in hangman.Attempt, but you can see at a glance the architecture;
+	- One primary constructors;
+	- Code-free constructors;
+	- Programming to the contract (interface);
+	- Contract-oriented programing;
+	
+- Without following:
+	- Multiple returns (I don't understad why it is a code smell);
+	- Compound names in vars, but very balanced.	
+	- Empty lines. I let empty lines between state, constructors and methods (Work in process for Attempt).
+
+- Todo:
+	- Removing three temporal coupling lines.
+	- Removing new in methods.
+	- Caching and improving the algorithms.
+	- Write identified Tests in TestPlan.md
+
+
 First, build it:
 
 ```
