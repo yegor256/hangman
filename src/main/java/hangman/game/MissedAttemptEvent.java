@@ -8,11 +8,11 @@ import event.Event;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class NewAttemptEvent implements Event {
-        private final static String EVENT_NAME = "NEW_ATTEMPT";
+public final class MissedAttemptEvent implements Event {
+        private final static String EVENT_NAME = "NEW_ATTEMPT_FROM_MISSED";
         private final Event baseEvent;
 
-        public NewAttemptEvent() {
+        public MissedAttemptEvent() {
                 this.baseEvent = new BaseEvent(EVENT_NAME);
         }
 

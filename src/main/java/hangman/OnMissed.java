@@ -1,10 +1,10 @@
 package hangman;
 
+import game.MissedAttemptEvent;
 import game.LostEvent;
 import game.IncrementedFailures;
 import game.MaxInteger;
 import game.Failures;
-import game.NewAttemptEvent;
 import game.IsMissed;
 import event.Capture;
 import event.Event;
@@ -33,7 +33,7 @@ public final class OnMissed implements Capture {
                         return 
                         maxFailures.reached(new IncrementedFailures(failures)) 
                         ? new LostEvent()                        
-                        : new NewAttemptEvent()
+                        : new MissedAttemptEvent()
                         ;
                 }
                 return sourceEvent;

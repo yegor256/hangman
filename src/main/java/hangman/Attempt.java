@@ -53,15 +53,15 @@ public final class Attempt implements game.Attempt {
         public void promised() {                   
                 // It requires another level of abstraction:
                 //      new Action(new Evaluation(new Result()))   
-
-                // @todo View show presents the label and return an input.
                 final WordLetters presentWord = new LettersOn(pastWord, new WhereSymbol(guessChar.next()));
                 final LetterOnCodition wasLetterOn = new WasLetterOn(presentWord, pastWord);
+                final View missedView = new MissedView(output, new FailuresMessage(maxFailures, pastFailures));
 
                 new OnWon(new WonView(output),
-                        new OnLost(new LostView(output),  
-                                new OnNewAttempt(new NewAttemptView(output, presentWord, new MissedView(output,
-                                                        new FailuresMessage(maxFailures, pastFailures))), 
+                        new OnLost(new LostView(output, missedView),
+                            new OnGuessedAttempt(new NewAttemptView(output, presentWord), 
+                                                    presentWord, maxFailures, pastFailures, output, guessChar, 
+                                new OnMissedAttempt(new NewAttemptView(output, presentWord, missedView), 
                                                     presentWord, maxFailures, pastFailures, output, guessChar,                                       
                                         new OnGuessed(new GuessedView(output),
                                                 new OnMissed(maxFailures, pastFailures, 
@@ -69,7 +69,7 @@ public final class Attempt implements game.Attempt {
                                                                 new IfWon(new IsWordOn(presentWord), 
                                                                         new IfGuessed(wasLetterOn,
                                                                                 new IfMissed(wasLetterOn,
-                                                                                        new IfBase())))))))))
+                                                                                        new IfBase()))))))))))
                 .bubbled();                        
         }
 }

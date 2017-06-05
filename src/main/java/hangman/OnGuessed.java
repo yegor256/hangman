@@ -1,5 +1,6 @@
 package hangman;
 
+import game.GuessedAttemptEvent;
 import game.IsGuessed;
 import view.View;
 import event.Capture;
@@ -24,6 +25,7 @@ public final class OnGuessed implements Capture {
                 Event sourceEvent = source.bubbled();
                 if (new IsGuessed(sourceEvent).matched()) {
                         view.show();
+                        return new GuessedAttemptEvent();
                 }
                 return sourceEvent;
         }

@@ -14,6 +14,10 @@ public final class NewAttemptView implements View {
         private final Output output;
         private final View source;
 
+        public NewAttemptView(final Output output, final WordLetters word) {
+                this(output, word, new EmptyView());
+        }        
+
         public NewAttemptView(final Output output, final WordLetters word, 
                 final View source) {
                 this.output = output;

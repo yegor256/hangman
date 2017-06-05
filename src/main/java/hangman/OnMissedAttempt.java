@@ -1,5 +1,6 @@
 package hangman;
 
+import game.IsMissedAttempt;
 import game.CharInput;
 import game.Output;
 import word.WordLetters;
@@ -10,14 +11,13 @@ import view.View;
 import game.Failures;
 import event.Capture;
 import event.Event;
-import game.IsNewAttempt;
 
 /**
  * It is the responsible for reacting. 
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class OnNewAttempt implements Capture {
+public final class OnMissedAttempt implements Capture {
         private final View view;
         private final WordLetters presentWord;
         private final MaxInteger maxFailures;
@@ -26,7 +26,7 @@ public final class OnNewAttempt implements Capture {
         private final CharInput charInput;   
         private final Capture source;
 
-        public OnNewAttempt(final View view, final WordLetters presentWord, 
+        public OnMissedAttempt(final View view, final WordLetters presentWord, 
                 final MaxInteger maxFailures, final Failures failures, 
                 final Output output, final CharInput charInput, 
                 final Capture source) {
@@ -42,7 +42,7 @@ public final class OnNewAttempt implements Capture {
         @Override
         public Event bubbled() {        
                 Event sourceEvent = source.bubbled();
-                if (new IsNewAttempt(sourceEvent).matched()) {                        
+                if (new IsMissedAttempt(sourceEvent).matched()) {                        
                         // @todo charInput receives view.show() as decorator.
                         view.show();
                         new Attempt(charInput, presentWord, maxFailures, 

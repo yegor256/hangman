@@ -13,7 +13,7 @@ public final class MaxFailures implements MaxInteger {
         }
 
         public boolean reached(Failures failures) {
-                return failures.current() >  max;
+                return failures.current() >=  max;
         }
 
         public Integer number() {
