@@ -25,7 +25,7 @@ public final class RandomWord implements NextWord {
 	@Override
 	public WordLetters next() {
 		return 
-		new Word(
+		new CharactersAsWord(
 			new Characters(
 				randomString.next()));
 	}

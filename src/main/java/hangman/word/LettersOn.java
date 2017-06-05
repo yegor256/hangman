@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class LettersOn implements LettersOnAction {       
+public final class LettersOn implements WordLetters {       
         private final WhereSymbolIs ifSymbolIs;
         private final WordLetters source;
         
@@ -19,16 +19,11 @@ public final class LettersOn implements LettersOnAction {
 
         @Override
         public List<LetterState> letters() {            
-                return source.letters();
-        }
-
-        @Override
-        public List<LetterState> lettersOn() {          
-                return 
+               return 
                 source
                 .letters()
                 .stream()
                 .map(letter -> new LetterOn(letter, ifSymbolIs).letter())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); 
         }
 }

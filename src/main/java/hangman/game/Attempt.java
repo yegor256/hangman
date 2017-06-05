@@ -1,5 +1,5 @@
 package game;
 
 public interface Attempt {
-	public void done();
+	public void promised();
 }

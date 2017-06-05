@@ -9,10 +9,10 @@ import character.CharactersList;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class Word implements WordLetters {
+public final class CharactersAsWord implements WordLetters {
         private final CharactersList source;
 
-        public Word(final CharactersList source) {
+        public CharactersAsWord(final CharactersList source) {
                 this.source = source;
         }
 

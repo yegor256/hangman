@@ -1,5 +1,8 @@
 package hangman;
 
+import java.util.stream.Collectors;
+import game.CharInput;
+import game.Output;
 import game.MaxInteger;
 import game.MaxFailures;
 import word.NextWord;
@@ -13,28 +16,35 @@ import word.RandomWords;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class NewGame implements game.NewGame {
-        private static final int DEFAULT_FAILURES = 5;
+        private static final int DEFAULT_FAILURES = 7;
         private final NextWord words;
         private final MaxInteger maxFailures;
+        private final Output output;
+        private final CharInput charInput;
 
-        public NewGame() {
-                this(DEFAULT_FAILURES);         
+        public NewGame(Output output, CharInput charInput) {
+                this(DEFAULT_FAILURES, output, charInput);         
         }
 
-        public NewGame(final int maxFailures) {
-                this(new MaxFailures(maxFailures));          
+        public NewGame(final int maxFailures, final Output output, 
+                final CharInput charInput) {
+                this(new MaxFailures(maxFailures), output, charInput);          
         }       
 
-        public NewGame(final MaxInteger maxFailures) {
-                this(new RandomWords(), maxFailures);              
+        public NewGame(final MaxInteger maxFailures, final Output output, 
+                final CharInput charInput) {
+                this(new RandomWords(), maxFailures, output, charInput);              
         }               
 
-        public NewGame(final NextWord words, final MaxInteger maxFailures) {
+        public NewGame(final NextWord words, final MaxInteger maxFailures, 
+                final Output output, final CharInput charInput) {
                 this.words = words;
                 this.maxFailures = maxFailures;
+                this.output = output;
+                this.charInput = charInput;
         }
 
-        public void start() {
-                new Attempt(words.next(), maxFailures);
+        public void start() {                
+                new Attempt(words.next(), maxFailures, output, charInput).promised();
         }                            
 }
