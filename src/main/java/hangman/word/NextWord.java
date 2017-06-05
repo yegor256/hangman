@@ -6,5 +6,5 @@ package word;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface NextWord {
-   public Word next();
+   public WordLetters next();
 }

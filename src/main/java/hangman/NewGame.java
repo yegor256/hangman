@@ -35,6 +35,6 @@ public final class NewGame implements game.NewGame {
         }
 
         public void start() {
-                new Attempt(words.next(), maxFailures).attempt();           
-        }
+                new Attempt(words.next(), maxFailures);
+        }                            
 }

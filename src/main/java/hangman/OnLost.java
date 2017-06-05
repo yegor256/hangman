@@ -1,20 +1,20 @@
 package hangman;
 
-import game.IsGuessed;
 import view.View;
+import game.IsLost;
 import event.Capture;
 import event.Event;
 
 /**
- * It is the responsible for reacting. 
+ * It is the responsible for reacting.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class OnGuessed implements Capture {
-        private final View view;
+public final class OnLost implements Capture {
+        private final View view;   
         private final Capture source;
 
-        public OnGuessed(final View view, final Capture source) {
+        public OnLost(final View view, final Capture source) {
                 this.view = view;
                 this.source = source;
         }
@@ -22,9 +22,9 @@ public final class OnGuessed implements Capture {
         @Override
         public Event bubbled() {        
                 Event sourceEvent = source.bubbled();
-                if (new IsGuessed(sourceEvent).matched()) {
+                if (new IsLost(sourceEvent).matched()) {                         
                         view.show();
                 }
                 return sourceEvent;
-        }
+        } 
 }

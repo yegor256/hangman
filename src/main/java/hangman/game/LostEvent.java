@@ -4,15 +4,15 @@ import event.BaseEvent;
 import event.Event;
 
 /**
- * New attempt event.
+ * Lost event.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class NewAttemptEvent implements Event {
-        private final static String EVENT_NAME = "NEW_ATTEMPT";
+public final class LostEvent implements Event {
+        private final static String EVENT_NAME = "LOST";
         private final Event baseEvent;
 
-        public NewAttemptEvent() {
+        public LostEvent() {
                 this.baseEvent = new BaseEvent(EVENT_NAME);
         }
 

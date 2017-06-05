@@ -9,7 +9,7 @@ import character.CharactersList;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class Word implements WordState {
+public final class Word implements WordLetters {
         private final CharactersList source;
 
         public Word(final CharactersList source) {

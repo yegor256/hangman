@@ -16,6 +16,6 @@ public final class LetterView implements ShowableLetter {
 
     @Override
     public Character symbol() {
-        return letter.isOn() ? letter.symbol() : '*' ;
+        return letter.isOn() ? letter.symbol() : '?' ;
     }    
 }

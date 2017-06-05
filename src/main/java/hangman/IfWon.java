@@ -4,7 +4,7 @@ import game.WonEvent;
 import event.Dispatching;
 import event.Event;
 import event.IsUncaught;
-import word.WereLettersOn;
+import word.WordCondition;
 
 /**
  * Dispatching events.
@@ -12,11 +12,11 @@ import word.WereLettersOn;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class IfWon implements Dispatching {
-        private final WereLettersOn wereLetters;
+        private final WordCondition wereLeters;
         private final Dispatching source;
 
-        public IfWon(final WereLettersOn wereLetters, final Dispatching source) {
-                this.wereLetters = wereLetters;
+        public IfWon(final WordCondition wereLeters, final Dispatching source) {
+                this.wereLeters = wereLeters;
                 this.source = source;
         }
 
@@ -24,7 +24,7 @@ public final class IfWon implements Dispatching {
         public Event event() {
                 Event sourceEvent = source.event();     
                 return                  
-                new IsUncaught(sourceEvent).matched() && wereLetters.allOn()
+                new IsUncaught(sourceEvent).matched() && wereLeters.allOn()
                 ? new WonEvent()
                 : sourceEvent
                 ;

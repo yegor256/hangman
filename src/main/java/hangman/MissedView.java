@@ -1,22 +1,22 @@
 package hangman;
 
-import game.FailuresMessageMedia;
+import game.FailuresMedia;
 import view.View;
 
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class MissedView implements View {
-        private final FailuresMessageMedia message;    
+        private final FailuresMedia media;    
 
-        public MissedView(FailuresMessageMedia message) {
-                this.message = message;
+        public MissedView(final FailuresMedia media) {
+                this.media = media;
         }
 
         @Override
         public void show() {
                 System.out.println(
-                        message
+                       media 
                         .withText("Missed, mistake ")
                         .withText("out of ")
                         .withMax("#%d")

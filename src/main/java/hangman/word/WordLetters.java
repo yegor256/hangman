@@ -7,6 +7,6 @@ import java.util.List;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public interface WordState {
+public interface WordLetters {
 	public List<LetterState> letters();
 }

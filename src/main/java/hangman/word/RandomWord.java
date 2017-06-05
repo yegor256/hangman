@@ -23,7 +23,7 @@ public final class RandomWord implements NextWord {
 	}
 
 	@Override
-	public Word next() {
+	public WordLetters next() {
 		return 
 		new Word(
 			new Characters(

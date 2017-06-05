@@ -6,7 +6,7 @@ import event.Event;
 import view.View;
 
 /**
- * Capturing the "won" event. Thus, it is the responsible for reacting.
+ * It is the responsible for reacting. 
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */

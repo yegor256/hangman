@@ -2,12 +2,12 @@ package hangman;
 
 import game.Failures;
 import game.MaxInteger;
-import game.FailuresMessageMedia;
+import game.FailuresMedia;
 
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class FailuresMessage implements FailuresMessageMedia {
+public final class FailuresMessage implements FailuresMedia {
         private final MaxInteger maxFailures;
         private final Failures failures;
         private final String message;
@@ -25,20 +25,20 @@ public final class FailuresMessage implements FailuresMessageMedia {
         }       
 
         @Override
-        public FailuresMessageMedia withCurrent(String template) {
+        public FailuresMedia withCurrent(String template) {
                 return 
                 new FailuresMessage(maxFailures, failures, 
                         message+String.format(template, failures.current()));
         }
 
         @Override
-        public FailuresMessageMedia withText(String text) {
+        public FailuresMedia withText(String text) {
                 return 
                 new FailuresMessage(maxFailures, failures, message+text);
         }       
 
         @Override
-        public FailuresMessageMedia withMax(String template) {
+        public FailuresMedia withMax(String template) {
                 return 
                 new FailuresMessage(maxFailures, failures, 
                         message+String.format(template, maxFailures.number()));

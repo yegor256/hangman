@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
  */
 public final class LettersOn implements LettersOnAction {       
         private final WhereSymbolIs ifSymbolIs;
-        private final WordState source;
+        private final WordLetters source;
         
-        public LettersOn(final WhereSymbolIs ifSymbolIs, final WordState source) {
+        public LettersOn(final WordLetters source, final WhereSymbolIs ifSymbolIs) {
                 this.ifSymbolIs = ifSymbolIs;
                 this.source = source;
         }

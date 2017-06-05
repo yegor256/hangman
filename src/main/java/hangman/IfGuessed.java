@@ -4,7 +4,7 @@ import game.GuessedEvent;
 import event.Dispatching;
 import event.Event;
 import event.IsUncaught;
-import word.WereLettersOn;
+import word.WordCondition;
 
 /**
  * Dispatching events.
@@ -12,12 +12,12 @@ import word.WereLettersOn;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class IfGuessed implements Dispatching {
-        private final WereLettersOn wereLetters;
+        private final WordCondition wereLeters;
         private final Dispatching source;
 
-        public IfGuessed(final WereLettersOn wereLetters, 
+        public IfGuessed(final WordCondition wereLeters, 
                 final Dispatching source) {
-                this.wereLetters = wereLetters;
+                this.wereLeters = wereLeters;
                 this.source = source;
         }
 
@@ -25,7 +25,7 @@ public final class IfGuessed implements Dispatching {
         public Event event() {
                 Event sourceEvent = source.event();     
                 return                  
-                new IsUncaught(sourceEvent).matched() && wereLetters.on()
+                new IsUncaught(sourceEvent).matched() && wereLeters.on()
                 ? new GuessedEvent()    
                 : sourceEvent
                 ;               
