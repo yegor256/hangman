@@ -19,32 +19,32 @@ public final class NewGame implements game.NewGame {
         private static final int DEFAULT_FAILURES = 7;
         private final NextWord words;
         private final MaxInteger maxFailures;
-        private final Output output;
         private final CharInput charInput;
+        private final Output output;        
 
-        public NewGame(Output output, CharInput charInput) {
-                this(DEFAULT_FAILURES, output, charInput);         
+        public NewGame(CharInput charInput, Output output) {
+                this(DEFAULT_FAILURES, charInput, output);         
         }
 
-        public NewGame(final int maxFailures, final Output output, 
-                final CharInput charInput) {
-                this(new MaxFailures(maxFailures), output, charInput);          
+        public NewGame(final int maxFailures, final CharInput charInput,
+                final Output output) {
+                this(new MaxFailures(maxFailures), charInput, output);          
         }       
 
-        public NewGame(final MaxInteger maxFailures, final Output output, 
-                final CharInput charInput) {
-                this(new RandomWords(), maxFailures, output, charInput);              
+        public NewGame(final MaxInteger maxFailures, final CharInput charInput,
+                final Output output) {
+                this(new RandomWords(), maxFailures, charInput, output);              
         }               
 
         public NewGame(final NextWord words, final MaxInteger maxFailures, 
-                final Output output, final CharInput charInput) {
+                final CharInput charInput, final Output output) {
                 this.words = words;
-                this.maxFailures = maxFailures;
-                this.output = output;
+                this.maxFailures = maxFailures;                
                 this.charInput = charInput;
+                this.output = output;
         }
 
         public void start() {                
-                new Attempt(words.next(), maxFailures, output, charInput).promised();
+                new Attempt(words.next(), maxFailures, charInput, output).promised();
         }                            
 }

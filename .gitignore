@@ -6,3 +6,5 @@ target/
 .project
 .settings
 linter/
+
+src/main/java/hangman/game/MaxLives.java

@@ -5,10 +5,10 @@ import java.util.Iterator;
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class Keyword implements CharInput {
+public final class Keyboard implements CharInput {
         private final Iterator<String> in;
 
-        public Keyword(final Iterator<String> in) {
+        public Keyboard(final Iterator<String> in) {
                 this.in = in;
         }
 

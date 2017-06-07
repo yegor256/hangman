@@ -22,54 +22,57 @@ import word.LetterOnCodition;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class Attempt implements game.Attempt {
-        private final CharInput guessChar;
-        private final WordLetters pastWord;
+public final class Attempt implements game.Attempt {        
+        private final WordLetters word;
         private final MaxInteger maxFailures;
-        private final Failures pastFailures;
+        private final Failures failures;
+        private final CharInput input;
         private final Output output;
 
-        public Attempt (final WordLetters pastWord, final MaxInteger maxFailures, 
-            final Output output, final CharInput guessChar) {
-            this(new GuessLetterInput(guessChar, output), pastWord, maxFailures, output);
+        public Attempt (final WordLetters word, final MaxInteger maxFailures,
+            final CharInput input, final Output output) {
+                this(word, maxFailures, new PlayerFailures(), 
+                    new GuessLetterInput(input, output), output);
         }
 
-        public Attempt(final CharInput inputView, final WordLetters pastWord, 
-            final MaxInteger maxFailures, final Output output) {
-                this(inputView, pastWord, maxFailures, new PlayerFailures(), output);
-        }
-
-        public Attempt(final CharInput inputView, final WordLetters pastWord, 
-            final MaxInteger maxFailures, Failures pastFailures, 
-            final Output output) {
-                this.guessChar = inputView;
-                this.pastWord = pastWord;
+        public Attempt(final WordLetters word, final MaxInteger maxFailures, 
+                Failures failures, final CharInput input, 
+                final Output output) {                
+                this.word = word;
                 this.maxFailures = maxFailures;
-                this.pastFailures = pastFailures;
-                this.output = output;                
+                this.failures = failures;
+                this.input = input;
+                this.output = output;
         }
 
         @Override
-        public void promised() {                   
-                // It requires another level of abstraction:
-                //      new Action(new Evaluation(new Result()))   
-                final WordLetters presentWord = new LettersOn(pastWord, new WhereSymbol(guessChar.next()));
-                final LetterOnCodition wasLetterOn = new WasLetterOn(presentWord, pastWord);
-                final View missedView = new MissedView(output, new FailuresMessage(maxFailures, pastFailures));
+        public void promised() {
+                 // new Reactions(word, updatedWord = 
+                 //                new LettersOn(
+                 //                    word, new WhereSymbol(input.next())
+                 //                ), maxFailures, failures, input, output,                                
+                 //        new Events(updatedWord, word, maxFailures, failures))                
+
+                // Integrate in this present assignment.
+                final WordLetters updatedWord = new LettersOn(word, new WhereSymbol(input.next()));
+                // Go to inside conditions.
+                final LetterOnCodition wasLetterOn = new WasLetterOn(updatedWord, word);
+                // Go to the reactions.
+                final View missedView = new MissedView(output, new FailuresMessage(maxFailures, failures));
+                // Integrate maxFailures with failures as failures.
 
                 new OnWon(new WonView(output),
                         new OnLost(new LostView(output, missedView),
-                            new OnGuessedAttempt(new NewAttemptView(output, presentWord), 
-                                                    presentWord, maxFailures, pastFailures, output, guessChar, 
-                                new OnMissedAttempt(new NewAttemptView(output, presentWord, missedView), 
-                                                    presentWord, maxFailures, pastFailures, output, guessChar,                                       
-                                        new OnGuessed(new GuessedView(output),
-                                                new OnMissed(maxFailures, pastFailures, 
-                                                        new OnBase(
-                                                                new IfWon(new IsWordOn(presentWord), 
-                                                                        new IfGuessed(wasLetterOn,
-                                                                                new IfMissed(wasLetterOn,
-                                                                                        new IfBase()))))))))))
-                .bubbled();                        
+                                new OnGuessed(new NewAttemptView(output, updatedWord, new GuessedView(output)), 
+                                        updatedWord, maxFailures, failures, input, output,
+                                        new OnMissed(new NewAttemptView(output, updatedWord, missedView), 
+                                                updatedWord, maxFailures, failures, input, output,
+                                                // Go to the the constructor of reactions.
+                                                new OnBase(
+                                                        new IfGuessed(wasLetterOn, new IsWordOn(updatedWord),
+                                                                new IfMissed(wasLetterOn, maxFailures, failures,
+                                                                        // Go to the constructor of conditions
+                                                                        new IfBase())))))))
+                .bubbled();
         }
 }

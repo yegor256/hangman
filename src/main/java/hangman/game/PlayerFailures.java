@@ -14,6 +14,7 @@ public final class PlayerFailures implements Failures {
                 this.current = current;
         }
 
+        @Override
         public Integer current() {
                 return current;
         }

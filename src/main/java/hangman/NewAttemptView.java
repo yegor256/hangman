@@ -1,10 +1,11 @@
 package hangman;
 
 import game.Output;
+import view.View;
+import view.EmptyView;
+import word.LetterView;
 import word.WordLetters;
 import java.util.stream.Collectors;
-import word.LetterView;
-import view.View;
 
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)

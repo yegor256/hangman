@@ -14,7 +14,7 @@
  */
 package hangman;
 
-import game.Keyword;
+import game.Keyboard;
 import game.Console;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,7 +41,7 @@ public class Main {
     public void exec() {
         try (final PrintStream out = new PrintStream(this.output)) {
             final Iterator<String> scanner = new Scanner(this.input);
-            new NewGame(max, new Console(out), new Keyword(scanner)).start();                                        
+            new NewGame(max, new Keyboard(scanner), new Console(out)).start();                                        
         }        
     }
 }

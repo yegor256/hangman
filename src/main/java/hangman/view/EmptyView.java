@@ -1,6 +1,4 @@
-package hangman;
-
-import view.View;
+package view;
 
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)

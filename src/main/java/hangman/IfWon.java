@@ -1,5 +1,6 @@
 package hangman;
 
+import game.IsGuessedAttempt;
 import game.IsGuessed;
 import game.WonEvent;
 import event.Dispatching;
@@ -27,7 +28,7 @@ public final class IfWon implements Dispatching {
                 Event sourceEvent = source.event();                     
                 return                  
                 (new IsUncaught(sourceEvent).matched() 
-                        || new IsGuessed(sourceEvent).matched()) 
+                        || new IsGuessedAttempt(sourceEvent).matched()) 
                 && wordOnCondition.confirmed()
                 ? new WonEvent()
                 : sourceEvent
