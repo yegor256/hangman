@@ -1,12 +1,9 @@
 package hangman;
 
-import java.util.stream.Collectors;
+import game.Lifespan;
+import game.Lives;
 import game.CharInput;
 import game.Output;
-import game.MaxInteger;
-import game.MaxFailures;
-import word.NextWord;
-import word.RandomWords;
 import word.NextWord;
 import word.RandomWords;
 
@@ -18,7 +15,7 @@ import word.RandomWords;
 public final class NewGame implements game.NewGame {
         private static final int DEFAULT_FAILURES = 7;
         private final NextWord words;
-        private final MaxInteger maxFailures;
+        private final Lifespan lifespan;
         private final CharInput charInput;
         private final Output output;        
 
@@ -28,23 +25,23 @@ public final class NewGame implements game.NewGame {
 
         public NewGame(final int maxFailures, final CharInput charInput,
                 final Output output) {
-                this(new MaxFailures(maxFailures), charInput, output);          
+                this(new Lives(maxFailures), charInput, output);          
         }       
 
-        public NewGame(final MaxInteger maxFailures, final CharInput charInput,
+        public NewGame(final Lifespan lifespan, final CharInput charInput,
                 final Output output) {
-                this(new RandomWords(), maxFailures, charInput, output);              
+                this(new RandomWords(), lifespan, charInput, output);              
         }               
 
-        public NewGame(final NextWord words, final MaxInteger maxFailures, 
+        public NewGame(final NextWord words, final Lifespan lifespan, 
                 final CharInput charInput, final Output output) {
                 this.words = words;
-                this.maxFailures = maxFailures;                
+                this.lifespan = lifespan;                
                 this.charInput = charInput;
                 this.output = output;
         }
 
         public void start() {                
-                new Attempt(words.next(), maxFailures, charInput, output).promised();
+                new Attempt(words.next(), lifespan, charInput, output).promised();
         }                            
 }

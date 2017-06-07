@@ -29,5 +29,9 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Dispatching {
+        /**
+         * It distpaches an event from a matched condition.
+         * @return Event
+         */         
 	public Event event();
 }

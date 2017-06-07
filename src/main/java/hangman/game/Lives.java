@@ -3,9 +3,13 @@ package game;
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class Lives implements LivesLeft {        
+public final class Lives implements Lifespan {        
         private final MaxLivesInteger max;
         private final Integer lives;
+
+        public Lives(final Integer max) {
+            this(max, max);
+        }
 
         public Lives(final Integer max, final Integer lives) {
             this(new MaxLives(max), lives);
@@ -17,13 +21,8 @@ public final class Lives implements LivesLeft {
         }
 
         @Override
-        public boolean still() {
-               return ! max.reached(lives);
-        }
-
-        @Override
-        public Integer left() {
-               return max.number() - lives;
+        public Integer left() {               
+               return lives;
         }        
 
         @Override

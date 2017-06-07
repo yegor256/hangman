@@ -30,5 +30,8 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Event {
+        /**
+         * @return true if the event name is matched.
+         */      
 	public boolean is(final String name);
 }

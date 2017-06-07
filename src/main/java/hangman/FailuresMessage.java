@@ -1,48 +1,42 @@
 package hangman;
 
-import game.Incremented;
-import game.Failures;
-import game.MaxInteger;
+import game.Lifespan;
 import game.FailuresMedia;
 
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class FailuresMessage implements FailuresMedia {
-        private final MaxInteger maxFailures;
-        private final Failures failures;
+        private final Lifespan lifespan;
         private final String message;
         
-        public FailuresMessage(final MaxInteger maxInteger, 
-                final Failures failures) {
-                this(maxInteger, new Incremented(failures), "");
+        public FailuresMessage(final Lifespan lifespan) {
+                this(lifespan, "");
         }
 
-        public FailuresMessage(final MaxInteger maxInteger, 
-                final Failures failures, final String message) {
-                this.maxFailures = maxInteger;
-                this.failures = failures;
+        public FailuresMessage(final Lifespan lifespan, final String message) {
+                this.lifespan = lifespan;
                 this.message = message;
         }       
 
         @Override
         public FailuresMedia withCurrent(String template) {
                 return 
-                new FailuresMessage(maxFailures, failures, message
-                        +String.format(template, failures.current()));                                
+                new FailuresMessage(lifespan, message
+                        +String.format(template, lifespan.total()-lifespan.left()));                                
         }
 
         @Override
         public FailuresMedia withText(String text) {
                 return 
-                new FailuresMessage(maxFailures, failures, message+text);
+                new FailuresMessage(lifespan, message+text);
         }       
 
         @Override
         public FailuresMedia withMax(String template) {
                 return 
-                new FailuresMessage(maxFailures, failures, message
-                        +String.format(template, maxFailures.number()));
+                new FailuresMessage(lifespan, message
+                        +String.format(template, lifespan.total()));
         }       
 
         @Override

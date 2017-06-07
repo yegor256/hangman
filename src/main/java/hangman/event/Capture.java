@@ -29,5 +29,9 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Capture {
+        /**
+         * It captures an event and propagate it.
+         * @return Event bubbled.
+         */        
 	public Event bubbled();
 }

@@ -26,17 +26,28 @@ package event;
 import cactoos.comparable.string.InsensitiveEqual;
 
 /**
- * Base event for decoration.
+ * Base event for decoration. Thus, the upper levels of decoration can
+ * be exchanged indistinctly.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class BaseEvent implements Event {
+        /**
+         * The event's name.
+         */        
 	private final String name;
 
+        /**
+         * Constructor.
+         * @param name of the event
+         */
 	public BaseEvent(final String name) {
 		this.name = name;
 	}
 
+        /**
+         * @return true if the event name is matched.
+         */
         @Override
 	public boolean is(final String name) {
 		return new InsensitiveEqual(this.name, name).ok();		

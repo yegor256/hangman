@@ -1,7 +1,6 @@
 package game;
 
-public interface LivesLeft {
-        public boolean still();
+public interface Lifespan {
         public Integer left();      
         public Integer total();
 }

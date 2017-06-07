@@ -24,18 +24,30 @@
 package event;
 
 /**
- * Base capture for decoration. Its function is to do nothing. Thus, it 
- * only resends the event. 
+ * It is the interface between the dispatching events and the 
+ * reactions. It plays the role of a base decorator for 
+ * capturing events. Its function is to do nothing. 
+ * Thus, it only resends the event. 
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class OnBase implements Capture {
+        /**
+         * It is the object that dispatches an event.
+         */        
 	private final Dispatching dispatching;
 
+        /**
+         * Constructor.
+         * @param dispatching is the interface to
+         */
 	public OnBase(final Dispatching dispatching) {
 		this.dispatching = dispatching;
 	}
 
+        /**
+         * @return Event gotten from the layer where the events are dispatched.
+         */
 	@Override
 	public Event bubbled() {	
 		return dispatching.event();

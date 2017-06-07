@@ -25,12 +25,18 @@ package event;
 
 /**
  * Base decorator for distpatching events. It doesn't match any criteria 
- * and thus, it always dispatches an uncaught event.
+ * and thus, it always dispatches an uncaught event. Upper levels of 
+ * decoration can be exchanged indistinctly as long as the logic
+ * in each condition doesn't depend on the lower one and this
+ * proposition always must be true.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class IfBase implements Dispatching {
-
+        /**
+         * An uncaught event from the begining.
+         * @return Event uncaught
+         */
 	@Override
 	public Event event() {		
 		return new UncaughtEvent();

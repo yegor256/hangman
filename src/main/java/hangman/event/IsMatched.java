@@ -24,19 +24,33 @@
 package event;
 
 /**
- * Predicate for checking if the message is "won".
+ * Predicate for identifying the event.
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class IsMatched implements Matched {
+        /**
+         * The event's name
+         */        
 	private final String name;
+        /**
+         * The event to be compared with the name.
+         */        
 	private final Event event;
 
+        /**
+         * Constructor
+         * @param name of the event
+         * @param event to be compared.
+         */
 	public IsMatched(final String name, final Event event) {
 		this.name = name;
 		this.event = event;
 	}	
 
+        /**
+         * @return true if the event passed matches the name
+         */
 	public boolean matched() {
 		return event.is(name);
 	}

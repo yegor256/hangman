@@ -29,5 +29,8 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public interface Matched {
+        /**
+         * @return true if the event matches the name provided.
+         */        
 	public boolean matched();
 }

@@ -1,5 +1,6 @@
 package hangman;
 
+import game.InputCharView;
 import game.CharInput;
 import game.Output;
 import view.View;
@@ -7,7 +8,7 @@ import view.View;
 /**
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class GuessLetterInput implements CharInput {        
+public final class GuessLetterInput implements InputCharView {        
         private final CharInput charInput;
         private final Output output;
 

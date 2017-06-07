@@ -31,12 +31,22 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class IsUncaught implements Matched {
+        /**
+         * It is the meta implementation in place of inheritance.
+         */        
 	private final Matched meta;
 
+        /**
+         * Constructor
+         * @param event to be compared.
+         */
 	public IsUncaught(final Event event) {
 		this.meta = new IsMatched("UNCAUGHT", event);
 	}	
 
+        /**
+         * @return true if the event is uncaught.
+         */
 	public boolean matched() {
 		return meta.matched();
 	}

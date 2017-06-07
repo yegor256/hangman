@@ -29,13 +29,25 @@ package event;
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
 public final class UncaughtEvent implements Event {
+        /**
+         * The uncaught event name.
+         */        
 	private final static String EVENT_NAME = "UNCAUGHT";
+        /**
+         * The base implementation for event.
+         */        
 	private final Event baseEvent;
 
+        /**
+         * Constructor.
+         */        
 	public UncaughtEvent() {
 		this.baseEvent = new BaseEvent(EVENT_NAME);
 	}
 
+        /**
+         * @return true if the name of the event matches.
+         */
         @Override
         public boolean is(final String name) {
                 return baseEvent.is(name);
