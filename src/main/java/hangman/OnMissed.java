@@ -46,6 +46,7 @@ public final class OnMissed implements Capture {
                         // @todo input receives view.show() as decorator.
                         view.show();
                         new Attempt(word, maxFailures, 
+                                // new LostLife(lives).lives()
                                 new Incremented(failures), input, output 
                         ).promised();    
                         // Temporary. It should return new Atempt(...).bubbled(). But first,

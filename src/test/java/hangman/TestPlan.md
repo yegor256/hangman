@@ -10,7 +10,7 @@
 
                 # For testing: you hit!
                 LetterOnCodition wordCondition =
-                new WasLetterOn(
+                new IsLetterOn(
                         new LettersOn(
                                 new CharactersAsWord(
                                         new Characters("simplicity")
@@ -22,7 +22,7 @@
 
                 # For testing: you won!
                 LetterOnCodition wordCondition =
-                     new WasLetterOn(
+                     new IsLetterOn(
                              new LettersOn(new WhereSymbol('i'),
                                      new CharactersAsWord(
                                              new Characters(
@@ -31,7 +31,7 @@
 
                 # For testing: you missed it!
                 LetterOnCodition wordCondition =
-                new WasLetterOn(
+                new IsLetterOn(
                         new LettersOn(
                                 new CharactersAsWord(
                                         new Characters("simplicity")

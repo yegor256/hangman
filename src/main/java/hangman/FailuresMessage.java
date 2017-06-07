@@ -15,7 +15,7 @@ public final class FailuresMessage implements FailuresMedia {
         
         public FailuresMessage(final MaxInteger maxInteger, 
                 final Failures failures) {
-                this(maxInteger, failures, "");
+                this(maxInteger, new Incremented(failures), "");
         }
 
         public FailuresMessage(final MaxInteger maxInteger, 
@@ -29,8 +29,7 @@ public final class FailuresMessage implements FailuresMedia {
         public FailuresMedia withCurrent(String template) {
                 return 
                 new FailuresMessage(maxFailures, failures, message
-                        +String.format(template, 
-                                new Incremented(failures).current()));
+                        +String.format(template, failures.current()));                                
         }
 
         @Override

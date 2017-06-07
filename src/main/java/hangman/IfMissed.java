@@ -36,6 +36,7 @@ public final class IfMissed implements Dispatching {
                 Event sourceEvent = source.event();
                 return                  
                 new IsUncaught(sourceEvent).matched() && ! letterOnCondition.confirmed()
+                // ? new LostLife(lives).lives().still() ? new MissedAttemptEvent() : new LostEvent();
                 ? maxFailures.reached(new Incremented(failures)) 
                         ? new LostEvent() 
                         : new MissedAttemptEvent()

@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
  *
  * @author Ix Manuel (ixmanuel@yahoo.com)
  */
-public final class WasLetterOn implements LetterOnCodition {
+public final class IsLetterOn implements LetterOnCodition {
         private final WordLetters present;
         private final WordLetters past;
 
-        public WasLetterOn(final WordLetters present, final WordLetters past) {
+        public IsLetterOn(final WordLetters present, final WordLetters past) {
                 this.present = present;
                 this.past = past;
         }
