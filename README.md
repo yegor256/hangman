@@ -13,7 +13,7 @@ are no hidden letters anymore, the computer looses.
 ## Pull request
 - Without:
 	- a single private method;
-	- parameters in methods (except for the PrintStream out);
+	- parameters in methods (except for out.display(label));
 	- Null;
 	- public constants;
 	- Getters/Setters;
@@ -26,7 +26,7 @@ are no hidden letters anymore, the computer looses.
 	- Singleton;
 	- Annotations;
 	- Class casting;
-	- Utility classes (proposal for cactoos without generics);
+	- Utility classes.
 
 - With:
 	- Naming accordingly with the EO1 approach.
@@ -42,17 +42,15 @@ are no hidden letters anymore, the computer looses.
 	- Validating decorators;
 	- An "ugly" view in hangman.Attempt, but you can see at a glance the architecture;
 	- One primary constructors;
-	- Code-free constructors;
-	- Programming to the contract (interface);
+	- Code-free constructors. Thus, the code is declarative;
 	- Contract-oriented programing;
 	
 - Without following:
 	- Multiple returns (I don't understad why it is a code smell);
 	- Compound names in vars, but very balanced.	
-	- Empty lines. I let empty lines between state, constructors and methods (Work in process for Attempt).
+	- Empty lines. I let empty lines between state, constructors and methods.
 
 - Todo:
-	- Removing three temporal coupling lines.
 	- Removing new in methods.
 	- Caching and improving the algorithms.
 	- Write identified Tests in TestPlan.md
