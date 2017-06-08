@@ -1,0 +1,15 @@
+﻿
+new Game(
+	new Screen(
+		new GameState(
+			new GameLogic(
+				new AssumedLetterSource(
+					new Keyboard()
+				),
+				new GameRules(
+					new MistakeCount(5)
+				)
+			)
+		)
+	)
+).Play();
