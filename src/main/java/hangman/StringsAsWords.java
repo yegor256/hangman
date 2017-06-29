@@ -8,7 +8,6 @@ public final class StringsAsWords {
         this.words = words;
     }
 
-    // todo: Move new operator to constructor
     public Word[] words() throws Exception {
         final Word[] result = new Word[this.words.length];
         for (int i = 0; i < this.words.length; i++) {
