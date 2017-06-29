@@ -11,10 +11,7 @@ public final class Application {
     private final int mistakes;
 
     public Application(final InputStream input, final OutputStream output, final int mistakes) {
-        this.input = input;
-        this.output = output;
-        this.args = new String[0];
-        this.mistakes = mistakes;
+        this(input, output, mistakes, new String[0]);
     }
 
     public Application(final InputStream input, final OutputStream output, final int mistakes, final String... args) {
