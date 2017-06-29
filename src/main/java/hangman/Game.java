@@ -12,23 +12,23 @@ public final class Game {
     private final InputStream input;
     private final OutputStream output;
 
-    public Game(final String[] words, final int mistakes) {
+    public Game(final String[] words, final int mistakes) throws Exception {
         this(new Words(words).random(), mistakes, System.in, System.out);
     }
 
-    public Game(final Word[] words, final int mistakes) {
+    public Game(final Word[] words, final int mistakes) throws Exception {
         this(new Words(words).random(), mistakes, System.in, System.out);
     }
 
-    public Game(final String[] words, final int mistakes, final InputStream input, final OutputStream output) {
+    public Game(final String[] words, final int mistakes, final InputStream input, final OutputStream output) throws Exception {
         this(new Words(words).random(), mistakes, input, output);
     }
 
-    public Game(final Word[] words, final int mistakes, final InputStream input, final OutputStream output) {
+    public Game(final Word[] words, final int mistakes, final InputStream input, final OutputStream output) throws Exception {
         this(new Words(words).random(), mistakes, input, output);
     }
 
-    public Game(final Word word, final int mistakes, final InputStream input, final OutputStream output) {
+    public Game(final Word word, final int mistakes, final InputStream input, final OutputStream output) throws Exception {
         this.word = word;
         this.mistakes = mistakes;
         this.input = input;

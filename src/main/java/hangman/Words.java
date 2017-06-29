@@ -6,7 +6,7 @@ public final class Words {
 
     private final Word[] words;
 
-    public Words(final String[] words) {
+    public Words(final String[] words) throws Exception {
         this(new StringsAsWords(words).words());
     }
 
@@ -14,7 +14,7 @@ public final class Words {
         this.words = words;
     }
 
-    public Word random() {
+    public Word random() throws Exception {
         return this.words[new Random().nextInt(this.words.length)];
     }
 }

@@ -14,7 +14,7 @@ public final class Word {
         this.mask = mask;
     }
 
-    public String maskedValue() {
+    public String maskedValue() throws Exception {
         String masked = new String();
         for (int i = 0; i < this.mask.length; i++) {
             masked += this.mask[i] == 0 ? "*" : this.letters.charAt(i);
@@ -22,11 +22,11 @@ public final class Word {
         return masked;
     }
 
-    public String unmaskedValue() {
+    public String unmaskedValue() throws Exception {
         return this.letters;
     }
 
-    public boolean opened() {
+    public boolean opened() throws Exception {
         for (final int i : this.mask) {
             if (i == 0) {
                 return false;
@@ -35,7 +35,7 @@ public final class Word {
         return true;
     }
 
-    public boolean visible(final char chr) {
+    public boolean visible(final char chr) throws Exception {
         final int[] chars = this.letters.codePoints().toArray();
         for (int i = 0; i < chars.length; i++) {
             if (chr == chars[i] && this.mask[i] == 1) {
