@@ -20,7 +20,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 
-public final class MainTest {
+public final class ApplicationTest {
 
     @Test
     public void failsAfterManyWrongAttempts() throws Exception {
@@ -28,7 +28,7 @@ public final class MainTest {
             "a\na\na\na\na\n".getBytes()
         );
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        new Main(input, output, 1).exec();
+        new Application(input, output, 1).exec();
         assertThat(output.toString(), containsString("You lost"));
     }
 
