@@ -14,14 +14,16 @@
  */
 package hangman;
 
+import java.awt.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.*;
 
-public class Main {
+public class Main extends JFrame {
 
     private final InputStream input;
     private final OutputStream output;
@@ -31,11 +33,32 @@ public class Main {
         "neighborhood", "relationship", "mathematics",
         "university", "explanation"
     };
-
+    JLabel wordBox;
+    JLabel info;
+    JTextField answer;
     public Main(final InputStream in, final OutputStream out, final int m) {
+    	super("hangman");
+    	Container c = getContentPane();
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	c.setLayout(null);
+    	
+    	wordBox = new JLabel();
+    	info = new JLabel("Guess a letter: ");
+    	answer = new JTextField();
+    	answer.setBounds(170, 40, 30, 30);
+    	info.setBounds(50, 40, 100, 30);
+    	wordBox.setBounds(50, 80, 100, 30);
+    	
+    	c.add(info);
+    	c.add(wordBox);
+    	c.add(answer);
+    	
         this.input = in;
         this.output = out;
         this.max = m;
+        
+        setSize(new Dimension(400, 300));
+        setVisible(true);
     }
 
     public static void main(final String... args) {
@@ -46,6 +69,11 @@ public class Main {
         String word = WORDS[new Random().nextInt(WORDS.length)];
         boolean[] visible = new boolean[word.length()];
         int mistakes = 0;
+        StringBuffer str = new StringBuffer();
+        for(int i=0; i<word.length(); i++) {
+        	str.append("_ ");
+        }
+        wordBox.setText(str.toString());
         try (final PrintStream out = new PrintStream(this.output)) {
             final Iterator<String> scanner = new Scanner(this.input);
             boolean done = true;
@@ -59,6 +87,7 @@ public class Main {
                 if (done) {
                     break;
                 }
+               
                 out.print("Guess a letter: ");
                 char chr = scanner.next().charAt(0);
                 boolean hit = false;
