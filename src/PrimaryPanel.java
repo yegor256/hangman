@@ -1,8 +1,6 @@
-package gui;
 import javax.swing.*;
 import java.awt.*;
 
-@SuppressWarnings("serial")
 public class PrimaryPanel extends JPanel {
 
 	private StartPanel startPanel;

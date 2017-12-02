@@ -1,10 +1,8 @@
-package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-@SuppressWarnings("serial")
 public class StartPanel extends JPanel {
 
 	private JButton btnStart,btnHelp;
@@ -53,13 +51,12 @@ public class StartPanel extends JPanel {
 
 	
 	private class ButtonListener implements ActionListener{
-		@Override
 		public void actionPerformed(ActionEvent event) {
 			
 			Object obj = event.getSource();
 			
 			if (obj == btnStart) {
-				
+				primary.setVisibleGamePanel();
 			} else if (obj == btnHelp) {
 				primary.setVisibleHowToPlayPanel();
 				

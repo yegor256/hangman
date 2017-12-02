@@ -1,19 +1,3 @@
-/*
- * The MIT License (MIT)
- *
- * Copyright (c) 2017 Yegor Bugayenko
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- */
-package gui;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.InputStream;
@@ -37,14 +21,22 @@ public class GamePanel extends JPanel {
         "neighborhood", "relationship", "mathematics",
         "university", "explanation"
     };
+    private PrimaryPanel primary;
     // component »ý¼º
     private JLabel wordBox;
     private JLabel info;
     private JTextField answer;
-    JLabel message;
-    public String input;
+    private JLabel message;
+    private String input;
     
     public GamePanel(PrimaryPanel p) {
+    	
+    	setPreferredSize(new Dimension(400, 400));
+        setBackground(Color.white);
+        setLayout(null);
+        
+    	primary = p;
+    	
     	max = 10;
     	input = new String();
     	message = new JLabel("input...");
@@ -73,8 +65,7 @@ public class GamePanel extends JPanel {
     	add(wordBox);
     	add(answer);
         
-        setSize(new Dimension(400, 300));
-        setVisible(true);
+        
     }
 
     public void exec() {

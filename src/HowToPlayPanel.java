@@ -1,4 +1,3 @@
-package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -50,6 +49,7 @@ public class HowToPlayPanel extends JPanel {
 		
 		btnBack = new JButton("<<BACK");
 		btnBack.setBounds(250,320,90,30);
+		btnBack.setBackground(Color.white);
 		btnBack.setFont(new Font("consolas",Font.BOLD,13));
 		btnBack.addActionListener(btnL);
 	
@@ -57,7 +57,6 @@ public class HowToPlayPanel extends JPanel {
 	}
 	
 	private class ButtonListener implements ActionListener{
-		@Override
 		public void actionPerformed(ActionEvent event) {
 			
 			Object obj = event.getSource();
