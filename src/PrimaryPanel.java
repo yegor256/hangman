@@ -1,3 +1,4 @@
+package gui;
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,12 +34,13 @@ public class PrimaryPanel extends JPanel {
 		howPanel.setVisible(false);
 		startPanel.setVisible(false);
 		gamePanel.setVisible(true);
+		gamePanel.run();
 	}
 	
 	public void setVisibleHowToPlayPanel() {
 		howPanel.setVisible(true);
 		startPanel.setVisible(false);
-		gamePanel.setVisible(false);
+		gamePanel.setVisible(false);	
 	}
 	public void setVisibleStarPanel() {
 		

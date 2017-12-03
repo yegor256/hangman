@@ -1,3 +1,4 @@
+package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.InputStream;
@@ -13,7 +14,7 @@ import javax.swing.text.PlainDocument;
 
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Runnable {
 
     private int max;
     private static final String[] WORDS = {
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel {
     	answer.setDocument(new JTextFieldLimit(1));
     	answer.setHorizontalAlignment(SwingConstants.CENTER);
     	answer.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 25));
+    	
     	answer.addKeyListener(new KeyAdapter() {
     		public void keyPressed(KeyEvent e) {
     			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -64,12 +66,11 @@ public class GamePanel extends JPanel {
     	add(info);
     	add(wordBox);
     	add(answer);
-        
-        
     }
-
-    public void exec() {
-        String word = WORDS[new Random().nextInt(WORDS.length)];
+    
+	@Override
+	public void run() {
+		String word = WORDS[new Random().nextInt(WORDS.length)];
         boolean[] visible = new boolean[word.length()];  // 단어가 보여지는지의 여부
         int mistakes = 0;
         StringBuffer str = new StringBuffer();
@@ -77,7 +78,6 @@ public class GamePanel extends JPanel {
         	str.append("_ ");
         }
         wordBox.setText(str.toString());
-        
         boolean done = true;
         while (mistakes < this.max) {  // 실수가 최대값을 넘지 않는 동안
              done = true;
@@ -89,13 +89,16 @@ public class GamePanel extends JPanel {
              if (done) {  // 글자들이 모두 공개가 됐다면 종료
                 break;
              }
+             /*
              while(true) {
+            	message.setText(input+" " + answer.getText());
                	if(!input.isEmpty() && input.charAt(0) == answer.getText().charAt(0))
                		break;
-             }
-                
+             }*/
+             // 문제 되는 부분  
              boolean hit = false;
              for (int i = 0; i < word.length(); ++i) {
+            	 System.out.println(input.charAt(0) + " " + word.charAt(i));
                 if (word.charAt(i) == input.charAt(0) && !visible[i]) {
                     visible[i] = true;
                     hit = true;
@@ -114,7 +117,7 @@ public class GamePanel extends JPanel {
                    	str.append(word.charAt(i));
                 }
                 else {
-                  	str.append(" _ ");
+                  	str.append("_ ");
                 }
              }
         }
@@ -123,6 +126,6 @@ public class GamePanel extends JPanel {
         }
         else {
            	message.setText("You lost.");
-        }
-    }
+        }	
+	}
 }
