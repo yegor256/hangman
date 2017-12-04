@@ -7,11 +7,13 @@ public class PrimaryPanel extends JPanel {
 	private StartPanel startPanel;
 	private HowToPlayPanel howPanel;
 	private GamePanel gamePanel;
+	Thread gameExec;
 	
 	public PrimaryPanel() {
 		setPreferredSize(new Dimension(400,400));
 		setBackground(Color.white);
 		setLayout(null);
+		
 		
 		startPanel = new StartPanel(this);
 		startPanel.setBounds(0,0,400,400);
@@ -24,6 +26,7 @@ public class PrimaryPanel extends JPanel {
 		gamePanel = new GamePanel(this);
 		gamePanel.setBounds(0,0,400,400);
 		gamePanel.setVisible(false);
+		gameExec = new Thread(gamePanel);
 		
 		add(startPanel);
 		add(howPanel);
@@ -34,7 +37,7 @@ public class PrimaryPanel extends JPanel {
 		howPanel.setVisible(false);
 		startPanel.setVisible(false);
 		gamePanel.setVisible(true);
-		gamePanel.run();
+		gameExec.start();
 	}
 	
 	public void setVisibleHowToPlayPanel() {

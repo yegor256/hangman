@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     	primary = p;
     	
     	max = 10;
-    	input = new String();
+    	input = new String("wait");
     	message = new JLabel("input...");
     	message.setFont(new Font("Serif", Font.PLAIN, 15));
     	wordBox = new JLabel();
@@ -89,21 +89,24 @@ public class GamePanel extends JPanel implements Runnable {
              if (done) {  // 글자들이 모두 공개가 됐다면 종료
                 break;
              }
-             /*
+             
              while(true) {
             	message.setText(input+" " + answer.getText());
-               	if(!input.isEmpty() && input.charAt(0) == answer.getText().charAt(0))
+               	if(!input.equals("wait")) {
+               		input = "wait";
                		break;
-             }*/
+               	}
+             }
              // 문제 되는 부분  
              boolean hit = false;
              for (int i = 0; i < word.length(); ++i) {
-            	 System.out.println(input.charAt(0) + " " + word.charAt(i));
-                if (word.charAt(i) == input.charAt(0) && !visible[i]) {
+            	 System.out.println(answer.getText().charAt(0) + " " + word.charAt(i));
+                if (word.charAt(i) == answer.getText().charAt(0) && !visible[i]) {
                     visible[i] = true;
                     hit = true;
                 }
              }
+             
              if (hit) {
                 message.setText("Hit!\n");
              }
