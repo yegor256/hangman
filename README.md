@@ -22,6 +22,54 @@ Then, run:
 $ java -classpath target/classes hangman.Main
 ```
 
+
+
+## 17/12/06 Code fixed by [GradeScholarship](https://github.com/GradeScholarship/hangman)
+
+### Contents
+
+1. implement GUI by using javax.swing
+
+2. now, the picture changes if the user enters wrong letter
+
+3. exec( ) problem fixed ( by implementing thread)
+
+4. add more words
+
+5. change words
+
+6. now, the program imports word from Words.txt ( FIO )
+
+### execution environment
+
+Windows = available
+
+OSX = available
+
+Linux = didn't tried
+
+etc.. = didn't tried
+
+executing program with this method is right :
+
+First, build it:
+
+```
+$ mvn clean package
+```
+
+Then, run:
+
+```
+$ java -classpath target/classes hangman.Main
+```
+
+but using [Eclipse oxygen](https://projects.eclipse.org/releases/oxygen) is easier for beginner
+
+
+
+
+
 ## It is not object-oriented
 
 This Java code is very procedural, imperative and not elegant at all.
