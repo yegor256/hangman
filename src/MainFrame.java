@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
 		frame.getContentPane().add(primary);
 		
 		frame.pack();
-		frame.setLocation(500, 200);
+		frame.setBounds(500, 200, 450, 400);
 		frame.setVisible(true);
 		
 	}

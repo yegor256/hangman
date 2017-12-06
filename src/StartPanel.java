@@ -27,10 +27,10 @@ public class StartPanel extends JPanel {
 		
 		lblTitle = new JLabel("HANG MAN GAME");
 		lblTitle.setFont(new Font("consolas",Font.BOLD,45));
-		lblTitle.setBounds(30,100,340,50);
+		lblTitle.setBounds(55,100,340,50);
 		add(lblTitle);
 		
-		imageHangMan = new ImageIcon("Images/hangman.png");
+		imageHangMan = new ImageIcon("images/hangman.png");
 		
 		lblImage = new JLabel(imageHangMan);
 		lblImage.setBounds(185, 170, 200, 200);
