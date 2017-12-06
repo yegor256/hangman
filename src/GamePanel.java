@@ -20,14 +20,18 @@ import javax.swing.text.PlainDocument;
 public class GamePanel extends JPanel implements Runnable {
 
     private int max;
+    String word = new String();
     private static ArrayList<String> Words;
+    boolean[] visible;
+    boolean hit = false;
+    int mistakes = 0;
+    
     private PrimaryPanel primary;
     // component 생성
     private JLabel wordBox;
     private JLabel info;
     private JTextField answer;
-    private JLabel message;
-    private String input;
+    private JLabel message;    
     
     public GamePanel(PrimaryPanel p) {
     	
@@ -36,9 +40,18 @@ public class GamePanel extends JPanel implements Runnable {
         setLayout(null);
         
     	primary = p;
-    	
+    	// game status set
     	max = 10;
-    	input = new String("wait");
+    	try {
+			Words = readWords();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	word = Words.get(new Random().nextInt(Words.size()));
+    	visible = new boolean[word.length()];  // 단어가 보여지는지의 여부
+    	
+    	// component
     	message = new JLabel("input...");
     	message.setFont(new Font("Serif", Font.PLAIN, 15));
     	wordBox = new JLabel();
@@ -52,13 +65,27 @@ public class GamePanel extends JPanel implements Runnable {
     	answer.addKeyListener(new KeyAdapter() {
     		public void keyPressed(KeyEvent e) {
     			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-    				input = answer.getText();
+    				for (int i = 0; i < word.length(); ++i) {
+                	 	if (word.charAt(i) == answer.getText().charAt(0) && !visible[i]) {
+                	 		visible[i] = true;
+                	 		hit = true;
+                	 	}
+                    }
+    				if (hit) {
+    	                message.setText("Hit!\n");
+    	                hit = !hit;
+    	             }
+    	             else {
+    	               	++mistakes;
+    	               	message.setText("\"Missed, mistake "+ mistakes + " out of "+ max);                    
+    	             }
+    				answer.setText("");
     			}
     		}
     	});
     	answer.setBounds(140, 50, 30, 30);
     	info.setBounds(50, 50, 100, 30);
-    	wordBox.setBounds(50, 90, 150, 30);
+    	wordBox.setBounds(50, 90, 200, 30);
     	message.setBounds(50, 140, 150, 30);
     	
     	add(message);
@@ -69,15 +96,8 @@ public class GamePanel extends JPanel implements Runnable {
     
 	@Override
 	public void run() {
-		try {
-			Words = readWords();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String word = Words.get(new Random().nextInt(Words.size()));
-        boolean[] visible = new boolean[word.length()];  // 단어가 보여지는지의 여부
-        int mistakes = 0;
+	
+
         StringBuffer str = new StringBuffer();
         for(int i=0; i<word.length(); i++) {
         	str.append("_ ");
@@ -94,31 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
              if (done) {  // 글자들이 모두 공개가 됐다면 종료
                 break;
              }
-             
-             while(true) {
-            	message.setText(input+" " + answer.getText());
-               	if(!input.equals("wait")) {
-               		input = "wait";
-               		break;
-               	}
-             }
-             // 문제 되는 부분  
-             boolean hit = false;
-             for (int i = 0; i < word.length(); ++i) {
-            	 System.out.println(answer.getText().charAt(0) + " " + word.charAt(i));
-                if (word.charAt(i) == answer.getText().charAt(0) && !visible[i]) {
-                    visible[i] = true;
-                    hit = true;
-                }
-             }
-             
-             if (hit) {
-                message.setText("Hit!\n");
-             }
-             else {
-               	++mistakes;
-               	message.setText("\"Missed, mistake "+ mistakes + " out of "+ this.max);                    
-             }
+                
              str = new StringBuffer("The word: ");
              for (int i = 0; i < word.length(); ++i) {
                 if (visible[i]) {
@@ -128,12 +124,24 @@ public class GamePanel extends JPanel implements Runnable {
                   	str.append("_ ");
                 }
              }
+             wordBox.setText(str.toString());
         }
         if (done) {
            	message.setText("You won!");
+           	for (int i = 0; i < word.length(); ++i) {
+                if (visible[i]) {
+                   	str.append(word.charAt(i));
+                }
+                else {
+                  	str.append("_ ");
+                }
+             }
+             wordBox.setText(str.toString());
+           	// 게임 끝난 화면
         }
         else {
            	message.setText("You lost.");
+           	// 게임 끝난 화면
         }	
 	}
 	
