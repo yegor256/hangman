@@ -30,6 +30,31 @@ $ java -classpath target/classes hangman.Main
 
 1. implement GUI by using javax.swing
 
+Start panel:
+
+<img src="https://github.com/GradeScholarship/hangman/blob/master/images/capture1.PNG" width="250px" height="200px"/>
+
+Game panel:
+
+<img src="https://github.com/GradeScholarship/hangman/blob/master/images/capture2.PNG" width="250px" height="200px"/>
+
+If user makes mistake:
+
+<img src="https://github.com/GradeScholarship/hangman/blob/master/images/capture3.PNG" width="250px" height="200px"/>
+
+If user makes a hit:
+
+<img src="https://github.com/GradeScholarship/hangman/blob/master/images/capture4.PNG" width="250px" height="200px"/>
+
+Continue menu:
+
+<img src="https://github.com/GradeScholarship/hangman/blob/master/images/capture5.PNG"  width="250px" height="200px"/>
+
+How To Play Panel:
+
+<img src="https://github.com/GradeScholarship/hangman/blob/master/images/capture6.PNG" width="250px" height="200px"/>
+
+
 2. now, the picture changes if the user enters wrong letter
 
 3. exec( ) problem fixed ( by implementing thread)
