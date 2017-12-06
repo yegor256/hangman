@@ -1,9 +1,13 @@
 package gui;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,16 +16,11 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
 
     private int max;
-    private static final String[] WORDS = {
-        "simplicity", "equality", "grandmother",
-        "neighborhood", "relationship", "mathematics",
-        "university", "explanation"
-    };
+    private static ArrayList<String> Words;
     private PrimaryPanel primary;
     // component 생성
     private JLabel wordBox;
@@ -70,7 +69,13 @@ public class GamePanel extends JPanel implements Runnable {
     
 	@Override
 	public void run() {
-		String word = WORDS[new Random().nextInt(WORDS.length)];
+		try {
+			Words = readWords();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String word = Words.get(new Random().nextInt(Words.size()));
         boolean[] visible = new boolean[word.length()];  // 단어가 보여지는지의 여부
         int mistakes = 0;
         StringBuffer str = new StringBuffer();
@@ -131,4 +136,18 @@ public class GamePanel extends JPanel implements Runnable {
            	message.setText("You lost.");
         }	
 	}
+	
+	public static ArrayList<String> readWords() throws IOException {
+    	String path = GamePanel.class.getResource("").getPath();
+		BufferedReader br = new BufferedReader(new FileReader(path + "Words.txt"));
+    	ArrayList<String> L = new ArrayList<String>();
+    	while(true) {
+            String line = br.readLine();
+            if (line==null) break;
+            L.add(line);
+        }
+        br.close();
+        
+        return L;
+    }
 }
