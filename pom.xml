@@ -18,15 +18,40 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.jcabi</groupId>
-        <artifactId>parent</artifactId>
-        <version>0.42</version>
+        <groupId>oo</groupId>
+        <artifactId>atom-starter</artifactId>
+        <version>0.0.11</version>
     </parent>
     <groupId>com.yegor256</groupId>
     <artifactId>hangman</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>hangman</name>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-releases</id>
+            <url>http://dl.bintray.com/skapral/oo-maven</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.8.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
       <plugins>
           <plugin>
@@ -36,6 +61,30 @@
                  <source>1.8</source>
                  <target>1.8</target>
              </configuration>
+          </plugin>
+          <plugin>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-maven</artifactId>
+              <version>1.2.0</version>
+              <executions>
+                  <execution>
+                      <phase>integration-test</phase>
+                      <goals>
+                          <goal>mutationCoverage</goal>
+                      </goals>
+                      <configuration>
+                          <skip>${skipTests}</skip>
+                          <excludedMethods>
+                              <param>equals</param>
+                              <param>hashCode</param>
+                              <param>toString</param>
+                          </excludedMethods>
+                          <timestampedReports>false</timestampedReports>
+                          <failWhenNoMutations>false</failWhenNoMutations>
+                          <verbose>false</verbose>
+                      </configuration>
+                  </execution>
+              </executions>
           </plugin>
       </plugins>
     </build>
