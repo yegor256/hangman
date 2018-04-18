@@ -21,16 +21,13 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+import model.CorAnswer;
+
 public class Main {
 
     private final InputStream input;
     private final OutputStream output;
     private final int max;
-    private static final String[] WORDS = {
-        "simplicity", "equality", "grandmother",
-        "neighborhood", "relationship", "mathematics",
-        "university", "explanation"
-    };
 
     public Main(final InputStream in, final OutputStream out, final int m) {
         this.input = in;
@@ -43,7 +40,7 @@ public class Main {
     }
 
     public void exec() {
-        String word = WORDS[new Random().nextInt(WORDS.length)];
+        String word = CorAnswer.WORDS[new Random().nextInt(CorAnswer.WORDS.length)];
         boolean[] visible = new boolean[word.length()];
         int mistakes = 0;
         try (final PrintStream out = new PrintStream(this.output)) {
