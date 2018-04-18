@@ -82,7 +82,7 @@ public class Main {
                     if (visible[i]) {
                         out.print(word.charAt(i));
                     } else {
-                        out.print("?");
+                        out.print(" _ ");
                     }
                 }
                 out.append("\n\n");
