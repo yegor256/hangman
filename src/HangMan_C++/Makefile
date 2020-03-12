@@ -1,0 +1,2 @@
+default:
+	g++ main.cc
