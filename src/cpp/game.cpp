@@ -1,7 +1,3 @@
-//
-// Created by zeronsix on 16.03.2020.
-//
-
 #include "game.hpp"
 
 constexpr size_t MAX_MISTAKES = 5;
