@@ -5,23 +5,23 @@
 #include "progress_display.hpp"
 #include <iostream>
 
-ProgressDisplay::ProgressDisplay(Mistakes &mistakes)
-	: m_mistakes(mistakes) {
+ProgressDisplay::ProgressDisplay(Mistakes& mistakes)
+  : m_mistakes(mistakes) {
 }
 
 void ProgressDisplay::ShowHit() const {
-	std::cout << "Hit!\n";
+  std::cout << "Hit!\n";
 }
 
 void ProgressDisplay::ShowMiss() const {
-	std::cout << "Missed, mistake " << m_mistakes.GetAmount() << " out of "
-		<< m_mistakes.GetMaxAmount() << "\n";
+  std::cout << "Missed, mistake " << m_mistakes.GetAmount() << " out of "
+    << m_mistakes.GetMaxAmount() << "\n";
 }
 
 void ProgressDisplay::ShowWin() const {
-	std::cout << "You won!\n";
+  std::cout << "You won!\n";
 }
 
 void ProgressDisplay::ShowLoss() const {
-	std::cout << "You lost.\n";
+  std::cout << "You lost.\n";
 }

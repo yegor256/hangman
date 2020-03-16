@@ -3,8 +3,8 @@
 #include <cstdlib>
 
 int main() {
-	std::srand(std::time(nullptr));
-	Game().Play();
+  std::srand(std::time(nullptr));
+  Game().Play();
 
-	return 0;
+  return 0;
 }

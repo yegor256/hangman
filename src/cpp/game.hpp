@@ -8,16 +8,16 @@
 
 class Game {
 public:
-	Game();
-	void Play();
+  Game();
+  void Play();
 private:
-	GuessedWord     m_guessed_word;
-	Mistakes        m_mistakes;
-	WordDisplay     m_word_display;
-	UserInput       m_user_input;
-	ProgressDisplay m_progress_display;
+  GuessedWord m_guessed_word;
+  Mistakes m_mistakes;
+  WordDisplay m_word_display;
+  UserInput m_user_input;
+  ProgressDisplay m_progress_display;
 
-	bool IsOver() const;
-	bool IsWon()  const;
-	bool IsLost() const;
+  bool IsOver() const;
+  bool IsWon() const;
+  bool IsLost() const;
 };

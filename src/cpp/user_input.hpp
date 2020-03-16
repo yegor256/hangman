@@ -2,5 +2,5 @@
 
 class UserInput {
 public:
-	char InputLetter() const;
+  char InputLetter() const;
 };
