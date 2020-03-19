@@ -10,7 +10,7 @@ public class Letter {
     }
 
     Letter(char value) {
-        new Letter(false, value);
+        this(false, value);
     }
 
     boolean hasEqualValue(char value) {

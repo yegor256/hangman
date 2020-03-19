@@ -11,8 +11,9 @@ public class Word {
     }
 
     Word() {
-        WordExamples wordExamples = new WordExamples();
-        new Word(wordExamples.chooseRandomWord());
+        this(WordExamples.chooseRandomWord());
+        for (int i = 0; i < letters.length; i++){
+        }
     }
 
     void check(char letter) {

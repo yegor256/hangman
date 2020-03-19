@@ -28,11 +28,11 @@ public class Attempts {
                     );
                     ++mistakes;
                 }
+                printStream.append("The word: ");
                 for (int i = 0; i < inputCheck.showWord().length; i++){
-                    printStream.append("The word: ");
                     printStream.print(inputCheck.showWord()[i]);
-                    printStream.append("\n\n");
                 }
+                printStream.append("\n\n");
             } catch (AllLettersGuessedException e) {
                 return;
             }

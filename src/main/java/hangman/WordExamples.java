@@ -9,7 +9,7 @@ public class WordExamples {
             "university", "explanation"
     };
 
-    String chooseRandomWord(){
+    static String chooseRandomWord(){
         return WORDS[new Random().nextInt(WORDS.length)];
     }
 }
