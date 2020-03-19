@@ -31,7 +31,17 @@ new methods, anything. Just make sure it still builds.
 
 When ready, please submit a pull request.
 
+## Refactored object-oriented C++ version
+A refactored version written in C++ is located at ``src/cpp/``. 
+Instructions to build and run (CMake is required):
+```
+cmake .
+make
+./hangman
+```
+
 ## License
+
 
 The MIT License (MIT)
 
