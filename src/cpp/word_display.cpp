@@ -6,7 +6,7 @@ WordDisplay::WordDisplay(size_t word_size)
   // initialize the buffer with hidden letters
 }
 
-void WordDisplay::Reveal(char letter, const std::vector<size_t>& positions) {
+void WordDisplay::Reveal(char letter, const GuessedVec& positions) {
   for (auto pos : positions) {
     m_buffer[pos] = letter;
   }

@@ -4,11 +4,13 @@
 #include <vector>
 #include <set>
 
+using GuessedVec = std::vector<size_t>;
+
 class GuessedWord {
 public:
   GuessedWord();
 
-  std::vector<size_t> Guess(char letter);
+  GuessedVec Guess(char letter);
   size_t GetSize() const;
   bool IsGuessed() const;
 private:

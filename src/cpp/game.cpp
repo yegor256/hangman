@@ -1,4 +1,7 @@
 #include "game.hpp"
+#include "guessing_attempt.hpp"
+#include "result_display.hpp"
+#include "attempt_display.hpp"
 
 constexpr size_t MAX_MISTAKES = 5;
 
@@ -6,30 +9,24 @@ Game::Game()
   : m_guessed_word()
   , m_mistakes(MAX_MISTAKES)
   , m_word_display(m_guessed_word.GetSize())
-  , m_user_input()
-  , m_progress_display(m_mistakes) {
+  , m_user_input() {
 }
 
 void Game::Play() {
   while (!IsOver()) {
     char letter = m_user_input.InputLetter();
-    auto guessed = m_guessed_word.Guess(letter);
-    if (guessed.empty()) {
-      m_mistakes.MakeOne();
-      m_progress_display.ShowMiss();
-    } else {
-      m_progress_display.ShowHit();
-    }
+    GuessingAttempt attempt(
+      letter,
+      m_guessed_word,
+      m_mistakes,
+      m_word_display
+    );
 
-    m_word_display.Reveal(letter, guessed);
+    AttemptDisplay(attempt, m_mistakes);
     m_word_display.Show();
   }
 
-  if (IsWon()) {
-    m_progress_display.ShowWin();
-  } else {
-    m_progress_display.ShowLoss();
-  }
+  ResultDisplay(*this);
 }
 
 bool Game::IsOver() const {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "guessed_word.hpp"
 #include <vector>
 #include <string>
 
@@ -9,7 +10,7 @@ public:
 
   explicit WordDisplay(size_t word_size);
 
-  void Reveal(char letter, const std::vector<size_t>& positions);
+  void Reveal(char letter, const GuessedVec& positions);
   void Show() const;
 private:
   std::string m_buffer;

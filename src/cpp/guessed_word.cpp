@@ -14,8 +14,8 @@ GuessedWord::GuessedWord()
   , m_already_guessed() {
 }
 
-std::vector<size_t> GuessedWord::Guess(char letter) {
-  std::vector<size_t> result;
+GuessedVec GuessedWord::Guess(char letter) {
+  GuessedVec result;
 
   for (size_t pos = 0; pos < m_word.size(); ++pos) {
     if (m_word[pos] == letter) {
