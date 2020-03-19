@@ -25,7 +25,7 @@ public class Letter {
         this.isVisible = true;
     }
 
-    void printValue(){
-        System.out.print(value);
+    char getValue() {
+        return value;
     }
 }

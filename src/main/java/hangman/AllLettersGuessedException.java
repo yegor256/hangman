@@ -1,4 +1,4 @@
 package hangman;
 
-public class AllLettersGuessedException extends Exception {
+class AllLettersGuessedException extends Exception {
 }

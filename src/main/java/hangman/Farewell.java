@@ -1,18 +1,23 @@
 package hangman;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 public class Farewell {
     private Attempts attempts;
+    private PrintStream printStream;
 
-    Farewell(Attempts attempts) {
+    Farewell(Attempts attempts, OutputStream out) {
         this.attempts = attempts;
+        this.printStream = new PrintStream(out);
     }
 
     void start(){
         try {
             attempts.startGuessing();
-            System.out.println("You won!");
+            printStream.println("You won!");
         } catch (OutOfAttemptsException e) {
-            System.out.println("You lost.");
+            printStream.println("You lost.");
         }
     }
 }

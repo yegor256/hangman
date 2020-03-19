@@ -33,15 +33,15 @@ public class Word {
         return counter;
     }
 
-    void showWord() {
-        System.out.append("The word: ");
+    char[] showWord() {
+        char[] hiddenWord = new char[letters.length];
         for (int i = 0; i < letters.length; i++) {
             if ((letters[i].isVisible())) {
-                letters[i].printValue();
+                hiddenWord[i] = letters[i].getValue();
             } else {
-                System.out.print("?");
+                hiddenWord[i] = '?';
             }
         }
-        System.out.append("\n\n");
+        return hiddenWord;
     }
 }

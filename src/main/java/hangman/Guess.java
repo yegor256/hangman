@@ -1,9 +1,14 @@
 package hangman;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
-public class Guess {
-    private final Scanner scanner = new Scanner(System.in);
+class Guess {
+    private final Scanner scanner;
+
+    public Guess(InputStream inputStream) {
+        this.scanner = new Scanner(inputStream);
+    }
 
     char letter() {
         System.out.print("Guess a letter: ");

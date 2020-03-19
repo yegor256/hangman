@@ -1,11 +1,12 @@
 package hangman;
 
-public class InputCheck {
+class InputCheck {
     private Word word;
-    private final Guess guess = new Guess();
+    private final Guess guess;
 
-    InputCheck(Word word) { ;
+    InputCheck(Word word, Guess guess) {
         this.word = word;
+        this.guess = guess;
     }
 
     boolean isAttemptSuccessful() throws AllLettersGuessedException {
@@ -17,5 +18,9 @@ public class InputCheck {
         } else {
             return word.getNumberOfClosedLetters() != numberOfClosedLettersBeforeCheck;
         }
+    }
+
+    char[] showWord() {
+        return word.showWord();
     }
 }

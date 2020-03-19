@@ -1,4 +1,4 @@
 package hangman;
 
-public class OutOfAttemptsException extends Exception {
+class OutOfAttemptsException extends Exception {
 }
