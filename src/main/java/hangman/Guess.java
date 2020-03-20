@@ -6,7 +6,13 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Guess {
-    char letter(InputStream input, PrintStream out) {
+    private final InputStream input;
+
+    Guess(InputStream in) {
+        this.input = in;
+    }
+
+    char letter(PrintStream out) {
         final Iterator<String> scanner = new Scanner(input);
         out.print("Guess a letter: ");
         char chr = scanner.next().charAt(0);

@@ -17,8 +17,6 @@ package hangman;
 public class Main {
     public static void main(final String... args) {
         String word = new Secret().word();
-        new Farewell(
-                System.in, System.out, new Attempts(new Schema(word), new Guess()), 5
-        ).say();
+        new Farewell(System.out, new Schema(word), new Guess(System.in), 5).say();
     }
 }

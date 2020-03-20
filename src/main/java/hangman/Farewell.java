@@ -1,24 +1,23 @@
 package hangman;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class Farewell {
     private final OutputStream output;
-    private final InputStream input;
     private final int max;
-    private final Attempts attempts;
+    private Schema schema;
+    private Guess guess;
 
     public Farewell(
-            final InputStream in,
             final OutputStream out,
-            final Attempts attempts,
+            Schema schema,
+            Guess guess,
             final int m
     ) {
-        this.input = in;
         this.output = out;
-        this.attempts = attempts;
+        this.schema = schema;
+        this.guess = guess;
         this.max = m;
     }
 
@@ -27,12 +26,21 @@ public class Farewell {
         try (final PrintStream out = new PrintStream(this.output)) {
             boolean done = true;
             while (mistakes < this.max) {
-                done = this.attempts.isDone();
+                done = this.schema.isDone();
                 if (done) {
                     break;
                 }
-
-                mistakes += this.attempts.makeAttempt(input, out, mistakes, max);
+                char chr = this.guess.letter(out);
+                boolean hit = this.schema.isHit(chr);
+                if (hit) {
+                    out.print("Hit!\n");
+                } else {
+                    out.printf(
+                            "Missed, mistake #%d out of %d\n",
+                            mistakes + 1, this.max
+                    );
+                }
+                this.schema.printWord(out);
             }
 
             if (done) {
