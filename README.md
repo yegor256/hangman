@@ -1,6 +1,7 @@
 <img src="https://raw.githubusercontent.com/yegor256/hangman/master/images/logo.png" width="100px"/>
 
 [![Build Status](https://img.shields.io/travis/yegor256/hangman/master.svg)](https://travis-ci.org/yegor256/hangman)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/hangman/blob/master/LICENSE.txt)
 
 [Hangman](https://en.wikipedia.org/wiki/Hangman_%28game%29) is a words
 guessing game for one player. The computer guesses a word and the user
@@ -30,18 +31,3 @@ Please, try to refactor it and improve. You're welcome to create new classes,
 new methods, anything. Just make sure it still builds.
 
 When ready, please submit a pull request.
-
-## License
-
-The MIT License (MIT)
-
-Copyright (c) 2017 Yegor Bugayenko
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
