@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/yegor256/hangman/master/images/logo.png" width="100px"/>
 
-[![Build Status](https://img.shields.io/travis/yegor256/hangman/master.svg)](https://travis-ci.org/yegor256/hangman)
+[![mvn](https://github.com/yegor256/hangman/actions/workflows/mvn.yml/badge.svg)](https://github.com/yegor256/hangman/actions/workflows/mvn.yml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/hangman/blob/master/LICENSE.txt)
 
 [Hangman](https://en.wikipedia.org/wiki/Hangman_%28game%29) is a words
