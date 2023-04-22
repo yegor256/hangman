@@ -14,85 +14,33 @@
  */
 package hangman;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+import hangman.core.Hangman;
+import hangman.core.Round;
+import hangman.secret.HardcodedVocabulary;
 
-    private final InputStream input;
-    private final OutputStream output;
-    private final int max;
-    private static final String[] WORDS = {
-        "simplicity", "equality", "grandmother",
-        "neighborhood", "relationship", "mathematics",
-        "university", "explanation"
-    };
-
-    public Main(final InputStream in, final OutputStream out, final int m) {
-        this.input = in;
-        this.output = out;
-        this.max = m;
-    }
-
-    public static void main(final String... args) {
-        new Main(System.in, System.out, 5).exec();
-    }
-
-    public void exec() {
-        String word = WORDS[new Random().nextInt(WORDS.length)];
-        boolean[] visible = new boolean[word.length()];
-        int mistakes = 0;
-        try (final PrintStream out = new PrintStream(this.output)) {
-            final Iterator<String> scanner = new Scanner(this.input);
-            boolean done = true;
-            while (mistakes < this.max) {
-                done = true;
-                for (int i = 0; i < word.length(); ++i) {
-                    if (!visible[i]) {
-                        done = false;
-                    }
-                }
-                if (done) {
-                    break;
-                }
-                out.print("Guess a letter: ");
-                char chr = scanner.next().charAt(0);
-                boolean hit = false;
-                for (int i = 0; i < word.length(); ++i) {
-                    if (word.charAt(i) == chr && !visible[i]) {
-                        visible[i] = true;
-                        hit = true;
-                    }
-                }
-                if (hit) {
-                    out.print("Hit!\n");
-                } else {
-                    out.printf(
-                        "Missed, mistake #%d out of %d\n",
-                        mistakes + 1, this.max
-                    );
-                    ++mistakes;
-                }
-                out.append("The word: ");
-                for (int i = 0; i < word.length(); ++i) {
-                    if (visible[i]) {
-                        out.print(word.charAt(i));
-                    } else {
-                        out.print("?");
-                    }
-                }
-                out.append("\n\n");
-            }
-            if (done) {
-                out.print("You won!\n");
-            } else {
-                out.print("You lost.\n");
-            }
-        }
-    }
-
+public final class Main {
+	public final static void main(String[] args) {
+		final Scanner scan = new Scanner(System.in);
+		final Hangman hangman = new Hangman(new HardcodedVocabulary());
+		Round currentRound, lastRound = null;
+		do {
+			System.out.print("Guess a letter: ");
+			final char c = scan.next().charAt(0);
+			currentRound = lastRound==null?hangman.disclose(c):hangman.discloseAlso(lastRound,c);
+			if (currentRound.missed) {
+				System.out.printf("Missed, mistake #%d out of %d\n", currentRound.mistakes, hangman.allowedMistakes);
+			} else {
+				System.out.println("Hit!");
+			}
+			System.out.println("The word: " + currentRound.currentGuess);
+			lastRound = currentRound;
+		} while(hangman.gameStage(lastRound) == Hangman.Stage.PLAYING);
+		if (hangman.gameStage(lastRound) == Hangman.Stage.YOUWON) {
+			System.out.printf("You won in %d rounds!\n", lastRound.round);
+		} else {
+			System.out.printf("You lost in %d rounds.\n", lastRound.round);
+		}
+	}
 }
