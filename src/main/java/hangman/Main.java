@@ -1,8 +1,8 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2017 Yegor Bugayenko
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -13,6 +13,9 @@
  * in all copies or substantial portions of the Software.
  */
 package hangman;
+
+import hangman.game.Game;
+import hangman.game.Word;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -27,9 +30,9 @@ public class Main {
     private final OutputStream output;
     private final int max;
     private static final String[] WORDS = {
-        "simplicity", "equality", "grandmother",
-        "neighborhood", "relationship", "mathematics",
-        "university", "explanation"
+            "simplicity", "equality", "grandmother",
+            "neighborhood", "relationship", "mathematics",
+            "university", "explanation"
     };
 
     public Main(final InputStream in, final OutputStream out, final int m) {
@@ -39,7 +42,7 @@ public class Main {
     }
 
     public static void main(final String... args) {
-        new Main(System.in, System.out, 5).exec();
+        new Main(System.in, System.out, 5).execOOP();
     }
 
     public void exec() {
@@ -72,8 +75,8 @@ public class Main {
                     out.print("Hit!\n");
                 } else {
                     out.printf(
-                        "Missed, mistake #%d out of %d\n",
-                        mistakes + 1, this.max
+                            "Missed, mistake #%d out of %d\n",
+                            mistakes + 1, this.max
                     );
                     ++mistakes;
                 }
@@ -95,4 +98,10 @@ public class Main {
         }
     }
 
+    public void execOOP() {
+        String word = WORDS[new Random().nextInt(WORDS.length)];
+        Word hangmanWord = new Word(word, max);
+        Game game = new Game(hangmanWord);
+        game.playGame(this.output, this.input);
+    }
 }
