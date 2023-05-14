@@ -28,7 +28,7 @@ public final class MainTest {
             "a\na\na\na\na\n".getBytes()
         );
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        new Main(input, output, 1).exec();
+        new Game(input, output, new MistakeMax(1)).run();
         assertThat(output.toString(), containsString("You lost"));
     }
 
