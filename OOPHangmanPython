@@ -1,0 +1,117 @@
+from random import randint
+"""
+Creator: Lucas Saito, 30/06/2020
+OOP STRUCTURE:
+Farewelll
+|------ Attempts
+        |-------- Tries(Int)
+        |-------- Display
+        |-------- Diff
+                  |---- Secret
+                  |---- Guess
+
+"""
+
+# Generates a random word from a list of words
+class Secret(object):
+    words = ["simplicity", "equality", "grandmother",
+        "neighborhood", "relationship", "mathematics",
+        "university", "explanation"]
+    def __init__(self):
+        self.word = self.pick_word()
+    def pick_word(self):   # Returns a random item from the list "words"
+        max_index = len(self.words) - 1
+        index = randint(0, max_index)
+        return self.words[index]
+
+# Guess class with letter() that triggers input to guess the letter
+class Guess(object):
+    #def __init__(self):
+    #self.letter = str(input("Guess a letter:\n")).lower()
+    def letter(self):
+        return str(input("Guess a letter: ")).lower()
+
+# Diff class with check() that if the "letter" guessed is in the secret word,
+# that letter is returned
+class Diff(object):
+    def __init__(self, secret, guess):
+        self.secret = secret
+        self.guess = guess
+    def check(self):
+        letter = self.guess.letter()
+        if letter in self.secret:
+            return letter
+        else:
+            return False
+
+# Creates a display class that display the word and letters guessed correctly
+# after each attempt.
+class Display(object):
+    def __init__(self):
+        # Matches index and letter
+        self.letter_index = {}
+        self.display = ""
+        self.secret = ""
+    def set_display(self, word):
+        self.secret = word
+        self.display = ["$" for i in range(len(word))]
+    def show_display(self):
+        for letter in self.letter_index.keys():
+            for index in self.letter_index[letter]:
+                self.display[index] = letter
+        print("The word: {}\n".format("".join(self.display)))
+    def take_indexes(self, letter, list_of_indexes):
+        self.letter_index[letter] = list_of_indexes
+
+# Attempts class creates the loop of the game
+class Attempts(object):
+    def __init__(self, diff, display, tries):
+        self.diff = diff
+        self.display = display
+        self.tries = tries
+
+        self.display.set_display(self.diff.secret)
+    def match(self):
+        t = 0
+        letters_guessed = set()
+        while t < self.tries:
+            if letters_guessed == set(self.diff.secret):
+                return True
+            else:
+                letter = self.diff.check()
+                if letter:
+                    letters_guessed.add(letter)
+                    position = [pos for pos, char in enumerate(self.diff.secret) if char == letter]
+                    self.display.take_indexes(letter, position)
+                    print("Hit!")
+                    self.display.show_display()
+                else:
+                    t += 1
+                    print("Missed, mistake #{} out of {}"
+                          .format(t, self.tries))
+                    self.display.show_display()
+
+        return False
+
+# Farewell class checks if the game was won or lost
+class Farewell(object):
+    def __init__(self, attempts):
+        self.attempts = attempts
+    def say(self):
+        if self.attempts.match():
+            print("You won!\n")
+        else:
+            print("You lost.\n")
+
+# Creates the main application
+class Main(object):
+    def __init__(self):
+        self.secret = Secret().word
+        Farewell(
+            Attempts(
+                Diff(self.secret,
+                     Guess()),
+                Display(), 5)).say()
+hang_man_oop = Main()
+
+
