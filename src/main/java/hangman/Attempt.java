@@ -2,9 +2,9 @@ package hangman;
 
 public class Attempt {
     private final Secret secret;
-    private final Guess guess;
+    private final UserInput guess;
 
-    public Attempt(Guess guess, Secret secret) {
+    public Attempt(UserInput guess, Secret secret) {
         this.guess = guess;
         this.secret = secret;
     }

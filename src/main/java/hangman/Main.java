@@ -2,16 +2,19 @@ package hangman;
 
 public class Main {
     public static void main(final String... args) {
+        UserInput userInput = new UserInput();
         Secret secret = new Secret();
-        new Hangman(
-                new Mistakes(
-                        new Attempt(
-                                new Guess(),
-                                secret
-                        ),
-                        secret,
-                        5
-                )
+
+        new InfinityGame(
+            new Hangman(
+                    new Attempt(
+                            userInput,
+                        secret
+                ),
+                secret,
+                5
+            ),
+            userInput
         ).play();
     }
 }
