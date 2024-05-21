@@ -1,8 +1,8 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2017 Yegor Bugayenko
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -13,6 +13,12 @@
  * in all copies or substantial portions of the Software.
  */
 package hangman;
+
+import hangman.game.Farewell;
+import hangman.game.RandomWord;
+import hangman.guessing.GuessResult;
+import hangman.guessing.Guesses;
+import hangman.guessing.UserGuess;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,20 +32,24 @@ public class Main {
     private final InputStream input;
     private final OutputStream output;
     private final int max;
-    private static final String[] WORDS = {
-        "simplicity", "equality", "grandmother",
-        "neighborhood", "relationship", "mathematics",
-        "university", "explanation"
-    };
+    private static final String[] WORDS = {"simplicity", "equality",
+            "grandmother", "neighborhood", "relationship", "mathematics",
+            "university", "explanation"};
 
-    public Main(final InputStream in, final OutputStream out, final int m) {
+    public Main(final InputStream in, final OutputStream out, final int max) {
         this.input = in;
         this.output = out;
-        this.max = m;
+        this.max = max;
     }
 
     public static void main(final String... args) {
-        new Main(System.in, System.out, 5).exec();
+        new Farewell(
+                new Guesses(
+                        new GuessResult(
+                                new UserGuess(
+                                        new RandomWord(WORDS).pick()
+                                )))).say();
+//        new Main(System.in, System.out, 5).exec();
     }
 
     public void exec() {
@@ -51,6 +61,7 @@ public class Main {
             boolean done = true;
             while (mistakes < this.max) {
                 done = true;
+                // goes through the visible array and checks if any are revealed
                 for (int i = 0; i < word.length(); ++i) {
                     if (!visible[i]) {
                         done = false;
@@ -71,10 +82,8 @@ public class Main {
                 if (hit) {
                     out.print("Hit!\n");
                 } else {
-                    out.printf(
-                        "Missed, mistake #%d out of %d\n",
-                        mistakes + 1, this.max
-                    );
+                    out.printf("Missed, mistake #%d out of %d\n",
+                            mistakes + 1, this.max);
                     ++mistakes;
                 }
                 out.append("The word: ");
