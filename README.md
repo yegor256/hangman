@@ -24,8 +24,9 @@ $ java -classpath target/classes hangman.Main
 ```
 
 This Java code is very procedural, imperative, and not elegant at all.
-Read about [Elegant Objects](https://www.elegantobjects.org) 
-and then try to refactor this code and improve. You're welcome to create new classes,
+Read about [Elegant Objects](https://www.elegantobjects.org)
+and then try to refactor this code and improve. You're welcome to create new
+classes,
 new methods, anything. Just make sure it still builds.
 When ready, please submit a pull request.
 
