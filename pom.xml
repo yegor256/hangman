@@ -20,7 +20,7 @@
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>parent</artifactId>
-        <version>0.42</version>
+        <version>0.68.0</version>
     </parent>
     <groupId>com.yegor256</groupId>
     <artifactId>hangman</artifactId>
