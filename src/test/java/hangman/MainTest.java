@@ -16,9 +16,9 @@ package hangman;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.Test;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 public final class MainTest {
 
@@ -29,7 +29,10 @@ public final class MainTest {
         );
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         new Main(input, output, 1).exec();
-        assertThat(output.toString(), containsString("You lost"));
+        MatcherAssert.assertThat(
+            output.toString(),
+            Matchers.containsString("You lost")
+        );
     }
 
 }
